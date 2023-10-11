@@ -25,10 +25,10 @@ class Homepage extends StatelessWidget {
             ),
           ),
           Container(
-            padding: const EdgeInsets.all(30.0),
+            padding: const EdgeInsets.all(10.0),
           ),
           new Container(
-            height: MediaQuery.of(context).size.height / 1.2,
+            height: MediaQuery.of(context).size.height / 1.1,
             width: MediaQuery.of(context).size.width,
             color: Colors.transparent,
             child: new Container(
@@ -63,7 +63,7 @@ class Homepage extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width / 2 + 50,
+                          width: MediaQuery.of(context).size.width / 2.2 + 50,
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
@@ -120,7 +120,8 @@ class Homepage extends StatelessWidget {
                               ),
                             ),
                             Container(
-                              width: MediaQuery.of(context).size.width / 2 + 80,
+                              width:
+                                  MediaQuery.of(context).size.width / 2.2 + 80,
                             ),
                             TextButton(
                               style: TextButton.styleFrom(
@@ -177,7 +178,8 @@ class Homepage extends StatelessWidget {
                               ),
                             ),
                             Container(
-                              width: MediaQuery.of(context).size.width / 2 + 72,
+                              width:
+                                  MediaQuery.of(context).size.width / 2.2 + 72,
                             ),
                             TextButton(
                               style: TextButton.styleFrom(

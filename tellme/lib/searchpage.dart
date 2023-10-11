@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'Components/button.dart';
 
 class Searchpage extends StatelessWidget {
   const Searchpage({Key? key}) : super(key: key);
@@ -34,8 +35,8 @@ class Searchpage extends StatelessWidget {
                     topLeft: Radius.circular(40.0),
                     topRight: Radius.circular(40.0),
                   )),
-              child: Column(children: [
-                const Padding(
+              child: Column(children: const [
+                Padding(
                   padding: EdgeInsets.symmetric(horizontal: 30, vertical: 16),
                   child: TextField(
                       decoration: InputDecoration(
@@ -48,7 +49,7 @@ class Searchpage extends StatelessWidget {
                         fontSize: 24,
                       )),
                 ),
-                const Text(
+                Text(
                   "chicken",
                   textAlign: TextAlign.left,
                   style: TextStyle(
@@ -56,106 +57,10 @@ class Searchpage extends StatelessWidget {
                     color: Colors.deepPurple,
                   ),
                 ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width / 1.1,
-                  height: MediaQuery.of(context).size.height / 7,
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 100,
-                        height: 80,
-                        decoration: const BoxDecoration(color: Colors.black),
-                      ),
-                      Container(
-                        width: 50,
-                      ),
-                      Column(children: [
-                        Container(
-                          height: 20,
-                        ),
-                        const Text(
-                          "Name",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        const Text(
-                          "Calories",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        const Text(
-                          "Distance",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ]),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width / 1.1,
-                  height: MediaQuery.of(context).size.height / 7,
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 100,
-                        height: 80,
-                        decoration: const BoxDecoration(color: Colors.black),
-                      ),
-                      Container(
-                        width: 50,
-                      ),
-                      Column(children: [
-                        Container(
-                          height: 20,
-                        ),
-                        const Text(
-                          "Name",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        const Text(
-                          "Calories",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        const Text(
-                          "Distance",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ]),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width / 1.1,
-                  height: MediaQuery.of(context).size.height / 7,
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 100,
-                        height: 80,
-                        decoration: const BoxDecoration(color: Colors.black),
-                      ),
-                      Container(
-                        width: 50,
-                      ),
-                      Column(children: [
-                        Container(
-                          height: 20,
-                        ),
-                        const Text(
-                          "Name",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        const Text(
-                          "Calories",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        const Text(
-                          "Distance",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ]),
-                    ],
-                  ),
-                ),
-                const TextButtonExample(),
+                ClickableContainer(),
+                ClickableContainer(),
+                ClickableContainer(),
+                Searchbutton(),
               ]),
             ),
           )
@@ -165,9 +70,9 @@ class Searchpage extends StatelessWidget {
   }
 }
 
-class TextButtonExample extends StatelessWidget {
+class Searchbutton extends StatelessWidget {
   // ignore: use_key_in_widget_constructors
-  const TextButtonExample();
+  const Searchbutton();
 
   @override
   Widget build(BuildContext context) {
