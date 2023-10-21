@@ -63,7 +63,7 @@
 
 //     for (var nutrient in nutrientPreferences.keys) {
 //       if (menu.nutrients.containsKey(nutrient)) {
-//         score += (menu.nutrients[nutrient]! / nutrientPreferences[nutrient]);
+//         score += (menu.nutrients[nutrient] / nutrientPreferences[nutrient]);
 //       }
 //     }
 

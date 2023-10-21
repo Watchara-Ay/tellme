@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use, duplicate_ignore
+
 import 'package:flutter/material.dart';
 import 'Components/button.dart';
 
@@ -35,13 +37,13 @@ class Searchpage extends StatelessWidget {
                     topLeft: Radius.circular(40.0),
                     topRight: Radius.circular(40.0),
                   )),
-              child: Column(children: const [
-                Padding(
+              child: Column(children: [
+                const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 30, vertical: 16),
                   child: TextField(
                       decoration: InputDecoration(
                         border: InputBorder.none,
-                        hintText: 'Username',
+                        hintText: 'Menus name',
                         filled: true,
                         fillColor: Color.fromRGBO(255, 229, 229, 1),
                       ),
@@ -49,65 +51,73 @@ class Searchpage extends StatelessWidget {
                         fontSize: 24,
                       )),
                 ),
-                Text(
-                  "chicken",
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: Colors.deepPurple,
+                Container(
+                  height: 40,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: const BoxDecoration(
+                    color: Color.fromRGBO(255, 217, 214, 1),
+                  ),
+                  child: Row(
+                    children: [
+                      const DecoratedBox(
+                        decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 255, 164, 158)),
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 50,
+                      ),
+                      const Text(
+                        "Sort by: ",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontSize: 24,
+                          color: Colors.black,
+                        ),
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 10,
+                      ),
+                      FlatButton(
+                        color: Colors.transparent,
+                        onPressed: () {},
+                        child: Row(
+                          children: const [
+                            Text(
+                              'Calories',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 24,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 10,
+                      ),
+                      FlatButton(
+                        color: Colors.transparent,
+                        onPressed: () {},
+                        child: const Text(
+                          'Name',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 24,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                ClickableContainer(),
-                ClickableContainer(),
-                ClickableContainer(),
-                Searchbutton(),
+                const ClickableContainer(),
+                const ClickableContainer(),
+                const ClickableContainer(),
+                const backbutton(),
               ]),
             ),
-          )
+          ),
         ],
       ),
     )));
-  }
-}
-
-class Searchbutton extends StatelessWidget {
-  // ignore: use_key_in_widget_constructors
-  const Searchbutton();
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      child: ButtonTheme(
-        height: 70,
-        child: Container(
-          padding: EdgeInsets.zero, // ADD THIS LINE
-          child: SizedBox(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  margin: const EdgeInsets.all(10),
-                  height: 50.0,
-                  // ignore: deprecated_member_use
-                  child: RaisedButton(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                        side: const BorderSide(
-                            color: Color.fromRGBO(0, 0, 0, 1))),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    padding: const EdgeInsets.all(10.0),
-                    color: Colors.black,
-                    textColor: const Color.fromRGBO(255, 255, 255, 1),
-                    child: const Text("Back", style: TextStyle(fontSize: 15)),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
   }
 }

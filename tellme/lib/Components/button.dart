@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:tellme/menudetail.dart';
 
@@ -101,6 +103,48 @@ class ClickableContainer extends StatelessWidget {
                     child: const Text(
                         "Name       Ckickenwings\nCalories    199  cals\nDistance   199  km\n",
                         style: TextStyle(fontSize: 15)),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class backbutton extends StatelessWidget {
+  // ignore: use_key_in_widget_constructors
+  const backbutton();
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      child: ButtonTheme(
+        height: 70,
+        child: Container(
+          padding: EdgeInsets.zero, // ADD THIS LINE
+          child: SizedBox(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  margin: const EdgeInsets.all(10),
+                  height: 50.0,
+                  // ignore: deprecated_member_use
+                  child: RaisedButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                        side: const BorderSide(
+                            color: Color.fromRGBO(0, 0, 0, 1))),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    padding: const EdgeInsets.all(10.0),
+                    color: Colors.black,
+                    textColor: const Color.fromRGBO(255, 255, 255, 1),
+                    child: const Text("Back", style: TextStyle(fontSize: 15)),
                   ),
                 ),
               ],

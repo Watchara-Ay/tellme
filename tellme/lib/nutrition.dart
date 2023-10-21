@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tellme/homepage.dart';
+import 'package:tellme/Components/button.dart';
+import 'package:tellme/profilepage.dart';
 
-class Menudetail extends StatelessWidget {
-  const Menudetail({Key? key}) : super(key: key);
+class Nutritioninfo extends StatelessWidget {
+  const Nutritioninfo({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,7 @@ class Menudetail extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           const Text(
-            'Menu detail',
+            'Nutrition Info ',
             textAlign: TextAlign.left,
             style: TextStyle(
               fontSize: 36,
@@ -30,85 +31,73 @@ class Menudetail extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             color: Colors.transparent,
             child: Container(
-              decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(40.0),
-                    topRight: Radius.circular(40.0),
-                  )),
-              child: Column(children: [
-                const Text(
-                  "Chicken wing",
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: Colors.deepPurple,
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(40.0),
+                      topRight: Radius.circular(40.0),
+                    )),
+                child: Column(children: [
+                  const SizedBox(
+                    height: 10,
                   ),
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 200,
-                      height: 200,
-                      child: Image.asset(
-                        'assets/images/sliced-boiled-chicken.png',
-                      ),
-                    ),
-                    Column(
-                      children: const [
-                        Text(''' 
-Calories
-Restaurant
-Price
-Serving ''',
-                            style: TextStyle(
-                              fontSize: 18,
-                            )),
-                      ],
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 400,
-                  child: Column(
+                  Column(
                     children: [
-                      const Text("Dish information",
-                          style: TextStyle(
-                            fontSize: 24,
-                          )),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width / 10,
-                          ),
-                          const Text('''
-Cholesterol                                           mg
-Sodium                                                 mg
-Calcium                                                mg
-Magnesium                                          mg
-Potassium                                             mg
-Iron                                                       mg''',
-                              style: TextStyle(
-                                fontSize: 18,
-                              )),
-                        ],
-                      )
+                      const Text(
+                        "Body needs per day",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24,
+                        ),
+                      ),
                     ],
                   ),
-                ),
-                const Menubutton(),
-              ]),
-            ),
-          ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 7,
+                      ),
+                      const Text(
+                        '''
+Calories                                                Cal/day
+Cholesterol                                           mg/day
+Sodium                                                 mg/day
+Calcium                                                mg/day
+Magnesium                                          mg/day
+Potassium                                             mg/day
+Iron                                                       mg/day''',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Column(
+                    children: const [
+                      SizedBox(
+                        height: 10, // <-- SEE HERE
+                      ),
+                      Nutritionbutton(),
+                    ],
+                  )
+                ])),
+          )
         ],
       ),
     )));
   }
 }
 
-class Menubutton extends StatelessWidget {
+class Nutritionbutton extends StatelessWidget {
   // ignore: use_key_in_widget_constructors
-  const Menubutton();
+  const Nutritionbutton();
 
   @override
   Widget build(BuildContext context) {
@@ -152,14 +141,14 @@ class Menubutton extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const Homepage()),
+                            builder: (context) => const Profilepage()),
                       );
                     },
                     padding: const EdgeInsets.all(10.0),
                     color: Colors.black,
                     textColor: const Color.fromRGBO(255, 255, 255, 1),
                     child:
-                        const Text("Confirm", style: TextStyle(fontSize: 15)),
+                        const Text("Profile", style: TextStyle(fontSize: 15)),
                   ),
                 ),
               ],
