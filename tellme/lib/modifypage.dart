@@ -1,7 +1,9 @@
+// ignore_for_file: file_names
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:tellme/select_catalog.dart';
+import 'package:tellme/profilepage.dart';
 
 const List<String> listGen = <String>['Male', 'Female'];
 const List<String> listGoal = <String>['Fit', 'Lose weight', 'Muscle gain'];
@@ -13,16 +15,16 @@ const List<String> listEL = <String>[
   'Extremely activity'
 ];
 
-class Register extends StatefulWidget {
-  const Register({Key? key, required this.title}) : super(key: key);
+class Modifypage extends StatefulWidget {
+  const Modifypage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  State<Register> createState() => _Register();
+  State<Modifypage> createState() => _Modifypage();
 }
 
-class _Register extends State<Register> {
+class _Modifypage extends State<Modifypage> {
   DateTime selectedDate = DateTime.now();
   String gen = listGen.first;
   String goal = listGoal.first;
@@ -80,20 +82,6 @@ class _Register extends State<Register> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text("Username",
-                                  style: TextStyle(fontSize: 20)),
-                              TextFormField(
-                                validator: RequiredValidator(
-                                    errorText: "Please fill something!!!"),
-                                onSaved: (username) {},
-                              ),
-                              const Text("Password",
-                                  style: TextStyle(fontSize: 20)),
-                              TextFormField(
-                                validator: RequiredValidator(
-                                    errorText: "Please fill something!!!"),
-                                onSaved: (username) {},
-                              ),
-                              const Text("Confirm password",
                                   style: TextStyle(fontSize: 20)),
                               TextFormField(
                                 validator: RequiredValidator(
@@ -214,7 +202,24 @@ class _Register extends State<Register> {
                                   );
                                 }).toList(),
                               ),
-                              const RegisterpageButton()
+                              const Text("Password",
+                                  style: TextStyle(fontSize: 20)),
+                              TextFormField(
+                                validator: RequiredValidator(
+                                    errorText: "Please fill something!!!"),
+                                onSaved: (username) {},
+                              ),
+                              const Text("Confirm password",
+                                  style: TextStyle(fontSize: 20)),
+                              TextFormField(
+                                validator: RequiredValidator(
+                                    errorText: "Please fill something!!!"),
+                                onSaved: (username) {},
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              const ModifypageButton(),
                             ]),
                       ),
                     ),
@@ -227,9 +232,9 @@ class _Register extends State<Register> {
   }
 }
 
-class RegisterpageButton extends StatelessWidget {
+class ModifypageButton extends StatelessWidget {
   // ignore: use_key_in_widget_constructors
-  const RegisterpageButton();
+  const ModifypageButton();
 
   @override
   Widget build(BuildContext context) {
@@ -257,7 +262,7 @@ class RegisterpageButton extends StatelessWidget {
                     padding: const EdgeInsets.all(10.0),
                     color: Colors.black,
                     textColor: const Color.fromRGBO(255, 255, 255, 1),
-                    child: const Text("Cancel", style: TextStyle(fontSize: 15)),
+                    child: const Text("Cencel", style: TextStyle(fontSize: 15)),
                   ),
                 ),
                 Container(
@@ -273,13 +278,14 @@ class RegisterpageButton extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const select_catalog(),
+                            builder: (context) => const Profilepage(),
                           ));
                     },
                     padding: const EdgeInsets.all(10.0),
                     color: Colors.black,
                     textColor: const Color.fromRGBO(255, 255, 255, 1),
-                    child: const Text("Next", style: TextStyle(fontSize: 15)),
+                    child:
+                        const Text("Confirm", style: TextStyle(fontSize: 15)),
                   ),
                 ),
               ],

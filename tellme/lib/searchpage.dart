@@ -1,4 +1,7 @@
+// ignore_for_file: deprecated_member_use, duplicate_ignore
+
 import 'package:flutter/material.dart';
+import 'Components/button.dart';
 
 class Searchpage extends StatelessWidget {
   const Searchpage({Key? key}) : super(key: key);
@@ -40,7 +43,7 @@ class Searchpage extends StatelessWidget {
                   child: TextField(
                       decoration: InputDecoration(
                         border: InputBorder.none,
-                        hintText: 'Username',
+                        hintText: 'Menus name',
                         filled: true,
                         fillColor: Color.fromRGBO(255, 229, 229, 1),
                       ),
@@ -48,161 +51,73 @@ class Searchpage extends StatelessWidget {
                         fontSize: 24,
                       )),
                 ),
-                const Text(
-                  "chicken",
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: Colors.deepPurple,
+                Container(
+                  height: 40,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: const BoxDecoration(
+                    color: Color.fromRGBO(255, 217, 214, 1),
                   ),
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width / 1.1,
-                  height: MediaQuery.of(context).size.height / 7,
                   child: Row(
                     children: [
-                      Container(
-                        width: 100,
-                        height: 80,
-                        decoration: const BoxDecoration(color: Colors.black),
+                      const DecoratedBox(
+                        decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 255, 164, 158)),
                       ),
-                      Container(
-                        width: 50,
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 50,
                       ),
-                      Column(children: [
-                        Container(
-                          height: 20,
+                      const Text(
+                        "Sort by: ",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontSize: 24,
+                          color: Colors.black,
                         ),
-                        const Text(
-                          "Name",
-                          style: TextStyle(fontSize: 18),
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 10,
+                      ),
+                      FlatButton(
+                        color: Colors.transparent,
+                        onPressed: () {},
+                        child: Row(
+                          children: const [
+                            Text(
+                              'Calories',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 24,
+                              ),
+                            ),
+                          ],
                         ),
-                        const Text(
-                          "Calories",
-                          style: TextStyle(fontSize: 18),
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 10,
+                      ),
+                      FlatButton(
+                        color: Colors.transparent,
+                        onPressed: () {},
+                        child: const Text(
+                          'Name',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 24,
+                          ),
                         ),
-                        const Text(
-                          "Distance",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ]),
+                      ),
                     ],
                   ),
                 ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width / 1.1,
-                  height: MediaQuery.of(context).size.height / 7,
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 100,
-                        height: 80,
-                        decoration: const BoxDecoration(color: Colors.black),
-                      ),
-                      Container(
-                        width: 50,
-                      ),
-                      Column(children: [
-                        Container(
-                          height: 20,
-                        ),
-                        const Text(
-                          "Name",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        const Text(
-                          "Calories",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        const Text(
-                          "Distance",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ]),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width / 1.1,
-                  height: MediaQuery.of(context).size.height / 7,
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 100,
-                        height: 80,
-                        decoration: const BoxDecoration(color: Colors.black),
-                      ),
-                      Container(
-                        width: 50,
-                      ),
-                      Column(children: [
-                        Container(
-                          height: 20,
-                        ),
-                        const Text(
-                          "Name",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        const Text(
-                          "Calories",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        const Text(
-                          "Distance",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ]),
-                    ],
-                  ),
-                ),
-                const TextButtonExample(),
+                const ClickableContainer(),
+                const ClickableContainer(),
+                const ClickableContainer(),
+                const backbutton(),
               ]),
             ),
-          )
+          ),
         ],
       ),
     )));
-  }
-}
-
-class TextButtonExample extends StatelessWidget {
-  // ignore: use_key_in_widget_constructors
-  const TextButtonExample();
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      child: ButtonTheme(
-        height: 70,
-        child: Container(
-          padding: EdgeInsets.zero, // ADD THIS LINE
-          child: SizedBox(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  margin: const EdgeInsets.all(10),
-                  height: 50.0,
-                  // ignore: deprecated_member_use
-                  child: RaisedButton(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                        side: const BorderSide(
-                            color: Color.fromRGBO(0, 0, 0, 1))),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    padding: const EdgeInsets.all(10.0),
-                    color: Colors.black,
-                    textColor: const Color.fromRGBO(255, 255, 255, 1),
-                    child: const Text("Back", style: TextStyle(fontSize: 15)),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
   }
 }

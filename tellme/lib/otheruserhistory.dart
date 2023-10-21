@@ -1,11 +1,12 @@
-// ignore_for_file: unnecessary_new
+// ignore_for_file: unnecessary_new, camel_case_types
 
 import 'package:flutter/material.dart';
-import 'package:tellme/profilepage.dart';
+import 'package:tellme/Components/button.dart';
+import 'package:tellme/homepage.dart';
 import 'package:tellme/recommendedmenu.dart';
 
-class Homepage extends StatelessWidget {
-  const Homepage({Key? key}) : super(key: key);
+class otheruserhistory extends StatelessWidget {
+  const otheruserhistory({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,37 +17,14 @@ class Homepage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Row(
-            children: [
-              const SizedBox(
-                width: 20,
-              ),
-              const Text(
-                'Homepage',
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  fontSize: 36,
-                  color: Colors.deepPurple,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width / 2.3,
-              ),
-              IconButton(
-                icon: const Icon(Icons.account_circle),
-                color: Colors.black,
-                padding: EdgeInsets.zero,
-                iconSize: 50,
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const Profilepage()),
-                  );
-                },
-              ),
-            ],
+          const Text(
+            'Dish History',
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontSize: 36,
+              color: Colors.deepPurple,
+              fontWeight: FontWeight.w700,
+            ),
           ),
           Container(
             padding: const EdgeInsets.all(10.0),
@@ -63,10 +41,29 @@ class Homepage extends StatelessWidget {
                       topRight: Radius.circular(40.0),
                     )),
                 child: Column(children: [
-                  Text(
-                    "11 May, 2023",
-                    style: TextStyle(
-                        color: Colors.black.withOpacity(0.6), fontSize: 24),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 5,
+                      ),
+                      Text(
+                        "Username:  ",
+                        style: TextStyle(
+                            color: const Color.fromARGB(255, 8, 41, 255)
+                                .withOpacity(0.6),
+                            fontSize: 24),
+                      ),
+                      Text(
+                        "Bongtong",
+                        style: TextStyle(
+                            color: const Color.fromARGB(255, 0, 0, 0)
+                                .withOpacity(0.6),
+                            fontSize: 24),
+                      ),
+                    ],
                   ),
                   const SizedBox(
                     height: 50, // <-- SEE HERE
@@ -97,12 +94,84 @@ class Homepage extends StatelessWidget {
                             ),
                           ),
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const Recommendedmenu()),
-                            );
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    scrollable: true,
+                                    backgroundColor: Colors.transparent,
+                                    content: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        children: <Widget>[
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            height: 50.0,
+                                            child: ElevatedButton(
+                                              onPressed: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          const Homepage()),
+                                                );
+                                              },
+                                              child: const Text('Breakfast'),
+                                              style: ElevatedButton.styleFrom(
+                                                  shape: const StadiumBorder()),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 40,
+                                          ),
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            height: 50.0,
+                                            child: ElevatedButton(
+                                              onPressed: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          const Homepage()),
+                                                );
+                                              },
+                                              child: const Text('Lunch'),
+                                              style: ElevatedButton.styleFrom(
+                                                  shape: const StadiumBorder()),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 40,
+                                          ),
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            height: 50.0,
+                                            child: ElevatedButton(
+                                              onPressed: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          const Homepage()),
+                                                );
+                                              },
+                                              child: const Text('Dinner'),
+                                              style: ElevatedButton.styleFrom(
+                                                  shape: const StadiumBorder()),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                });
                           },
                           child: const Text('Select'),
                         ),
@@ -115,10 +184,7 @@ class Homepage extends StatelessWidget {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15.0),
                         border: Border.all(color: Colors.green, width: 2.0)),
-                    child: const Text(
-                      '',
-                      style: TextStyle(fontSize: 24),
-                    ),
+                    child: const otheruserdishinfo(),
                   ),
                   const SizedBox(
                     height: 10, // <-- SEE HERE
@@ -174,10 +240,7 @@ class Homepage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(15.0),
                             border:
                                 Border.all(color: Colors.green, width: 2.0)),
-                        child: const Text(
-                          '',
-                          style: TextStyle(fontSize: 24),
-                        ),
+                        child: const otheruserdishinfo(),
                       ),
                     ],
                   ),
@@ -232,10 +295,7 @@ class Homepage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(15.0),
                             border:
                                 Border.all(color: Colors.green, width: 2.0)),
-                        child: const Text(
-                          '',
-                          style: TextStyle(fontSize: 24),
-                        ),
+                        child: const otheruserdishinfo(),
                       ),
                       const SizedBox(
                         height: 10,
@@ -243,25 +303,13 @@ class Homepage extends StatelessWidget {
                       Row(
                         children: [
                           SizedBox(
-                            width: MediaQuery.of(context).size.width / 10,
+                            width: MediaQuery.of(context).size.width / 1.7,
                           ),
-                          const Text("Today: consume              kcal",
-                              style: TextStyle(fontSize: 18)),
+                          const Text("Consume               Kcal",
+                              style: TextStyle(fontSize: 18))
                         ],
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width / 10,
-                          ),
-                          const Text("You need: ",
-                              style:
-                                  TextStyle(fontSize: 18, color: Colors.red)),
-                        ],
-                      ),
+                      const backbutton(),
                     ],
                   )
                 ])),
@@ -269,5 +317,55 @@ class Homepage extends StatelessWidget {
         ],
       ),
     )));
+  }
+}
+
+class otheruserdishinfo extends StatelessWidget {
+  const otheruserdishinfo({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      child: Row(children: [
+        const SizedBox(
+          width: 15,
+        ),
+        Column(children: const [
+          Text("Nigiri sushi", style: TextStyle(fontSize: 15)),
+          SizedBox(
+            height: 90,
+          ),
+          Text("Calories", style: TextStyle(fontSize: 15)),
+        ]),
+        SizedBox(
+          height: 400,
+          child: Column(
+            children: [
+              const Text("Dish information",
+                  style: TextStyle(
+                    fontSize: 14,
+                  )),
+              Row(
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 10,
+                  ),
+                  const Text('''
+Cholesterol                                           mg
+Sodium                                                 mg
+Calcium                                                mg
+Magnesium                                          mg
+Potassium                                             mg
+Iron                                                       mg''',
+                      style: TextStyle(
+                        fontSize: 14,
+                      )),
+                ],
+              )
+            ],
+          ),
+        ),
+      ]),
+    );
   }
 }

@@ -106,7 +106,10 @@ class TextButtonExample extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const Register()),
+                      MaterialPageRoute(
+                          builder: (context) => const Register(
+                                title: '',
+                              )),
                     );
                   },
                   child: const Text('Register'),
