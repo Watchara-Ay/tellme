@@ -44,6 +44,14 @@ class TextButtonExample extends StatelessWidget {
                   height: 50.0,
                   // ignore: deprecated_member_use
                   child: ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.black),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                        ))),
                     onPressed: () {
                       Navigator.push(
                         context,
