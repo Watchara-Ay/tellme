@@ -77,8 +77,7 @@ class Searchpage extends StatelessWidget {
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 10,
                       ),
-                      FlatButton(
-                        color: Colors.transparent,
+                      TextButton(
                         onPressed: () {},
                         child: Row(
                           children: const [
@@ -95,8 +94,7 @@ class Searchpage extends StatelessWidget {
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 10,
                       ),
-                      FlatButton(
-                        color: Colors.transparent,
+                      TextButton(
                         onPressed: () {},
                         child: const Text(
                           'Name',
