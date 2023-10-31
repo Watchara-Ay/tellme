@@ -246,17 +246,18 @@ class RegisterpageButton extends StatelessWidget {
                   margin: const EdgeInsets.all(10),
                   height: 50.0,
                   // ignore: deprecated_member_use
-                  child: RaisedButton(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                        side: const BorderSide(
-                            color: Color.fromRGBO(0, 0, 0, 1))),
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.black),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                        ))),
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    padding: const EdgeInsets.all(10.0),
-                    color: Colors.black,
-                    textColor: const Color.fromRGBO(255, 255, 255, 1),
                     child: const Text("Cancel", style: TextStyle(fontSize: 15)),
                   ),
                 ),
@@ -264,11 +265,15 @@ class RegisterpageButton extends StatelessWidget {
                   margin: const EdgeInsets.all(10),
                   height: 50.0,
                   // ignore: deprecated_member_use
-                  child: RaisedButton(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                        side: const BorderSide(
-                            color: Color.fromRGBO(0, 0, 0, 1))),
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.black),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                        ))),
                     onPressed: () {
                       Navigator.push(
                           context,
@@ -276,9 +281,6 @@ class RegisterpageButton extends StatelessWidget {
                             builder: (context) => const select_catalog(),
                           ));
                     },
-                    padding: const EdgeInsets.all(10.0),
-                    color: Colors.black,
-                    textColor: const Color.fromRGBO(255, 255, 255, 1),
                     child: const Text("Next", style: TextStyle(fontSize: 15)),
                   ),
                 ),
