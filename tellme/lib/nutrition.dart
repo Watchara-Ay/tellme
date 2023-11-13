@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tellme/Components/button.dart';
 import 'package:tellme/profilepage.dart';
 
 class Nutritioninfo extends StatelessWidget {
@@ -42,8 +41,8 @@ class Nutritioninfo extends StatelessWidget {
                     height: 10,
                   ),
                   Column(
-                    children: [
-                      const Text(
+                    children: const [
+                      Text(
                         "Body needs per day",
                         style: TextStyle(
                           color: Colors.black,

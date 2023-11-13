@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'Components/button.dart';
+import 'menudetail.dart';
 
 class Searchpage extends StatelessWidget {
   const Searchpage({Key? key}) : super(key: key);
@@ -107,9 +108,10 @@ class Searchpage extends StatelessWidget {
                     ],
                   ),
                 ),
-                const ClickableContainer(),
-                const ClickableContainer(),
-                const ClickableContainer(),
+                const SearchContainer(),
+                const SearchContainer(),
+                const SearchContainer(),
+                const SearchContainer(),
                 const backbutton(),
               ]),
             ),
@@ -117,5 +119,55 @@ class Searchpage extends StatelessWidget {
         ],
       ),
     )));
+  }
+}
+
+class SearchContainer extends StatelessWidget {
+  // ignore: use_key_in_widget_constructors
+  const SearchContainer();
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      child: ButtonTheme(
+        height: 70,
+        child: Container(
+          padding: EdgeInsets.zero, // ADD THIS LINE
+          child: SizedBox(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  margin: const EdgeInsets.all(10),
+                  width: MediaQuery.of(context).size.width / 1.05,
+                  height: 100,
+                  // ignore: deprecated_member_use
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Menudetail()),
+                      );
+                    },
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.transparent),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                        ))),
+                    child: const Text(
+                        "Name       Ckickenwings\nCalories    199  cals\nDistance   199  km\n",
+                        style: TextStyle(fontSize: 15)),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'homepage.dart';
 import 'register.dart';
+import 'dart:async';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Loginpage extends StatelessWidget {
   const Loginpage({Key? key}) : super(key: key);
@@ -24,7 +28,7 @@ class Loginpage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(40)),
             width: MediaQuery.of(context).size.width / 1.4,
             height: 250,
-            child: const MyCustomForm(),
+            child: login(),
           ),
           // TextField(
           //   obscureText: true,
@@ -39,9 +43,31 @@ class Loginpage extends StatelessWidget {
   }
 }
 
-class MyCustomForm extends StatelessWidget {
+class login extends StatefulWidget {
+  const login({Key? key}) : super(key: key);
+
+  @override
+  State<login> createState() => _loginState();
+}
+
+class _loginState extends State<login> {
   // ignore: use_key_in_widget_constructors
-  const MyCustomForm();
+  final formKey = GlobalKey<FormState>();
+
+  /* TextEditingController username = TextEditingController();
+  TextEditingController password = TextEditingController();
+  Future sign_in() async {
+    String url = "";
+    final respone = await http.post(Uri.parse(url),
+        body: {'username': username.text, 'password': password.text});
+    var data = json.decode(response.body);
+    print(data);
+    if (data == "Error") {
+      Navigator.pushNamed(context, 'loginpage');
+    } else {
+      Navigator.pushNamed(context, 'homepage');
+    }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -128,11 +154,11 @@ class TextButtonExample extends StatelessWidget {
                           borderRadius: BorderRadius.circular(18.0),
                         ))),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Homepage()),
-                      );
+                      //  r.push(
+                      //     cont Navigatoext,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => const Homepage()),
+                      //   );
                     },
                     child: const Text("Login", style: TextStyle(fontSize: 15)),
                   ),

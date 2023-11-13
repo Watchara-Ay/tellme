@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   form_field_validator: ^1.1.0
   month_picker_dialog: ^0.4.0
+  http: ^0.13.5
 
 dev_dependencies:
   flutter_test:
