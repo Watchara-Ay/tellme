@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'package:dob_input_field/dob_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:gender_selector/gender_selector.dart';
+import 'package:intl/intl.dart';
 import 'package:tellme/select_catalog.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
@@ -26,6 +29,22 @@ class Register extends StatefulWidget {
 }
 
 class _Register extends State<Register> {
+  final formKey = GlobalKey<FormState>();
+
+  TextEditingController username = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController confirm_password = TextEditingController();
+  TextEditingController dateofbirth = TextEditingController();
+  TextEditingController height = TextEditingController();
+  TextEditingController weight = TextEditingController();
+  TextEditingController gender = TextEditingController();
+  TextEditingController Goal = TextEditingController();
+  TextEditingController exercise_level = TextEditingController();
+  TextEditingController isP = TextEditingController();
+
+  Map<int, String> mappedGender = listGen.asMap();
+  late String selectedGender;
+  bool isPregnant = false;
   DateTime selectedDate = DateTime.now();
   String gen = listGen.first;
   String goal = listGoal.first;
@@ -39,22 +58,10 @@ class _Register extends State<Register> {
         lastDate: DateTime(2101));
     if (picked != null && picked != selectedDate) {
       setState(() {
-        selectedDate = picked;
+        dateofbirth.text = selectedDate.toLocal().toString().split(' ')[0];
       });
     }
   }
-
-  @override
-  final formKey = GlobalKey<FormState>();
-
-  TextEditingController username = TextEditingController();
-  TextEditingController password = TextEditingController();
-  TextEditingController confirm_password = TextEditingController();
-  TextEditingController dateofbirth = TextEditingController();
-  TextEditingController height = TextEditingController();
-  TextEditingController weight = TextEditingController();
-  TextEditingController Goal = TextEditingController();
-  TextEditingController exercise_level = TextEditingController();
 
   Future sign_up() async {
     String url = "http://192.168.1.44/flutter_login/register.php";
@@ -62,11 +69,13 @@ class _Register extends State<Register> {
       'username': username.text,
       'password': password.text,
       'comfirm_password': confirm_password.text,
-      'dateofbirth': dateofbirth.text,
+      'dateofbirth': selectedDate.toIso8601String(),
       'height': height.text,
       'weight': weight.text,
+      'gender': gender.text,
       'Goal': Goal.text,
-      'exercise_level': exercise_level.text
+      'exercise_level': exercise_level.text,
+      'isPregnant': isPregnant.toString(),
     });
     var data = json.decode(respone.body);
     if (data == "Error") {
@@ -76,29 +85,50 @@ class _Register extends State<Register> {
     }
   }
 
+  @override
   Widget build(BuildContext context) {
+    String? selectedGoal;
+    Color getColor(Set<MaterialState> states) {
+      const Set<MaterialState> interactiveStates = <MaterialState>{
+        MaterialState.pressed,
+        MaterialState.hovered,
+        MaterialState.focused,
+      };
+      if (states.any(interactiveStates.contains)) {
+        return Colors.blue;
+      }
+      return Colors.red;
+    }
+
+    List<String> goals = ['Fit', 'Lose weight', 'Muscle gain'];
+    List<String> eLs = [
+      'Sedentary',
+      'Light activity',
+      'Moderate activity',
+      'Very active',
+      'Extremely activity'
+    ];
+
     return Scaffold(
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'Modify page',
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                fontSize: 36,
-                color: Colors.deepPurple,
-                fontWeight: FontWeight.w700,
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 12,
+              width: MediaQuery.of(context).size.width,
+              child: const Text(
+                'Modify page',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 36,
+                  color: Colors.deepPurple,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
-            Container(
-              padding: const EdgeInsets.all(10.0),
-            ),
-            Container(
-              height: MediaQuery.of(context).size.height / 1.1,
-              width: MediaQuery.of(context).size.width,
-              color: Colors.transparent,
+            Expanded(
               child: Container(
                   padding: const EdgeInsets.all(20.0),
                   decoration: const BoxDecoration(
@@ -145,34 +175,40 @@ class _Register extends State<Register> {
                                   },
                                   onSaved: (username) {},
                                 ),
-                                Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    const Text("Date of birth", //
-                                        style: TextStyle(fontSize: 20)),
-                                    TextButton(
-                                      style: TextButton.styleFrom(
-                                        textStyle: const TextStyle(
-                                          fontSize: 20,
-                                          color: Color.fromRGBO(255, 0, 0, 1),
-                                        ),
-                                      ),
-                                      onPressed: () => _selectDate(context),
-                                      child: Text("${selectedDate.toLocal()}"
-                                          .split(' ')[0]),
-                                    ),
-                                    TextFormField(
-                                      onSaved: (selectedDate) {},
-                                      controller: dateofbirth,
-                                    )
-                                  ],
+                                TextField(
+                                  controller: dateofbirth,
+                                  decoration: const InputDecoration(
+                                      labelText: "Date of birth",
+                                      floatingLabelStyle:
+                                          TextStyle(fontSize: 10)),
+                                  readOnly:
+                                      true, //set it true, so that user will not able to edit text
+                                  onTap: () async {
+                                    DateTime? pickedDate = await showDatePicker(
+                                        context: context,
+                                        initialDate: DateTime.now(),
+                                        firstDate: DateTime(1900),
+                                        lastDate: DateTime.now());
+                                    if (pickedDate != null) {
+                                      print(pickedDate);
+                                      String formattedDate =
+                                          DateFormat('yyyy-MM-dd')
+                                              .format(pickedDate);
+                                      print(formattedDate);
+                                      setState(() {
+                                        dateofbirth.text = formattedDate;
+                                      });
+                                    } else {
+                                      print("Date is not selected");
+                                    }
+                                  },
                                 ),
                                 const Text("Height", //
                                     style: TextStyle(fontSize: 20)),
                                 TextFormField(
                                   validator: RequiredValidator(
                                       errorText: "Please fill something!!!"),
-                                  onSaved: (lastname) {
+                                  onSaved: (height) {
                                     // profile.lastname = lastname!;
                                   },
                                   controller: height,
@@ -182,88 +218,121 @@ class _Register extends State<Register> {
                                 TextFormField(
                                   validator: RequiredValidator(
                                       errorText: "Please fill something!!!"),
-                                  onSaved: (lastname) {
+                                  onSaved: (weight) {
                                     // profile.lastname = lastname!;
                                   },
                                   controller: weight,
                                 ),
-                                const Text("Gender",
-                                    style: TextStyle(fontSize: 20)),
-                                DropdownButton<String>(
-                                  value: gen,
-                                  icon: const Icon(Icons.arrow_downward),
-                                  elevation: 16,
-                                  style:
-                                      const TextStyle(color: Colors.deepPurple),
-                                  underline: Container(
-                                    height: 2,
-                                    color: Colors.deepPurpleAccent,
-                                  ),
-                                  onChanged: (String? value) {
-                                    // This is called when the user selects an item.
-                                    setState(() {
-                                      gen = value!;
-                                    });
-                                  },
-                                  items: listGen.map<DropdownMenuItem<String>>(
-                                      (String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value),
-                                    );
-                                  }).toList(),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: <Widget>[
+                                    SizedBox(
+                                      child: GenderSelector(
+                                        selectedGender: Gender.FEMALE,
+                                        onChanged: (gender) async {
+                                          setState(() {
+                                            if (gender == Gender.FEMALE) {
+                                              selectedGender = "female";
+                                            } else {
+                                              selectedGender = "male";
+                                            }
+                                          });
+                                        },
+                                      ),
+                                    ),
+
+                                    // Row(
+                                    //   mainAxisAlignment:
+                                    //       MainAxisAlignment.start,
+                                    //   children: <Widget>[
+                                    //     const Text('Selected gender',
+                                    //         style: TextStyle(fontSize: 20)),
+                                    //     Radio(
+                                    //       value: 'Male',
+                                    //       groupValue: selectedGender,
+                                    //       onChanged: (value) {
+                                    //         setState(() {
+                                    //           selectedGender = value.toString();
+                                    //         });
+                                    //       },
+                                    //     ),
+                                    //     const Text('Male'),
+                                    //     Radio(
+                                    //       value: 'Female',
+                                    //       groupValue: selectedGender,
+                                    //       onChanged: (value) {
+                                    //         setState(() {
+                                    //           selectedGender = value.toString();
+                                    //         });
+                                    //       },
+                                    //     ),
+                                    //     const Text('Female'),
+                                    //   ],
+                                    // ),
+                                    // Row(
+                                    //   children: [
+                                    //     Text(
+                                    //       'Are you pregnant?',
+                                    //       style: TextStyle(fontSize: 20.0),
+                                    //     ),
+                                    //     Checkbox(
+                                    //       checkColor: Colors.white,
+                                    //       fillColor:
+                                    //           MaterialStateProperty.resolveWith(
+                                    //               getColor),
+                                    //       value: isPregnant,
+                                    //       onChanged: (bool? value) {
+                                    //         if (gender == 'Female') {
+                                    //           setState(() {
+                                    //             isPregnant = value!;
+                                    //           });
+                                    //         }
+                                    //       },
+                                    //     )
+                                    //   ],
+                                    // ),
+                                    const SizedBox(height: 20.0),
+                                    DropdownButtonFormField(
+                                      value: selectedGoal,
+                                      items: goals.map((String goal) {
+                                        return DropdownMenuItem<String>(
+                                          value: goal,
+                                          child: Text(goal),
+                                        );
+                                      }).toList(),
+                                      onChanged: (value) {
+                                        setState(() {
+                                          selectedGoal = value.toString();
+                                        });
+                                      },
+                                      decoration: const InputDecoration(
+                                        labelText: 'Select Goal',
+                                        border: OutlineInputBorder(),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                const Text("Goal to archive",
-                                    style: TextStyle(fontSize: 20)),
-                                DropdownButton<String>(
-                                  value: goal,
-                                  icon: const Icon(Icons.arrow_downward),
-                                  elevation: 16,
-                                  style:
-                                      const TextStyle(color: Colors.deepPurple),
-                                  underline: Container(
-                                    height: 2,
-                                    color: Colors.deepPurpleAccent,
-                                  ),
-                                  onChanged: (String? value) {
-                                    // This is called when the user selects an item.
-                                    setState(() {
-                                      goal = value!;
-                                    });
-                                  },
-                                  items: listGoal.map<DropdownMenuItem<String>>(
-                                      (String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value),
-                                    );
-                                  }).toList(),
-                                ),
-                                const Text("Exercise level",
-                                    style: TextStyle(fontSize: 20)),
-                                DropdownButton<String>(
+                                const SizedBox(height: 20.0),
+                                DropdownButtonFormField(
                                   value: eL,
-                                  icon: const Icon(Icons.arrow_downward),
-                                  elevation: 16,
-                                  style:
-                                      const TextStyle(color: Colors.deepPurple),
-                                  underline: Container(
-                                    height: 2,
-                                    color: Colors.deepPurpleAccent,
-                                  ),
-                                  onChanged: (String? value) {
-                                    // This is called when the user selects an item.
-                                    setState(() {
-                                      eL = value!;
-                                    });
-                                  },
-                                  items: listEL.map<DropdownMenuItem<String>>(
-                                      (String value) {
+                                  items: listEL.map((String level) {
                                     return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value),
+                                      value: level,
+                                      child: Text(level),
                                     );
                                   }).toList(),
+                                  onChanged: (value) {
+                                    setState(() {
+                                      eL = value.toString();
+                                    });
+                                  },
+                                  decoration: const InputDecoration(
+                                    labelText:
+                                        'Select Exercise Level', // Change the label to Exercise Level
+                                    border: OutlineInputBorder(),
+                                  ),
                                 ),
                                 SizedBox(
                                   child: Row(
@@ -307,12 +376,12 @@ class _Register extends State<Register> {
                                                     BorderRadius.circular(18.0),
                                               ))),
                                           onPressed: () {
-                                            //var formKey;
-                                            /* bool pass = formKey.currentState!
+                                            var formKey;
+                                            bool pass = formKey.currentState!
                                                 .validate();
                                             if (pass) {
                                               sign_up();
-                                            }*/
+                                            }
 
                                             Navigator.push(
                                                 context,

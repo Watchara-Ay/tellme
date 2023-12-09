@@ -27,10 +27,7 @@ class Searchpage extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(30.0),
           ),
-          Container(
-            height: MediaQuery.of(context).size.height / 1.2,
-            width: MediaQuery.of(context).size.width,
-            color: Colors.transparent,
+          Expanded(
             child: Container(
               decoration: const BoxDecoration(
                   color: Colors.white,

@@ -49,10 +49,7 @@ class _Monthpage extends State<Monthpage> {
             Container(
               padding: const EdgeInsets.all(10.0),
             ),
-            Container(
-              height: MediaQuery.of(context).size.height / 1.1,
-              width: MediaQuery.of(context).size.width,
-              color: Colors.transparent,
+            Expanded(
               child: Container(
                   decoration: const BoxDecoration(
                       color: Colors.white,
