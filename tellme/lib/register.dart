@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:dob_input_field/dob_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:gender_selector/gender_selector.dart';
 import 'package:intl/intl.dart';
 import 'package:tellme/select_catalog.dart';
 import 'dart:async';
@@ -11,6 +10,7 @@ import 'dart:convert';
 
 const List<String> listGen = <String>['Male', 'Female'];
 const List<String> listGoal = <String>['Fit', 'Lose weight', 'Muscle gain'];
+const List<String> listGoalPrag = <String>['Fit', 'Muscle gain'];
 const List<String> listEL = <String>[
   'Sedentary',
   'Light activity',
@@ -43,7 +43,7 @@ class _Register extends State<Register> {
   TextEditingController isP = TextEditingController();
 
   Map<int, String> mappedGender = listGen.asMap();
-  late String selectedGender;
+  String? selectedGender;
   bool isPregnant = false;
   DateTime selectedDate = DateTime.now();
   String gen = listGen.first;
@@ -101,6 +101,9 @@ class _Register extends State<Register> {
     }
 
     List<String> goals = ['Fit', 'Lose weight', 'Muscle gain'];
+    List<String> goalsprag = ['Fit', 'Muscle gain'];
+    List<String> selectedList =
+        selectedGender == 'Female' && isPregnant == true ? goalsprag : goals;
     List<String> eLs = [
       'Sedentary',
       'Light activity',
@@ -150,7 +153,9 @@ class _Register extends State<Register> {
                                 TextFormField(
                                   validator: RequiredValidator(
                                       errorText: "Please fill something!!!"),
-                                  onSaved: (username) {},
+                                  onSaved: (username) {
+                                    print(username);
+                                  },
                                   controller: username,
                                 ),
                                 const Text("Password", //
@@ -158,7 +163,9 @@ class _Register extends State<Register> {
                                 TextFormField(
                                   validator: RequiredValidator(
                                       errorText: "Please fill something!!!"),
-                                  onSaved: (username) {},
+                                  onSaved: (value) {
+                                    print(password);
+                                  },
                                   controller: password,
                                 ),
                                 const Text("Confirm password",
@@ -228,75 +235,63 @@ class _Register extends State<Register> {
                                   crossAxisAlignment:
                                       CrossAxisAlignment.stretch,
                                   children: <Widget>[
-                                    SizedBox(
-                                      child: GenderSelector(
-                                        selectedGender: Gender.FEMALE,
-                                        onChanged: (gender) async {
-                                          setState(() {
-                                            if (gender == Gender.FEMALE) {
-                                              selectedGender = "female";
-                                            } else {
-                                              selectedGender = "male";
-                                            }
-                                          });
-                                        },
-                                      ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: <Widget>[
+                                        const Text('Selected gender',
+                                            style: TextStyle(fontSize: 20)),
+                                        Radio(
+                                          value: 'Male',
+                                          groupValue: selectedGender,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedGender = value.toString();
+                                              print(selectedGender);
+                                            });
+                                          },
+                                        ),
+                                        const Text('Male'),
+                                        Radio(
+                                          value: 'Female',
+                                          groupValue: selectedGender,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedGender = value.toString();
+                                              print(selectedGender);
+                                            });
+                                          },
+                                        ),
+                                        const Text('Female'),
+                                      ],
                                     ),
-
-                                    // Row(
-                                    //   mainAxisAlignment:
-                                    //       MainAxisAlignment.start,
-                                    //   children: <Widget>[
-                                    //     const Text('Selected gender',
-                                    //         style: TextStyle(fontSize: 20)),
-                                    //     Radio(
-                                    //       value: 'Male',
-                                    //       groupValue: selectedGender,
-                                    //       onChanged: (value) {
-                                    //         setState(() {
-                                    //           selectedGender = value.toString();
-                                    //         });
-                                    //       },
-                                    //     ),
-                                    //     const Text('Male'),
-                                    //     Radio(
-                                    //       value: 'Female',
-                                    //       groupValue: selectedGender,
-                                    //       onChanged: (value) {
-                                    //         setState(() {
-                                    //           selectedGender = value.toString();
-                                    //         });
-                                    //       },
-                                    //     ),
-                                    //     const Text('Female'),
-                                    //   ],
-                                    // ),
-                                    // Row(
-                                    //   children: [
-                                    //     Text(
-                                    //       'Are you pregnant?',
-                                    //       style: TextStyle(fontSize: 20.0),
-                                    //     ),
-                                    //     Checkbox(
-                                    //       checkColor: Colors.white,
-                                    //       fillColor:
-                                    //           MaterialStateProperty.resolveWith(
-                                    //               getColor),
-                                    //       value: isPregnant,
-                                    //       onChanged: (bool? value) {
-                                    //         if (gender == 'Female') {
-                                    //           setState(() {
-                                    //             isPregnant = value!;
-                                    //           });
-                                    //         }
-                                    //       },
-                                    //     )
-                                    //   ],
-                                    // ),
+                                    Row(
+                                      children: [
+                                        const Text(
+                                          'Are you pregnant?',
+                                          style: TextStyle(fontSize: 20.0),
+                                        ),
+                                        Checkbox(
+                                          checkColor: Colors.white,
+                                          fillColor:
+                                              MaterialStateProperty.resolveWith(
+                                                  getColor),
+                                          value: isPregnant,
+                                          onChanged: (bool? value) {
+                                            if (selectedGender == 'Female') {
+                                              setState(() {
+                                                isPregnant = true;
+                                                print(isPregnant);
+                                              });
+                                            }
+                                          },
+                                        )
+                                      ],
+                                    ),
                                     const SizedBox(height: 20.0),
                                     DropdownButtonFormField(
                                       value: selectedGoal,
-                                      items: goals.map((String goal) {
+                                      items: selectedList.map((String goal) {
                                         return DropdownMenuItem<String>(
                                           value: goal,
                                           child: Text(goal),
