@@ -35,7 +35,7 @@ class _Register extends State<Register> {
   TextEditingController dateofbirth = TextEditingController();
   TextEditingController height = TextEditingController();
   TextEditingController weight = TextEditingController();
-  TextEditingController gender = TextEditingController();
+  // TextEditingController gender = TextEditingController();
   TextEditingController goals = TextEditingController();
   TextEditingController exercise_level = TextEditingController();
   TextEditingController isP = TextEditingController();
@@ -48,6 +48,7 @@ class _Register extends State<Register> {
   String gen = listGen.first;
   String goal = listGoal.first;
   String eL = listEL.first;
+  String selectedGoal = 'Fit';
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -71,11 +72,12 @@ class _Register extends State<Register> {
       'dateofbirth': selectedDate.toString(),
       'height': height.text,
       'weight': weight.text,
-      'gender': gender.text,
-      'goal': goals.text,
-      'exercise_level': exercise_level.text,
-      'isPregnant': isPregnant.toString(),
+      'gender': selectedGender,
+      'goal': selectedGoal,
+      'exercise_level': eL,
+      'isPregnent': isPregnant.toString(),
     });
+
     var data = json.decode(respone.body);
     if (data == "Error") {
       Navigator.pushNamed(context, 'register');
@@ -86,7 +88,6 @@ class _Register extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-    String? selectedGoal;
     Color getColor(Set<MaterialState> states) {
       const Set<MaterialState> interactiveStates = <MaterialState>{
         MaterialState.pressed,
@@ -285,6 +286,7 @@ class _Register extends State<Register> {
                                             } else {
                                               isPregnant = false;
                                             }
+                                            print(isPregnant);
                                           },
                                         )
                                       ],
