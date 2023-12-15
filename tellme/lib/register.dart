@@ -1,10 +1,8 @@
 import 'dart:async';
-import 'package:dob_input_field/dob_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:intl/intl.dart';
 import 'package:tellme/select_catalog.dart';
-import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -38,14 +36,15 @@ class _Register extends State<Register> {
   TextEditingController height = TextEditingController();
   TextEditingController weight = TextEditingController();
   TextEditingController gender = TextEditingController();
-  TextEditingController Goal = TextEditingController();
+  TextEditingController goals = TextEditingController();
   TextEditingController exercise_level = TextEditingController();
   TextEditingController isP = TextEditingController();
 
   Map<int, String> mappedGender = listGen.asMap();
-  String? selectedGender;
+  String selectedGender = '';
   bool isPregnant = false;
-  DateTime selectedDate = DateTime.now();
+  DateTime date = DateTime.now();
+  String? selectedDate;
   String gen = listGen.first;
   String goal = listGoal.first;
   String eL = listEL.first;
@@ -53,27 +52,27 @@ class _Register extends State<Register> {
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
         context: context,
-        initialDate: selectedDate,
+        initialDate: date,
         firstDate: DateTime(1950, 8),
         lastDate: DateTime(2101));
-    if (picked != null && picked != selectedDate) {
+    if (picked != null && picked != date) {
       setState(() {
-        dateofbirth.text = selectedDate.toLocal().toString().split(' ')[0];
+        dateofbirth.text = date.toLocal().toString().split(' ')[0];
       });
     }
   }
 
   Future sign_up() async {
-    String url = "http://192.168.1.44/flutter_login/register.php";
+    String url = "http://127.0.0.1:8000/register.php";
     final respone = await http.post(Uri.parse(url), body: {
       'username': username.text,
       'password': password.text,
       'comfirm_password': confirm_password.text,
-      'dateofbirth': selectedDate.toIso8601String(),
+      'dateofbirth': selectedDate.toString(),
       'height': height.text,
       'weight': weight.text,
       'gender': gender.text,
-      'Goal': Goal.text,
+      'goal': goals.text,
       'exercise_level': exercise_level.text,
       'isPregnant': isPregnant.toString(),
     });
@@ -101,9 +100,9 @@ class _Register extends State<Register> {
     }
 
     List<String> goals = ['Fit', 'Lose weight', 'Muscle gain'];
-    List<String> goalsprag = ['Fit', 'Muscle gain'];
+    List<String> goalspreg = ['Fit', 'Muscle gain'];
     List<String> selectedList =
-        selectedGender == 'Female' && isPregnant == true ? goalsprag : goals;
+        selectedGender == 'Female' && isPregnant == true ? goalspreg : goals;
     List<String> eLs = [
       'Sedentary',
       'Light activity',
@@ -203,6 +202,7 @@ class _Register extends State<Register> {
                                               .format(pickedDate);
                                       print(formattedDate);
                                       setState(() {
+                                        selectedDate = formattedDate;
                                         dateofbirth.text = formattedDate;
                                       });
                                     } else {
@@ -281,8 +281,9 @@ class _Register extends State<Register> {
                                             if (selectedGender == 'Female') {
                                               setState(() {
                                                 isPregnant = true;
-                                                print(isPregnant);
                                               });
+                                            } else {
+                                              isPregnant = false;
                                             }
                                           },
                                         )
@@ -371,12 +372,7 @@ class _Register extends State<Register> {
                                                     BorderRadius.circular(18.0),
                                               ))),
                                           onPressed: () {
-                                            var formKey;
-                                            bool pass = formKey.currentState!
-                                                .validate();
-                                            if (pass) {
-                                              sign_up();
-                                            }
+                                            sign_up();
 
                                             Navigator.push(
                                                 context,
