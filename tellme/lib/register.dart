@@ -35,7 +35,6 @@ class _Register extends State<Register> {
   TextEditingController dateofbirth = TextEditingController();
   TextEditingController height = TextEditingController();
   TextEditingController weight = TextEditingController();
-  // TextEditingController gender = TextEditingController();
   TextEditingController goals = TextEditingController();
   TextEditingController exercise_level = TextEditingController();
   TextEditingController isP = TextEditingController();
@@ -75,7 +74,7 @@ class _Register extends State<Register> {
       'gender': selectedGender,
       'goal': selectedGoal,
       'exercise_level': eL,
-      'isPregnent': isPregnant.toString(),
+      'isPregnent': isPregnant ? "1" : "0",
     });
 
     var data = json.decode(respone.body);

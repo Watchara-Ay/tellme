@@ -54,12 +54,13 @@ class _loginState extends State<login> {
   // ignore: use_key_in_widget_constructors
   final formKey = GlobalKey<FormState>();
 
-  /* TextEditingController username = TextEditingController();
+  TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
   Future sign_in() async {
     String url = "";
     final respone = await http.post(Uri.parse(url),
         body: {'username': username.text, 'password': password.text});
+    var response;
     var data = json.decode(response.body);
     print(data);
     if (data == "Error") {
@@ -67,7 +68,7 @@ class _loginState extends State<login> {
     } else {
       Navigator.pushNamed(context, 'homepage');
     }
-  }*/
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -154,11 +155,11 @@ class TextButtonExample extends StatelessWidget {
                           borderRadius: BorderRadius.circular(18.0),
                         ))),
                     onPressed: () {
-                      //  r.push(
-                      //     cont Navigatoext,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => const Homepage()),
-                      //   );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Homepage()),
+                      );
                     },
                     child: const Text("Login", style: TextStyle(fontSize: 15)),
                   ),
