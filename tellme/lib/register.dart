@@ -85,6 +85,16 @@ class _Register extends State<Register> {
     }
   }
 
+  void clearFormFields() {
+    username.clear();
+    password.clear();
+    confirm_password.clear();
+    dateofbirth.clear();
+    height.clear();
+    weight.clear();
+    exercise_level.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     Color getColor(Set<MaterialState> states) {
@@ -156,6 +166,7 @@ class _Register extends State<Register> {
                                     print(username);
                                   },
                                   controller: username,
+                                  maxLength: 15,
                                 ),
                                 const Text("Password", //
                                     style: TextStyle(fontSize: 20)),
@@ -166,6 +177,8 @@ class _Register extends State<Register> {
                                     print(password);
                                   },
                                   controller: password,
+                                  obscureText: true,
+                                  maxLength: 12,
                                 ),
                                 const Text("Confirm password",
                                     style: TextStyle(fontSize: 20)),
@@ -180,6 +193,7 @@ class _Register extends State<Register> {
                                     }
                                   },
                                   onSaved: (username) {},
+                                  obscureText: true,
                                 ),
                                 TextField(
                                   controller: dateofbirth,
@@ -374,13 +388,13 @@ class _Register extends State<Register> {
                                               ))),
                                           onPressed: () {
                                             sign_up();
-
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
                                                       const select_catalog(),
                                                 ));
+                                            clearFormFields();
                                           },
                                           child: const Text("Next",
                                               style: TextStyle(fontSize: 15)),

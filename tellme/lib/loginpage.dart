@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'homepage.dart';
 import 'register.dart';
 import 'dart:async';
@@ -23,12 +22,9 @@ class Loginpage extends StatelessWidget {
           Image.asset('assets/images/logo-no-background.png', scale: 0.6),
           Container(
             padding: const EdgeInsets.all(10.0),
-            decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 255, 255, 255),
-                borderRadius: BorderRadius.circular(40)),
-            width: MediaQuery.of(context).size.width / 1.4,
-            height: 250,
-            child: login(),
+            width: MediaQuery.of(context).size.width / 1.3,
+            height: 300,
+            child: const login(),
           ),
           // TextField(
           //   obscureText: true,
@@ -54,119 +50,147 @@ class _loginState extends State<login> {
   // ignore: use_key_in_widget_constructors
   final formKey = GlobalKey<FormState>();
 
-  TextEditingController username = TextEditingController();
-  TextEditingController password = TextEditingController();
-  Future sign_in() async {
-    String url = "";
-    final respone = await http.post(Uri.parse(url),
-        body: {'username': username.text, 'password': password.text});
-    var response;
+  Future<void> loginUser() async {
+    String url = 'http://127.0.0.1:8000/login.php';
+
+    final response = await http.post(Uri.parse(url), body: {
+      'username': username.text,
+      'password': password.text,
+    });
+
+    print({
+      'username': username.text,
+      'password': password.text,
+    });
+
     var data = json.decode(response.body);
-    print(data);
     if (data == "Error") {
-      Navigator.pushNamed(context, 'loginpage');
+      Navigator.pushNamed(context, 'login');
     } else {
-      Navigator.pushNamed(context, 'homepage');
+      Navigator.pushNamed(context, 'Homepage');
     }
   }
 
+  TextEditingController username = TextEditingController();
+  TextEditingController password = TextEditingController();
+  // Future sign_in() async {
+  //   String url = "";
+  //   final respone = await http.post(Uri.parse(url),
+  //       body: {'username': username.text, 'password': password.text});
+  //   var data = json.decode(response.body);
+  //   print(data);
+  //   if (data == "Error") {
+  //     Navigator.pushNamed(context, 'loginpage');
+  //   } else {
+  //     Navigator.pushNamed(context, 'homepage');
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: const <Widget>[
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-          child: TextField(
-              decoration: InputDecoration(
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+            color: const Color.fromARGB(255, 255, 255, 255),
+            borderRadius: BorderRadius.circular(40)),
+        width: MediaQuery.of(context).size.width / 1.4,
+        height: 250,
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            TextFormField(
+              controller: username,
+              decoration: const InputDecoration(
                 border: InputBorder.none,
                 hintText: 'Username',
                 filled: true,
                 fillColor: Color.fromRGBO(255, 229, 229, 1),
               ),
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 24,
-              )),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-          child: TextField(
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              hintText: 'Password',
-              filled: true,
-              fillColor: Color.fromRGBO(255, 229, 229, 1),
+              ),
+              onSaved: (username) {
+                print(username);
+              },
             ),
-            style: TextStyle(
-              fontSize: 24,
+            Container(
+              height: 10,
             ),
-          ),
-        ),
-        TextButtonExample(),
-      ],
-    );
-  }
-}
-
-class TextButtonExample extends StatelessWidget {
-  // ignore: use_key_in_widget_constructors
-  const TextButtonExample();
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      child: ButtonTheme(
-        height: 70,
-        child: Container(
-          padding: EdgeInsets.zero, // ADD THIS LINE
-          child: SizedBox(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                TextButton(
-                  style: TextButton.styleFrom(
-                    textStyle: const TextStyle(
-                      fontSize: 20,
-                      color: Color.fromRGBO(255, 0, 0, 1),
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const Register(
-                                title: '',
-                              )),
-                    );
-                  },
-                  child: const Text('Register'),
+            TextFormField(
+                controller: password,
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  labelText: 'Password',
+                  filled: true,
+                  fillColor: const Color.fromRGBO(255, 229, 229, 1),
                 ),
-                Container(
-                  margin: const EdgeInsets.all(10),
-                  height: 50.0,
-                  // ignore: deprecated_member_use
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.black),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                        ))),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Homepage()),
-                      );
-                    },
-                    child: const Text("Login", style: TextStyle(fontSize: 15)),
+                obscureText: true,
+                onSaved: (password) {
+                  print(password);
+                }),
+            ButtonTheme(
+              height: 70,
+              child: Container(
+                padding: EdgeInsets.zero, // ADD THIS LINE
+                child: SizedBox(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      TextButton(
+                        style: TextButton.styleFrom(
+                          textStyle: const TextStyle(
+                            fontSize: 20,
+                            color: Color.fromRGBO(255, 0, 0, 1),
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Register(
+                                      title: '',
+                                    )),
+                          );
+                        },
+                        child: const Text('Register'),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.all(10),
+                        height: 50.0,
+                        // ignore: deprecated_member_use
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.black),
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                              ))),
+                          onPressed: () {
+                            if (loginUser() == "error") {
+                              print("error");
+                            } else {
+                              loginUser;
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Homepage()),
+                              );
+                            }
+                          },
+                          child: const Text("Login",
+                              style: TextStyle(fontSize: 15)),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );

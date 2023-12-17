@@ -55,7 +55,7 @@ class select_catalog extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const Homepage(),
+                                    builder: (context) => Homepage(),
                                   ));
                             }, // button pressed
                             child: Column(
@@ -83,7 +83,7 @@ class select_catalog extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const Homepage(),
+                                    builder: (context) => Homepage(),
                                   ));
                             }, // button pressed
                             child: Column(
@@ -115,7 +115,7 @@ class select_catalog extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const Homepage(),
+                                    builder: (context) => Homepage(),
                                   ));
                             }, // button pressed
                             child: Column(
@@ -143,7 +143,7 @@ class select_catalog extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const Homepage(),
+                                    builder: (context) => Homepage(),
                                   ));
                             }, // button pressed
                             child: Column(
@@ -175,7 +175,7 @@ class select_catalog extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const Homepage(),
+                                    builder: (context) => Homepage(),
                                   ));
                             }, // button pressed
                             child: Column(
@@ -203,7 +203,7 @@ class select_catalog extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const Homepage(),
+                                    builder: (context) => Homepage(),
                                   ));
                             }, // button pressed
                             child: Column(

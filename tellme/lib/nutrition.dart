@@ -141,8 +141,7 @@ class Nutritionbutton extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => const Profilepage()),
+                        MaterialPageRoute(builder: (context) => Profilepage()),
                       );
                     },
                     child:

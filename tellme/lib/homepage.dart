@@ -1,11 +1,19 @@
-// ignore_for_file: unnecessary_new
-
 import 'package:flutter/material.dart';
 import 'package:tellme/profilepage.dart';
 import 'package:tellme/recommendedmenu.dart';
 
 class Homepage extends StatelessWidget {
   const Homepage({Key? key}) : super(key: key);
+
+  getCurrentDate() {
+    var date = DateTime.now().toString();
+
+    var dateParse = DateTime.parse(date);
+
+    var formattedDate = "${dateParse.day}-${dateParse.month}-${dateParse.year}";
+
+    return formattedDate;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +49,7 @@ class Homepage extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => const Profilepage()),
+                    MaterialPageRoute(builder: (context) => Profilepage()),
                   );
                 },
               ),
@@ -52,7 +59,7 @@ class Homepage extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
           ),
           Expanded(
-            child: new Container(
+            child: Container(
                 decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
@@ -60,8 +67,11 @@ class Homepage extends StatelessWidget {
                       topRight: Radius.circular(40.0),
                     )),
                 child: Column(children: [
+                  const SizedBox(
+                    height: 10, // <-- SEE HERE
+                  ),
                   Text(
-                    "11 May, 2023",
+                    getCurrentDate(),
                     style: TextStyle(
                         color: Colors.black.withOpacity(0.6), fontSize: 24),
                   ),
