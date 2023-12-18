@@ -4,6 +4,42 @@ import 'register.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+class SecureStorage {
+  final FlutterSecureStorage _storage = FlutterSecureStorage();
+
+  Future<void> writeToStorage(String key, String value) async {
+    await _storage.write(key: key, value: value);
+  }
+
+  Future<String?> readFromStorage(String key) async {
+    return await _storage.read(key: key);
+  }
+
+  Future<void> deleteFromStorage(String key) async {
+    await _storage.delete(key: key);
+  }
+
+  // Example: Storing and reading username and password
+  Future<void> storeCredentials(String username, String password) async {
+    await writeToStorage('username', username);
+    await writeToStorage('password', password);
+  }
+
+  Future<String?> getUsername() async {
+    return await readFromStorage('username');
+  }
+
+  Future<String?> getPassword() async {
+    return await readFromStorage('password');
+  }
+
+  Future<void> clearCredentials() async {
+    await deleteFromStorage('username');
+    await deleteFromStorage('password');
+  }
+}
 
 class Loginpage extends StatelessWidget {
   const Loginpage({Key? key}) : super(key: key);

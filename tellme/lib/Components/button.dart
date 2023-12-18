@@ -55,8 +55,7 @@ class TextButtonExample extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => const Searchpage()),
+                        MaterialPageRoute(builder: (context) => Searchpage()),
                       );
                     },
                     child: const Text("Search", style: TextStyle(fontSize: 15)),
@@ -74,6 +73,8 @@ class TextButtonExample extends StatelessWidget {
 class ClickableContainer extends StatelessWidget {
   // ignore: use_key_in_widget_constructors
   const ClickableContainer();
+
+  get food => null;
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +97,9 @@ class ClickableContainer extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const Menudetail()),
+                            builder: (context) => Menudetail(
+                                  foods: food,
+                                )),
                       );
                     },
                     style: ButtonStyle(

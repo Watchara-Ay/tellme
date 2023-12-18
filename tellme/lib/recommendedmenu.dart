@@ -27,6 +27,7 @@ class Recommendedmenu extends StatelessWidget {
           ),
           Expanded(
             child: Container(
+              width: MediaQuery.of(context).size.width,
               decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -49,8 +50,6 @@ class Recommendedmenu extends StatelessWidget {
                     color: Colors.deepPurple,
                   ),
                 ),
-                const ClickableContainer(),
-                const ClickableContainer(),
                 const TextButtonExample(),
               ]),
             ),

@@ -1,11 +1,58 @@
-// ignore_for_file: deprecated_member_use, duplicate_ignore
-
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'Components/button.dart';
 import 'menudetail.dart';
 
-class Searchpage extends StatelessWidget {
-  const Searchpage({Key? key}) : super(key: key);
+class Searchpage extends StatefulWidget {
+  @override
+  _Searchpage createState() => _Searchpage();
+}
+
+class _Searchpage extends State<Searchpage> {
+  TextEditingController _searchController = TextEditingController();
+  List<Map<String, dynamic>> searchResults = [];
+
+  Future<void> searchFoods(String query) async {
+    final response = await http
+        .get(Uri.parse('http://127.0.0.1:8000/search.php?query=$query'));
+    if (response.statusCode == 200) {
+      final List<dynamic> parsedData = json.decode(response.body);
+      setState(() {
+        searchResults = List<Map<String, dynamic>>.from(parsedData);
+      });
+    } else {
+      throw Exception('Failed to perform search');
+    }
+  }
+
+  String sortBy = 'Energy'; // Default sort by Energy
+
+  // Function to sort search results based on selected criteria
+  void sortResults(String criteria) {
+    setState(() {
+      sortBy = criteria;
+      // Sort the search results based on the selected criteria
+      switch (criteria) {
+        case 'Energy':
+          searchResults.sort((a, b) => a['Energy'].compareTo(b['Energy']));
+          break;
+        case 'Fat':
+          searchResults.sort((a, b) => a['Fat'].compareTo(b['Fat']));
+          break;
+        case 'Carbohydrate':
+          searchResults
+              .sort((a, b) => a['Carbohydrate'].compareTo(b['Carbohydrate']));
+          break;
+        case 'Protein':
+          searchResults.sort((a, b) => a['Protein'].compareTo(b['Protein']));
+          break;
+        default:
+          break;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,79 +83,140 @@ class Searchpage extends StatelessWidget {
                     topRight: Radius.circular(40.0),
                   )),
               child: Column(children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 16),
-                  child: TextField(
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Menus name',
-                        filled: true,
-                        fillColor: Color.fromRGBO(255, 229, 229, 1),
-                      ),
-                      style: TextStyle(
-                        fontSize: 24,
-                      )),
-                ),
                 Container(
-                  height: 40,
+                  margin: const EdgeInsets.all(20),
                   width: MediaQuery.of(context).size.width,
-                  decoration: const BoxDecoration(
-                    color: Color.fromRGBO(255, 217, 214, 1),
-                  ),
-                  child: Row(
-                    children: [
-                      const DecoratedBox(
-                        decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 255, 164, 158)),
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width / 50,
-                      ),
-                      const Text(
-                        "Sort by: ",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontSize: 24,
-                          color: Colors.black,
+                  child: Column(children: [
+                    TextField(
+                      controller: _searchController,
+                      decoration: InputDecoration(
+                        hintText: 'Search food...',
+                        suffixIcon: IconButton(
+                          icon: const Icon(Icons.search),
+                          onPressed: () {
+                            final query = _searchController.text;
+                            if (query.isNotEmpty) {
+                              searchFoods(query);
+                            }
+                          },
                         ),
                       ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width / 10,
+                    ),
+                  ]),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    const Text(
+                      "Sort by:",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
                       ),
-                      TextButton(
-                        onPressed: () {},
-                        child: Row(
-                          children: const [
-                            Text(
-                              'Calories',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 24,
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: const Color.fromRGBO(255, 229, 229, 100),
+                      ),
+                      onPressed: () => sortResults('Energy'),
+                      child: const Text('Energy'),
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: const Color.fromRGBO(255, 229, 229, 100),
+                      ),
+                      onPressed: () => sortResults('Fat'),
+                      child: const Text('Fat'),
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: const Color.fromRGBO(255, 229, 229, 100),
+                      ),
+                      onPressed: () => sortResults('Carbohydrate'),
+                      child: const Text('Carbohydrate'),
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: const Color.fromRGBO(255, 229, 229, 100),
+                      ),
+                      onPressed: () => sortResults('Protein'),
+                      child: const Text('Protein'),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  child: ButtonTheme(
+                    height: 70,
+                    child: Container(
+                      padding: EdgeInsets.zero,
+                      child: Container(
+                        margin: const EdgeInsets.all(10),
+                        height: MediaQuery.of(context).size.height / 1.6,
+                        width: MediaQuery.of(context).size.width / 1.05,
+                        child: searchResults != null && searchResults.isNotEmpty
+                            ? ListView.builder(
+                                itemCount: searchResults.length,
+                                itemBuilder: (context, index) {
+                                  final food = searchResults[index];
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8.0),
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Menudetail(foods: food),
+                                          ),
+                                        );
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        primary: Colors.greenAccent,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(18.0),
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(children: [
+                                              Text(
+                                                food['foodname'],
+                                                style: const TextStyle(
+                                                  fontSize: 12,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ]),
+                                            const SizedBox(height: 8),
+                                            Text(
+                                              'Energy: ${food['Energy']}, Fat: ${food['Fat']}, Carbohydrate: ${food['Carbohydrate']}, Protein: ${food['Protein']}',
+                                              style: const TextStyle(
+                                                  fontSize: 12,
+                                                  color: Colors.black),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              )
+                            : const Center(
+                                child: Text('No results'),
                               ),
-                            ),
-                          ],
-                        ),
                       ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width / 10,
-                      ),
-                      TextButton(
-                        onPressed: () {},
-                        child: const Text(
-                          'Name',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 24,
-                          ),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
-                const SearchContainer(),
-                const SearchContainer(),
-                const SearchContainer(),
-                const SearchContainer(),
                 const backbutton(),
               ]),
             ),
@@ -116,55 +224,5 @@ class Searchpage extends StatelessWidget {
         ],
       ),
     )));
-  }
-}
-
-class SearchContainer extends StatelessWidget {
-  // ignore: use_key_in_widget_constructors
-  const SearchContainer();
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      child: ButtonTheme(
-        height: 70,
-        child: Container(
-          padding: EdgeInsets.zero, // ADD THIS LINE
-          child: SizedBox(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  margin: const EdgeInsets.all(10),
-                  width: MediaQuery.of(context).size.width / 1.05,
-                  height: 100,
-                  // ignore: deprecated_member_use
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Menudetail()),
-                      );
-                    },
-                    style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.transparent),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                        ))),
-                    child: const Text(
-                        "Name       Ckickenwings\nCalories    199  cals\nDistance   199  km\n",
-                        style: TextStyle(fontSize: 15)),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
   }
 }

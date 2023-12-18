@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:tellme/homepage.dart';
+import 'package:tellme/register.dart';
 
 class RadioModel {
   bool isSelected;
@@ -21,8 +22,9 @@ class SelectCatalog extends StatefulWidget {
 
 class _SelectCatalogState extends State<SelectCatalog> {
   late List<RadioModel> radioItems;
+  Person person = Person();
 
-  Future<void> updateUserPreferences(int username, String preference) async {
+  Future<void> updateUserPreferences(String username, String preference) async {
     var url =
         'http://127.0.0.1:8000/selectedCat.php'; // Replace with your PHP endpoint URL
 
@@ -30,7 +32,7 @@ class _SelectCatalogState extends State<SelectCatalog> {
       var response = await http.post(
         Uri.parse(url),
         body: {
-          'username': username.toString(),
+          'username': person.uname,
           'preference': preference,
         },
       );
@@ -120,7 +122,8 @@ class _SelectCatalogState extends State<SelectCatalog> {
                               selectedCatalog = radioItems[index].buttonText;
                             });
                             print(selectedCatalog);
-                            updateUserPreferences;
+                            updateUserPreferences(
+                                person.uname, selectedCatalog.toString());
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(

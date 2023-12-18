@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:tellme/homepage.dart';
 
 class Menudetail extends StatelessWidget {
-  const Menudetail({Key? key}) : super(key: key);
+  final Map<String, dynamic> foods;
+
+  const Menudetail({Key? key, required this.foods}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
             child: SizedBox(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
           const Text(
             'Menu detail',
             textAlign: TextAlign.left,
@@ -26,80 +28,198 @@ class Menudetail extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
           ),
           Expanded(
-            child: Container(
-              decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(40.0),
-                    topRight: Radius.circular(40.0),
-                  )),
-              child: Column(children: [
-                const Text(
-                  "Chicken wing",
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: Colors.deepPurple,
-                  ),
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 200,
-                      height: 200,
-                      child: Image.asset(
-                        'assets/images/sliced-boiled-chicken.png',
+              child: Container(
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(40.0),
+                        topRight: Radius.circular(40.0),
+                      )),
+                  child: Column(children: [
+                    Row(children: [
+                      const SizedBox(
+                        width: 20,
+                        height: 200,
                       ),
-                    ),
-                    Column(
-                      children: const [
-                        Text(''' 
-Calories
-Restaurant
-Price
-Serving ''',
-                            style: TextStyle(
-                              fontSize: 18,
+                      Container(
+                        height: MediaQuery.of(context).size.height / 1.2,
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              height: 70,
+                              width: MediaQuery.of(context).size.width / 1.1,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    foods['foodname'],
+                                    style: const TextStyle(
+                                        fontSize: 20.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width / 1.1,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: const [
+                                  Text(
+                                    "Dish Information",
+                                    style: TextStyle(
+                                      fontSize: 24.0,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  )
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                                child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(children: [
+                                  const Text(
+                                    'Energy:',
+                                    style: TextStyle(fontSize: 24.0),
+                                  ),
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width / 2.5,
+                                  ),
+                                  Text(
+                                    '${foods['Energy']}  kcal',
+                                    style: const TextStyle(fontSize: 24.0),
+                                  ),
+                                ]),
+                                Row(children: [
+                                  const Text(
+                                    'Fat:',
+                                    style: TextStyle(fontSize: 24.0),
+                                  ),
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width /
+                                        2.15,
+                                  ),
+                                  Text(
+                                    '${foods['Fat']}  mg',
+                                    style: const TextStyle(fontSize: 24.0),
+                                  ),
+                                ]),
+                                Row(children: [
+                                  const Text(
+                                    'Carbohydrate: ',
+                                    style: TextStyle(fontSize: 24.0),
+                                  ),
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width /
+                                        3.55,
+                                  ),
+                                  Text(
+                                    '${foods['Carbohydrate']}  mg',
+                                    style: const TextStyle(fontSize: 24.0),
+                                  ),
+                                ]),
+                                Row(children: [
+                                  const Text(
+                                    'Protein:',
+                                    style: TextStyle(fontSize: 24.0),
+                                  ),
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width /
+                                        2.52,
+                                  ),
+                                  Text(
+                                    '${foods['Protein']}  mg',
+                                    style: const TextStyle(fontSize: 24.0),
+                                  ),
+                                ]),
+                                Row(children: [
+                                  const Text(
+                                    'Calcium:',
+                                    style: TextStyle(fontSize: 24.0),
+                                  ),
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width / 2.6,
+                                  ),
+                                  Text(
+                                    '${foods['Calcium']}  mg',
+                                    style: const TextStyle(fontSize: 24.0),
+                                  ),
+                                ]),
+                                Row(children: [
+                                  const Text(
+                                    'Magnesium:',
+                                    style: TextStyle(fontSize: 24.0),
+                                  ),
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width / 3.1,
+                                  ),
+                                  Text(
+                                    '${foods['Magnesium']}  mg',
+                                    style: const TextStyle(fontSize: 24.0),
+                                  ),
+                                ]),
+                                Row(children: [
+                                  const Text(
+                                    'Sodium:',
+                                    style: TextStyle(fontSize: 24.0),
+                                  ),
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width /
+                                        2.57,
+                                  ),
+                                  Text(
+                                    '${foods['Sodium']}  mg',
+                                    style: const TextStyle(fontSize: 24.0),
+                                  ),
+                                ]),
+                                Row(children: [
+                                  const Text(
+                                    'Potassium:',
+                                    style: TextStyle(fontSize: 24.0),
+                                  ),
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width /
+                                        2.85,
+                                  ),
+                                  Text(
+                                    '${foods['Potassium']}  mg',
+                                    style: const TextStyle(fontSize: 24.0),
+                                  ),
+                                ]),
+                                Row(children: [
+                                  const Text(
+                                    'Iron:',
+                                    style: TextStyle(fontSize: 24.0),
+                                  ),
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width / 2.2,
+                                  ),
+                                  Text(
+                                    '${foods['Iron']}  mg',
+                                    style: const TextStyle(fontSize: 24.0),
+                                  ),
+                                ]),
+                              ],
                             )),
-                      ],
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 400,
-                  child: Column(
-                    children: [
-                      const Text("Dish information",
-                          style: TextStyle(
-                            fontSize: 24,
-                          )),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width / 10,
-                          ),
-                          const Text('''
-Cholesterol                                           mg
-Sodium                                                 mg
-Calcium                                                mg
-Magnesium                                          mg
-Potassium                                             mg
-Iron                                                       mg''',
-                              style: TextStyle(
-                                fontSize: 18,
-                              )),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-                const Menubutton(),
-              ]),
-            ),
-          ),
-        ],
-      ),
-    )));
+                          ],
+                        ),
+                      ),
+                    ]),
+                    const Menubutton(),
+                  ])))
+        ]))));
   }
 }
 
@@ -153,7 +273,8 @@ class Menubutton extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Homepage()),
+                        MaterialPageRoute(
+                            builder: (context) => const Homepage()),
                       );
                     },
                     child:
