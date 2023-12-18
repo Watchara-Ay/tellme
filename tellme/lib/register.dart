@@ -18,16 +18,6 @@ const List<String> listEL = <String>[
   'Extremely activity'
 ];
 
-class Person {
-  String _username = '';
-  String get uname => _username;
-  set uname(String value) {
-    if (value.isNotEmpty) {
-      _username = value;
-    }
-  }
-}
-
 class Register extends StatefulWidget {
   const Register({Key? key, required this.title}) : super(key: key);
 
@@ -39,7 +29,6 @@ class Register extends StatefulWidget {
 
 class _Register extends State<Register> {
   final formKey = GlobalKey<FormState>();
-  final Person person = Person();
 
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
@@ -178,7 +167,6 @@ class _Register extends State<Register> {
                                       errorText: "Please fill something!!!"),
                                   onSaved: (username) {
                                     print(username);
-                                    person.uname = username.toString();
                                   },
                                   controller: username,
                                   maxLength: 15,

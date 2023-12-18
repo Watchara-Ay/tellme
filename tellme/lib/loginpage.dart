@@ -1,45 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'homepage.dart';
 import 'register.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
-class SecureStorage {
-  final FlutterSecureStorage _storage = FlutterSecureStorage();
-
-  Future<void> writeToStorage(String key, String value) async {
-    await _storage.write(key: key, value: value);
-  }
-
-  Future<String?> readFromStorage(String key) async {
-    return await _storage.read(key: key);
-  }
-
-  Future<void> deleteFromStorage(String key) async {
-    await _storage.delete(key: key);
-  }
-
-  // Example: Storing and reading username and password
-  Future<void> storeCredentials(String username, String password) async {
-    await writeToStorage('username', username);
-    await writeToStorage('password', password);
-  }
-
-  Future<String?> getUsername() async {
-    return await readFromStorage('username');
-  }
-
-  Future<String?> getPassword() async {
-    return await readFromStorage('password');
-  }
-
-  Future<void> clearCredentials() async {
-    await deleteFromStorage('username');
-    await deleteFromStorage('password');
-  }
-}
 
 class Loginpage extends StatelessWidget {
   const Loginpage({Key? key}) : super(key: key);
@@ -86,42 +51,30 @@ class _loginState extends State<login> {
   // ignore: use_key_in_widget_constructors
   final formKey = GlobalKey<FormState>();
 
-  Future<void> loginUser() async {
-    String url = 'http://127.0.0.1:8000/login.php';
+  Future<Map<String, dynamic>> loginUser(
+      String username, String password) async {
+    final url = Uri.parse(
+        'http://127.0.0.1:8000/login.php'); // Replace with your API endpoint
 
-    final response = await http.post(Uri.parse(url), body: {
-      'username': username.text,
-      'password': password.text,
-    });
+    final response = await http.post(
+      url,
+      body: {
+        'username': username,
+        'password': password,
+      },
+    );
 
-    print({
-      'username': username.text,
-      'password': password.text,
-    });
-
-    var data = json.decode(response.body);
-    if (data == "Error") {
-      Navigator.pushNamed(context, 'login');
+    if (response.statusCode == 200) {
+      // Successful login, return response body (might contain user data, token, etc.)
+      return json.decode(response.body);
     } else {
-      Navigator.pushNamed(context, 'Homepage');
+      // Failed login, return an error message or handle as needed
+      throw Exception('Failed to login');
     }
   }
 
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
-  // Future sign_in() async {
-  //   String url = "";
-  //   final respone = await http.post(Uri.parse(url),
-  //       body: {'username': username.text, 'password': password.text});
-  //   var data = json.decode(response.body);
-  //   print(data);
-  //   if (data == "Error") {
-  //     Navigator.pushNamed(context, 'loginpage');
-  //   } else {
-  //     Navigator.pushNamed(context, 'homepage');
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -130,42 +83,33 @@ class _loginState extends State<login> {
             color: const Color.fromARGB(255, 255, 255, 255),
             borderRadius: BorderRadius.circular(40)),
         width: MediaQuery.of(context).size.width / 1.4,
-        height: 250,
+        height: 300,
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            const Text("Username", //
+                style: TextStyle(fontSize: 20)),
             TextFormField(
-              controller: username,
-              decoration: const InputDecoration(
-                border: InputBorder.none,
-                hintText: 'Username',
-                filled: true,
-                fillColor: Color.fromRGBO(255, 229, 229, 1),
-              ),
-              style: const TextStyle(
-                fontSize: 24,
-              ),
+              validator:
+                  RequiredValidator(errorText: "Please fill something!!!"),
               onSaved: (username) {
                 print(username);
               },
+              controller: username,
             ),
-            Container(
-              height: 10,
-            ),
+            const Text("Password", //
+                style: TextStyle(fontSize: 20)),
             TextFormField(
-                controller: password,
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  labelText: 'Password',
-                  filled: true,
-                  fillColor: const Color.fromRGBO(255, 229, 229, 1),
-                ),
-                obscureText: true,
-                onSaved: (password) {
-                  print(password);
-                }),
+              validator:
+                  RequiredValidator(errorText: "Please fill something!!!"),
+              onSaved: (value) {
+                print(password);
+              },
+              controller: password,
+              obscureText: true,
+            ),
             ButtonTheme(
               height: 70,
               child: Container(
@@ -198,23 +142,35 @@ class _loginState extends State<login> {
                         // ignore: deprecated_member_use
                         child: ElevatedButton(
                           style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(Colors.black),
-                              shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.black),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(18.0),
-                              ))),
-                          onPressed: () {
-                            if (loginUser() == "error") {
-                              print("error");
-                            } else {
-                              loginUser;
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const Homepage()),
-                              );
+                              ),
+                            ),
+                          ),
+                          onPressed: () async {
+                            try {
+                              final response = await loginUser(
+                                  username.text.trim(), password.text.trim());
+                              // Handle the response as needed, e.g., check for successful login
+                              if (response["success"] == true) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const Homepage()),
+                                );
+                                print("success");
+                              } else {
+                                print('Login failed');
+                                print(username.text);
+                                print(password.text);
+                              }
+                            } catch (e) {
+                              // Handle exceptions or errors during login
+                              print('Exception occurred: $e');
                             }
                           },
                           child: const Text("Login",
