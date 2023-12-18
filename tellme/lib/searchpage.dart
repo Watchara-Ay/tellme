@@ -26,26 +26,40 @@ class _Searchpage extends State<Searchpage> {
     }
   }
 
-  String sortBy = 'Energy'; // Default sort by Energy
+  String sortBy = 'Energy';
+  bool ascendingOrder = true;
 
   // Function to sort search results based on selected criteria
   void sortResults(String criteria) {
     setState(() {
       sortBy = criteria;
-      // Sort the search results based on the selected criteria
+      // Toggle between ascending and descending order
+      ascendingOrder = !ascendingOrder;
+
+      // Sort the search results based on the selected criteria and direction
       switch (criteria) {
         case 'Energy':
-          searchResults.sort((a, b) => a['Energy'].compareTo(b['Energy']));
+          searchResults.sort((a, b) => ascendingOrder
+              ? double.parse(a['Energy']).compareTo(double.parse(b['Energy']))
+              : double.parse(b['Energy']).compareTo(double.parse(a['Energy'])));
           break;
         case 'Fat':
-          searchResults.sort((a, b) => a['Fat'].compareTo(b['Fat']));
+          searchResults.sort((a, b) => ascendingOrder
+              ? double.parse(a['Fat']).compareTo(double.parse(b['Fat']))
+              : double.parse(b['Fat']).compareTo(double.parse(a['Fat'])));
           break;
         case 'Carbohydrate':
-          searchResults
-              .sort((a, b) => a['Carbohydrate'].compareTo(b['Carbohydrate']));
+          searchResults.sort((a, b) => ascendingOrder
+              ? double.parse(a['Carbohydrate'])
+                  .compareTo(double.parse(b['Carbohydrate']))
+              : double.parse(b['Carbohydrate'])
+                  .compareTo(double.parse(a['Carbohydrate'])));
           break;
         case 'Protein':
-          searchResults.sort((a, b) => a['Protein'].compareTo(b['Protein']));
+          searchResults.sort((a, b) => ascendingOrder
+              ? double.parse(a['Protein']).compareTo(double.parse(b['Protein']))
+              : double.parse(b['Protein'])
+                  .compareTo(double.parse(a['Protein'])));
           break;
         default:
           break;
