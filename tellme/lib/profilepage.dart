@@ -12,6 +12,8 @@ import 'package:tellme/register.dart';
 import 'package:http/http.dart' as http;
 
 class Profilepage extends StatelessWidget {
+  var $username;
+
   Profilepage({Key? key}) : super(key: key);
   late String username;
   late String password;
@@ -265,7 +267,9 @@ class Profilepage extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => SelectCatalog()),
+                                      builder: (context) => SelectCatalog(
+                                            username: $username,
+                                          )),
                                 );
                               },
                               child: const Text('Select'),

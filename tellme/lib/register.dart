@@ -60,6 +60,7 @@ class _Register extends State<Register> {
   String goal = listGoal.first;
   String eL = listEL.first;
   String selectedGoal = 'Fit';
+  String preference = selectedCatalog ?? 'default_preference';
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -87,7 +88,7 @@ class _Register extends State<Register> {
       'goal': selectedGoal,
       'exercise_level': eL,
       'isPregnent': isPregnant ? "1" : "0",
-      'preference': selectedCatalog
+      'preference': preference
     });
 
     var data = json.decode(respone.body);
@@ -402,12 +403,16 @@ class _Register extends State<Register> {
                                               ))),
                                           onPressed: () {
                                             sign_up();
+
                                             Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      SelectCatalog(),
-                                                ));
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SelectCatalog(
+                                                        username:
+                                                            username.text),
+                                              ),
+                                            );
                                           },
                                           child: const Text("Next",
                                               style: TextStyle(fontSize: 15)),

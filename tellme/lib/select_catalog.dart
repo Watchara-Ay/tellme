@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:tellme/homepage.dart';
@@ -14,7 +16,9 @@ class RadioModel {
 String? selectedCatalog;
 
 class SelectCatalog extends StatefulWidget {
-  SelectCatalog({Key? key}) : super(key: key);
+  final String username;
+
+  const SelectCatalog({Key? key, required this.username}) : super(key: key);
 
   @override
   _SelectCatalogState createState() => _SelectCatalogState();
@@ -22,29 +26,17 @@ class SelectCatalog extends StatefulWidget {
 
 class _SelectCatalogState extends State<SelectCatalog> {
   late List<RadioModel> radioItems;
-  Person person = Person();
+  String selectedPreference = '';
 
-  Future<void> updateUserPreferences(String username, String preference) async {
-    var url =
-        'http://127.0.0.1:8000/selectedCat.php'; // Replace with your PHP endpoint URL
+  Future selectPreference(String username, String preference) async {
+    String url = "http://127.0.0.1:8000/selectedCat.php";
+    final response = await http.post(Uri.parse(url), body: {
+      'username': username,
+      'preference': selectedPreference,
+    });
 
-    try {
-      var response = await http.post(
-        Uri.parse(url),
-        body: {
-          'username': person.uname,
-          'preference': preference,
-        },
-      );
-
-      if (response.statusCode == 200) {
-        print('Preferences updated successfully');
-      } else {
-        print('Failed to update preferences: ${response.reasonPhrase}');
-      }
-    } catch (e) {
-      print('Exception while updating preferences: $e');
-    }
+    var data = json.decode(response.body);
+    print(data); // Use the response data as needed in your app
   }
 
   @override
@@ -90,8 +82,8 @@ class _SelectCatalogState extends State<SelectCatalog> {
                 padding: const EdgeInsets.all(16.0),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  crossAxisSpacing: 50,
-                  mainAxisSpacing: 50,
+                  crossAxisSpacing: 1,
+                  mainAxisSpacing: 1,
                 ),
                 itemCount: radioItems.length,
                 itemBuilder: (context, index) {
@@ -108,22 +100,22 @@ class _SelectCatalogState extends State<SelectCatalog> {
                       children: <Widget>[
                         Image.asset(
                           radioItems[index].imagePath,
-                          width: 80,
-                          height: 80,
+                          width: 200,
+                          height: 200,
                         ),
                         Radio(
                           value: radioItems[index].buttonText,
-                          groupValue: 'selectedValue',
+                          groupValue: selectedPreference,
                           onChanged: (String? value) {
                             setState(() {
                               radioItems.forEach(
                                   (element) => element.isSelected = false);
                               radioItems[index].isSelected = true;
-                              selectedCatalog = radioItems[index].buttonText;
+                              selectedPreference = radioItems[index].buttonText;
                             });
-                            print(selectedCatalog);
-                            updateUserPreferences(
-                                person.uname, selectedCatalog.toString());
+                            print(selectedPreference);
+                            selectPreference(
+                                widget.username, selectedPreference);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -140,12 +132,19 @@ class _SelectCatalogState extends State<SelectCatalog> {
             ),
           ),
           Container(
-            width: MediaQuery.of(context).size.width,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-            ),
-            child: BackButton(),
-          ),
+              width: MediaQuery.of(context).size.width,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+              ),
+              child: Column(
+                children: [
+                  Text(
+                    'Welcome, ${widget.username}',
+                    style: TextStyle(color: Colors.lightGreen, fontSize: 24.0),
+                  ),
+                  BackButton(),
+                ],
+              )),
         ],
       ),
     );

@@ -2,9 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:intl/intl.dart';
-import 'package:tellme/Components/recom.dart';
 import 'package:tellme/profilepage.dart';
-import 'package:tellme/select_catalog.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -75,8 +73,8 @@ class _Modifypage extends State<Modifypage> {
     }
   }
 
-  Future sign_up() async {
-    String url = "http://127.0.0.1:8000/register.php";
+  Future update() async {
+    String url = "http://127.0.0.1:8000/modify.php";
     final respone = await http.post(Uri.parse(url), body: {
       'username': username.text,
       'password': password.text,
@@ -88,7 +86,6 @@ class _Modifypage extends State<Modifypage> {
       'goal': selectedGoal,
       'exercise_level': eL,
       'isPregnent': isPregnant ? "1" : "0",
-      'preference': selectedCatalog
     });
 
     var data = json.decode(respone.body);
@@ -401,6 +398,7 @@ class _Modifypage extends State<Modifypage> {
                                                     BorderRadius.circular(18.0),
                                               ))),
                                           onPressed: () {
+                                            update();
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
