@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:tellme/Modifypage.dart';
 import 'package:tellme/calculateinfo.dart';
@@ -5,9 +7,39 @@ import 'package:tellme/historypage.dart';
 import 'package:tellme/userdish.dart';
 import 'package:tellme/loginpage.dart';
 import 'package:tellme/select_catalog.dart';
+import 'package:tellme/register.dart';
+import 'package:http/http.dart' as http;
 
 class Profilepage extends StatelessWidget {
-  const Profilepage({Key? key}) : super(key: key);
+  Profilepage({Key? key}) : super(key: key);
+
+  Person person = Person();
+  late String password;
+
+  void initState() {
+    // Call function to fetch user details when the widget is initialized
+    getCurrentUserDetails();
+  }
+
+  Future<void> getCurrentUserDetails() async {
+    // Make a GET request to your backend endpoint
+    final response =
+        await http.get(Uri.parse('http://127.0.0.1:8000/profile.php'));
+
+    if (response.statusCode == 200) {
+      // If the request is successful, parse the JSON response
+      final userData = json.decode(response.body);
+
+      String username = userData[person.uname];
+      String height = userData['height'];
+
+      // Update the UI or handle the data as needed
+      print('username: $username, height: $height');
+    } else {
+      // Handle any errors that occur during the request
+      print('Failed to load user data. Error ${response.statusCode}');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +132,7 @@ class Profilepage extends StatelessWidget {
                           children: const [
                             SizedBox(width: 10),
                             Text(
-                              'Username',
+                              'username:',
                               style: TextStyle(fontSize: 20),
                             ),
                           ],
@@ -233,8 +265,7 @@ class Profilepage extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          const select_catalog()),
+                                      builder: (context) => SelectCatalog()),
                                 );
                               },
                               child: const Text('Select'),

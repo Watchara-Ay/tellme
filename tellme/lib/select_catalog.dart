@@ -1,231 +1,150 @@
-// ignore_for_file: camel_case_types
-
 import 'package:flutter/material.dart';
-import 'package:tellme/Components/button.dart';
+import 'package:http/http.dart' as http;
 import 'package:tellme/homepage.dart';
 
-class select_catalog extends StatelessWidget {
-  const select_catalog({Key? key}) : super(key: key);
+class RadioModel {
+  bool isSelected;
+  final String buttonText;
+  final String imagePath;
+
+  RadioModel(this.isSelected, this.buttonText, this.imagePath);
+}
+
+String? selectedCatalog;
+
+class SelectCatalog extends StatefulWidget {
+  SelectCatalog({Key? key}) : super(key: key);
+
+  @override
+  _SelectCatalogState createState() => _SelectCatalogState();
+}
+
+class _SelectCatalogState extends State<SelectCatalog> {
+  late List<RadioModel> radioItems;
+
+  Future<void> updateUserPreferences(int username, String preference) async {
+    var url =
+        'http://127.0.0.1:8000/selectedCat.php'; // Replace with your PHP endpoint URL
+
+    try {
+      var response = await http.post(
+        Uri.parse(url),
+        body: {
+          'username': username.toString(),
+          'preference': preference,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        print('Preferences updated successfully');
+      } else {
+        print('Failed to update preferences: ${response.reasonPhrase}');
+      }
+    } catch (e) {
+      print('Exception while updating preferences: $e');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    radioItems = [
+      RadioModel(false, 'Vegetables', 'assets/images/Veg.png'),
+      RadioModel(false, 'Fruits', 'assets/images/Fruits.png'),
+      RadioModel(false, 'Grains & Beans & Nuts', 'assets/images/Gain.png'),
+      RadioModel(false, 'Meats & Poultry', 'assets/images/Meats.png'),
+      RadioModel(false, 'Fish and Seafood', 'assets/images/Seafood.png'),
+      RadioModel(false, 'Dairy', 'assets/images/Dairy.png'),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
-            child: SizedBox(
-      child: Column(
+      body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          const Text(
-            'Select catalog',
-            textAlign: TextAlign.left,
-            style: TextStyle(
-              fontSize: 36,
-              color: Colors.deepPurple,
-              fontWeight: FontWeight.w700,
+          const Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Text(
+              'Select catalog',
+              style: TextStyle(
+                fontSize: 34,
+                color: Colors.deepPurple,
+                fontWeight: FontWeight.w700,
+              ),
             ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(10.0),
           ),
           Expanded(
             child: Container(
               decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(40.0),
-                    topRight: Radius.circular(40.0),
-                  )),
-              child: Column(children: [
-                const SizedBox(
-                  height: 20,
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: const Radius.circular(40.0),
+                  topRight: Radius.circular(40.0),
                 ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 10,
-                    ),
-                    SizedBox.fromSize(
-                      size: const Size(200, 200), // button width and height
-                      child: ClipOval(
-                        child: Material(
-                          color: Colors.transparent, // button color
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Homepage(),
-                                  ));
-                            }, // button pressed
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Image.asset('assets/images/Veg.png',
-                                    fit: BoxFit.fill),
-                                const Text("Vegetables"), // text
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 15,
-                    ),
-                    SizedBox.fromSize(
-                      size: const Size(200, 200), // button width and height
-                      child: ClipOval(
-                        child: Material(
-                          color: Colors.transparent, // button color
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Homepage(),
-                                  ));
-                            }, // button pressed
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Image.asset('assets/images/Fruits.png',
-                                    fit: BoxFit.fill),
-                                const Text("Fruits"), // text
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+              ),
+              child: GridView.builder(
+                padding: const EdgeInsets.all(16.0),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 50,
+                  mainAxisSpacing: 50,
                 ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 10,
-                    ),
-                    SizedBox.fromSize(
-                      size: const Size(200, 200), // button width and height
-                      child: ClipOval(
-                        child: Material(
-                          color: Colors.transparent, // button color
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Homepage(),
-                                  ));
-                            }, // button pressed
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Image.asset('assets/images/Gain.png',
-                                    fit: BoxFit.fill),
-                                const Text("Gain&Beans&Nuts"), // text
-                              ],
-                            ),
-                          ),
+                itemCount: radioItems.length,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () {
+                      setState(() {
+                        radioItems
+                            .forEach((element) => element.isSelected = false);
+                        radioItems[index].isSelected = true;
+                      });
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Image.asset(
+                          radioItems[index].imagePath,
+                          width: 80,
+                          height: 80,
                         ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 15,
-                    ),
-                    SizedBox.fromSize(
-                      size: const Size(200, 200), // button width and height
-                      child: ClipOval(
-                        child: Material(
-                          color: Colors.transparent, // button color
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Homepage(),
-                                  ));
-                            }, // button pressed
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Image.asset('assets/images/Meats.png',
-                                    fit: BoxFit.fill),
-                                const Text("Meats&Poultry"), // text
-                              ],
-                            ),
-                          ),
+                        Radio(
+                          value: radioItems[index].buttonText,
+                          groupValue: 'selectedValue',
+                          onChanged: (String? value) {
+                            setState(() {
+                              radioItems.forEach(
+                                  (element) => element.isSelected = false);
+                              radioItems[index].isSelected = true;
+                              selectedCatalog = radioItems[index].buttonText;
+                            });
+                            print(selectedCatalog);
+                            updateUserPreferences;
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Homepage(),
+                                ));
+                            print("success");
+                          },
                         ),
-                      ),
+                      ],
                     ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 10,
-                    ),
-                    SizedBox.fromSize(
-                      size: const Size(200, 200), // button width and height
-                      child: ClipOval(
-                        child: Material(
-                          color: Colors.transparent, // button color
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Homepage(),
-                                  ));
-                            }, // button pressed
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Image.asset('assets/images/Seafood.png',
-                                    fit: BoxFit.fill),
-                                const Text("Fish and Seafood"), // text
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 15,
-                    ),
-                    SizedBox.fromSize(
-                      size: const Size(200, 200), // button width and height
-                      child: ClipOval(
-                        child: Material(
-                          color: Colors.transparent, // button color
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Homepage(),
-                                  ));
-                            }, // button pressed
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Image.asset('assets/images/Dairy.png',
-                                    fit: BoxFit.fill),
-                                const Text("Dairy"), // text
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const backbutton(),
-              ]),
+                  );
+                },
+              ),
             ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+            ),
+            child: BackButton(),
           ),
         ],
       ),
-    )));
+    );
   }
 }

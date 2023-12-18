@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:intl/intl.dart';
+import 'package:tellme/Components/recom.dart';
 import 'package:tellme/select_catalog.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -17,6 +18,16 @@ const List<String> listEL = <String>[
   'Extremely activity'
 ];
 
+class Person {
+  String _username = '';
+  String get uname => _username;
+  set uname(String value) {
+    if (value.isNotEmpty) {
+      _username = value;
+    }
+  }
+}
+
 class Register extends StatefulWidget {
   const Register({Key? key, required this.title}) : super(key: key);
 
@@ -28,6 +39,7 @@ class Register extends StatefulWidget {
 
 class _Register extends State<Register> {
   final formKey = GlobalKey<FormState>();
+  final Person person = Person();
 
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
@@ -75,6 +87,7 @@ class _Register extends State<Register> {
       'goal': selectedGoal,
       'exercise_level': eL,
       'isPregnent': isPregnant ? "1" : "0",
+      'preference': selectedCatalog
     });
 
     var data = json.decode(respone.body);
@@ -164,6 +177,7 @@ class _Register extends State<Register> {
                                       errorText: "Please fill something!!!"),
                                   onSaved: (username) {
                                     print(username);
+                                    person.uname = username.toString();
                                   },
                                   controller: username,
                                   maxLength: 15,
@@ -392,9 +406,8 @@ class _Register extends State<Register> {
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
-                                                      const select_catalog(),
+                                                      SelectCatalog(),
                                                 ));
-                                            clearFormFields();
                                           },
                                           child: const Text("Next",
                                               style: TextStyle(fontSize: 15)),
