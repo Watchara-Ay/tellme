@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+
 import 'package:tellme/Modifypage.dart';
 import 'package:tellme/calculateinfo.dart';
 import 'package:tellme/historypage.dart';
@@ -12,8 +13,7 @@ import 'package:http/http.dart' as http;
 
 class Profilepage extends StatelessWidget {
   Profilepage({Key? key}) : super(key: key);
-
-  Person person = Person();
+  late String username;
   late String password;
 
   void initState() {
@@ -30,7 +30,7 @@ class Profilepage extends StatelessWidget {
       // If the request is successful, parse the JSON response
       final userData = json.decode(response.body);
 
-      String username = userData[person.uname];
+      String username = userData['username'];
       String height = userData['height'];
 
       // Update the UI or handle the data as needed

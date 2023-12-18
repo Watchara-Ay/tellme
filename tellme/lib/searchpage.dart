@@ -130,28 +130,28 @@ class _Searchpage extends State<Searchpage> {
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: const Color.fromRGBO(255, 229, 229, 100),
+                        primary: Color.fromARGB(255, 255, 156, 156),
                       ),
                       onPressed: () => sortResults('Energy'),
                       child: const Text('Energy'),
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: const Color.fromRGBO(255, 229, 229, 100),
+                        primary: Color.fromARGB(255, 255, 156, 156),
                       ),
                       onPressed: () => sortResults('Fat'),
                       child: const Text('Fat'),
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: const Color.fromRGBO(255, 229, 229, 100),
+                        primary: Color.fromARGB(255, 255, 156, 156),
                       ),
                       onPressed: () => sortResults('Carbohydrate'),
                       child: const Text('Carbohydrate'),
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: const Color.fromRGBO(255, 229, 229, 100),
+                        primary: Color.fromARGB(255, 255, 156, 156),
                       ),
                       onPressed: () => sortResults('Protein'),
                       child: const Text('Protein'),
@@ -186,7 +186,8 @@ class _Searchpage extends State<Searchpage> {
                                         );
                                       },
                                       style: ElevatedButton.styleFrom(
-                                        primary: Colors.greenAccent,
+                                        primary:
+                                            Color.fromARGB(255, 171, 255, 214),
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(18.0),
