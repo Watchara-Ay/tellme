@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:tellme/dashboard.dart';
 import 'package:tellme/monthpage.dart';
 import 'package:http/http.dart' as http;
 
@@ -212,7 +211,7 @@ class HistoryPageState extends State<Historypage> {
                                                               10),
                                                       decoration: BoxDecoration(
                                                         color: const Color
-                                                                .fromRGBO(
+                                                            .fromRGBO(
                                                             255, 212, 212, 1),
                                                         borderRadius:
                                                             BorderRadius
@@ -615,33 +614,6 @@ class HistoryPageState extends State<Historypage> {
                                                         fontSize: 15)),
                                               ),
                                             ),
-                                            Expanded(
-                                                child: Row(
-                                              children: const [Text("")],
-                                            )),
-                                            TextButton(
-                                              style: TextButton.styleFrom(
-                                                textStyle: const TextStyle(
-                                                  fontSize: 20,
-                                                  color: Color.fromRGBO(
-                                                      255, 0, 0, 1),
-                                                ),
-                                              ),
-                                              onPressed: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        Dashboard(
-                                                            username: username),
-                                                  ), // Closing parenthesis was missing here
-                                                );
-                                              },
-                                              child: const Text('Dashboard'),
-                                            ),
-                                            const SizedBox(
-                                              width: 20,
-                                            )
                                           ],
                                         ),
                                       ),
