@@ -8,43 +8,64 @@ import 'package:tellme/historypage.dart';
 import 'package:tellme/userdish.dart';
 import 'package:tellme/loginpage.dart';
 import 'package:tellme/select_catalog.dart';
-import 'package:tellme/register.dart';
 import 'package:http/http.dart' as http;
 
-class Profilepage extends StatelessWidget {
-  var $username;
+class Profilepage extends StatefulWidget {
+  final String username;
 
-  Profilepage({Key? key}) : super(key: key);
-  late String username;
-  late String password;
+  const Profilepage({Key? key, required this.username}) : super(key: key);
 
+  @override
+  _ProfilepageState createState() => _ProfilepageState();
+}
+
+class _ProfilepageState extends State<Profilepage> {
+  late Future<Map<String, dynamic>> userData;
+
+  @override
   void initState() {
-    // Call function to fetch user details when the widget is initialized
-    getCurrentUserDetails();
+    super.initState();
+    userData = fetchUserData(widget.username);
   }
 
-  Future<void> getCurrentUserDetails() async {
-    // Make a GET request to your backend endpoint
-    final response =
-        await http.get(Uri.parse('http://127.0.0.1:8000/profile.php'));
+  Future<Map<String, dynamic>> fetchUserData(String username) async {
+    final apiUrl = 'http://127.0.0.1:8000/profile.php?username=$username';
 
-    if (response.statusCode == 200) {
-      // If the request is successful, parse the JSON response
-      final userData = json.decode(response.body);
+    try {
+      final response = await http.get(Uri.parse(apiUrl));
 
-      String username = userData['username'];
-      String height = userData['height'];
-
-      // Update the UI or handle the data as needed
-      print('username: $username, height: $height');
-    } else {
-      // Handle any errors that occur during the request
-      print('Failed to load user data. Error ${response.statusCode}');
+      if (response.statusCode == 200) {
+        return json.decode(response.body);
+      } else {
+        throw Exception('Failed to load data');
+      }
+    } catch (e) {
+      throw Exception('Exception occurred: $e');
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      body: FutureBuilder<Map<String, dynamic>>(
+        future: userData,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (snapshot.hasData) {
+            final userData = snapshot.data!;
+            return buildProfileUI(userData);
+          } else {
+            return const Center(child: Text('No data available '));
+          }
+        },
+      ),
+    );
+  }
+
+  Widget buildProfileUI(Map<String, dynamic> userData) {
     return Scaffold(
         body: Center(
             child: SizedBox(
@@ -54,7 +75,6 @@ class Profilepage extends StatelessWidget {
         children: <Widget>[
           const Text(
             'Profile',
-            textAlign: TextAlign.left,
             style: TextStyle(
               fontSize: 36,
               color: Colors.deepPurple,
@@ -88,26 +108,29 @@ class Profilepage extends StatelessWidget {
                           style: TextButton.styleFrom(
                             textStyle: const TextStyle(
                               fontSize: 20,
-                              color: Color.fromRGBO(255, 0, 0, 1),
+                              color: Color.fromRGBO(255, 172, 194, 1),
                             ),
                           ),
                           onPressed: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const Historypage()),
+                                builder: (context) =>
+                                    Historypage(username: widget.username),
+                              ),
                             );
                           },
                           child: const Text('History'),
                         ),
-                        Container(
-                          width: MediaQuery.of(context).size.width / 1.8,
-                        ),
+                        Expanded(
+                            child: Row(
+                          children: const [Text("")],
+                        )),
                         TextButton(
                           style: TextButton.styleFrom(
                             textStyle: const TextStyle(
                               fontSize: 20,
-                              color: Color.fromRGBO(255, 0, 0, 1),
+                              color: Color.fromRGBO(255, 212, 212, 1),
                             ),
                           ),
                           onPressed: () {
@@ -119,6 +142,9 @@ class Profilepage extends StatelessWidget {
                           },
                           child: const Text('Users dish'),
                         ),
+                        const SizedBox(
+                          width: 20,
+                        )
                       ],
                     ),
                   ),
@@ -126,71 +152,170 @@ class Profilepage extends StatelessWidget {
                     width: MediaQuery.of(context).size.width / 1.1,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15.0),
-                      color: const Color.fromARGB(255, 255, 171, 182),
+                      color: const Color.fromARGB(255, 255, 200, 207),
                     ),
                     child: Column(
                       children: [
                         Row(
-                          children: const [
-                            SizedBox(width: 10),
-                            Text(
-                              'username:',
+                          children: [
+                            const SizedBox(width: 10),
+                            const Text(
+                              'username: ',
                               style: TextStyle(fontSize: 20),
+                            ),
+                            Expanded(
+                                child: Row(
+                              children: const [Text("")],
+                            )),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 1.5,
+                              child: Text(
+                                '${userData['username']}',
+                                style: const TextStyle(fontSize: 20),
+                              ),
                             ),
                           ],
                         ),
                         Row(
-                          children: const [
-                            SizedBox(width: 10),
-                            Text(
-                              'Age',
+                          children: [
+                            const SizedBox(width: 10),
+                            const Text(
+                              'Age: ',
                               style: TextStyle(fontSize: 20),
+                            ),
+                            Expanded(
+                                child: Row(
+                              children: const [Text("")],
+                            )),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 1.5,
+                              child: Text(
+                                '${userData['Age']} years old',
+                                style: const TextStyle(fontSize: 20),
+                              ),
                             ),
                           ],
                         ),
                         Row(
-                          children: const [
-                            SizedBox(width: 10),
-                            Text(
-                              'Height',
+                          children: [
+                            const SizedBox(width: 10),
+                            const Text(
+                              'Height: ',
                               style: TextStyle(fontSize: 20),
+                            ),
+                            Expanded(
+                                child: Row(
+                              children: const [Text("")],
+                            )),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 1.5,
+                              child: Text(
+                                '${userData['height']} Cm',
+                                style: const TextStyle(fontSize: 20),
+                              ),
                             ),
                           ],
                         ),
                         Row(
-                          children: const [
-                            SizedBox(width: 10),
-                            Text(
-                              'Weight',
+                          children: [
+                            const SizedBox(width: 10),
+                            const Text(
+                              'Weight: ',
                               style: TextStyle(fontSize: 20),
+                            ),
+                            Expanded(
+                                child: Row(
+                              children: const [Text("")],
+                            )),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 1.5,
+                              child: Text(
+                                '${userData['weight']} Kg',
+                                style: const TextStyle(fontSize: 20),
+                              ),
                             ),
                           ],
                         ),
                         Row(
-                          children: const [
-                            SizedBox(width: 10),
-                            Text(
-                              'Target',
+                          children: [
+                            const SizedBox(width: 10),
+                            const Text(
+                              'Goal: ',
                               style: TextStyle(fontSize: 20),
+                            ),
+                            Expanded(
+                                child: Row(
+                              children: const [Text("")],
+                            )),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 1.5,
+                              child: Text(
+                                '${userData['goal']}',
+                                style: const TextStyle(fontSize: 20),
+                              ),
                             ),
                           ],
                         ),
                         Row(
-                          children: const [
-                            SizedBox(width: 10),
-                            Text(
-                              'Gender',
+                          children: [
+                            const SizedBox(width: 10),
+                            const Text(
+                              'Gender: ',
                               style: TextStyle(fontSize: 20),
+                            ),
+                            Expanded(
+                                child: Row(
+                              children: const [Text("")],
+                            )),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 1.5,
+                              child: Text(
+                                '${userData['gender']}',
+                                style: const TextStyle(fontSize: 20),
+                              ),
                             ),
                           ],
                         ),
                         Row(
-                          children: const [
-                            SizedBox(width: 10),
-                            Text(
-                              'Exercise level',
+                          children: [
+                            const SizedBox(width: 10),
+                            const Text(
+                              'Exercise Level: ',
                               style: TextStyle(fontSize: 20),
                             ),
+                            Expanded(
+                                child: Row(
+                              children: const [Text("")],
+                            )),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 1.5,
+                              child: Text(
+                                '${userData['exercise_level']}',
+                                style: const TextStyle(fontSize: 20),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            if (userData["gender"] == "Female") ...[
+                              const SizedBox(width: 10),
+                              const Text(
+                                'isPregnant: ',
+                                style: TextStyle(fontSize: 20),
+                              ),
+                              Expanded(
+                                  child: Row(
+                                children: const [Text("")],
+                              )),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 1.5,
+                                child: Text(
+                                  '${userData['isPregnent']}',
+                                  style: const TextStyle(fontSize: 20),
+                                ),
+                              ),
+                            ]
                           ],
                         ),
                       ],
@@ -249,31 +374,37 @@ class Profilepage extends StatelessWidget {
                             Container(
                               width: MediaQuery.of(context).size.width / 20,
                             ),
-                            const Text(
-                              'Meat and Paultry',
-                              style: TextStyle(fontSize: 24),
+                            Text(
+                              '${userData['preference']}',
+                              style: const TextStyle(fontSize: 24),
                             ),
-                            Container(
-                              width: MediaQuery.of(context).size.width / 2.35,
-                            ),
-                            TextButton(
-                              style: TextButton.styleFrom(
-                                textStyle: const TextStyle(
-                                  fontSize: 20,
-                                  color: Color.fromRGBO(255, 0, 0, 1),
+                            Expanded(
+                              child: Align(
+                                alignment: Alignment.centerRight,
+                                child: TextButton(
+                                  style: TextButton.styleFrom(
+                                    textStyle: const TextStyle(
+                                      fontSize: 20,
+                                      color: Color.fromRGBO(255, 0, 0, 1),
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => SelectCatalog(
+                                          username: widget.username,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: const Text('Select'),
                                 ),
                               ),
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SelectCatalog(
-                                            username: $username,
-                                          )),
-                                );
-                              },
-                              child: const Text('Select'),
                             ),
+                            const SizedBox(
+                              width: 20,
+                            )
                           ],
                         ),
                       ),
@@ -287,9 +418,7 @@ class Profilepage extends StatelessWidget {
                               'Calories intake',
                               style: TextStyle(fontSize: 24),
                             ),
-                            Container(
-                              width: MediaQuery.of(context).size.width / 2,
-                            ),
+                            const Spacer(), // This will occupy the available space
                             TextButton(
                               style: TextButton.styleFrom(
                                 textStyle: const TextStyle(
@@ -307,51 +436,111 @@ class Profilepage extends StatelessWidget {
                               },
                               child: const Text('Info'),
                             ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        child: Row(
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width / 20,
-                            ),
-                            const Text(
-                              'BMR:',
-                              style: TextStyle(fontSize: 24),
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width / 2.75,
-                            ),
-                            const Text(
-                              '1,771.25       Cal/day',
-                              style: TextStyle(fontSize: 24),
+                            const SizedBox(
+                              width: 20,
                             ),
                           ],
                         ),
                       ),
                       SizedBox(
                         child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width / 20,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 2,
+                              child: Row(
+                                children: const [
+                                  SizedBox(
+                                    width: 25,
+                                  ),
+                                  Text(
+                                    'BMR:',
+                                    style: TextStyle(fontSize: 24),
+                                  ),
+                                ],
+                              ),
                             ),
-                            const Text(
-                              'TDEE:',
-                              style: TextStyle(fontSize: 24),
+                            Expanded(
+                              child: Text(
+                                '${userData['bmrPoint']}    Cal/day',
+                                textAlign: TextAlign.end,
+                                style: const TextStyle(fontSize: 24),
+                              ),
                             ),
-                            Container(
-                              width: MediaQuery.of(context).size.width / 2.8,
-                            ),
-                            const Text(
-                              '1,771.25       Cal/day',
-                              style: TextStyle(fontSize: 24),
+                            const SizedBox(
+                              width: 25,
                             ),
                           ],
                         ),
                       ),
+                      SizedBox(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 2,
+                              child: Row(
+                                children: const [
+                                  SizedBox(
+                                    width: 25,
+                                  ),
+                                  Text(
+                                    'TDEE:',
+                                    style: TextStyle(fontSize: 24),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                '${userData['tdeePoint']}    Cal/day',
+                                textAlign: TextAlign.end,
+                                style: const TextStyle(fontSize: 24),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 25,
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 2,
+                              child: Row(
+                                children: const [
+                                  SizedBox(
+                                    width: 25,
+                                  ),
+                                  Text(
+                                    'Goal Point:',
+                                    style: TextStyle(fontSize: 24),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                '${userData['goalPoint']}    Cal/day',
+                                textAlign: TextAlign.end,
+                                style: const TextStyle(fontSize: 24),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 25,
+                            ),
+                          ],
+                        ),
+                      )
                     ],
                   ),
+                  Expanded(
+                      child: Column(
+                    children: const [Text("")],
+                  )),
                   const Profilebutton(),
                 ])),
           )
@@ -371,10 +560,10 @@ class Profilebutton extends StatelessWidget {
       child: ButtonTheme(
         height: 70,
         child: Container(
-          padding: EdgeInsets.zero, // ADD THIS LINE
+          padding: EdgeInsets.zero,
           child: SizedBox(
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(
                   margin: const EdgeInsets.all(10),
@@ -382,32 +571,33 @@ class Profilebutton extends StatelessWidget {
                   // ignore: deprecated_member_use
                   child: ElevatedButton(
                     style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.black),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
+                      backgroundColor: MaterialStateProperty.all(Colors.black),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0),
-                        ))),
+                        ),
+                      ),
+                    ),
                     onPressed: () {
                       Navigator.pop(context);
                     },
                     child: const Text("Back", style: TextStyle(fontSize: 15)),
                   ),
                 ),
+                const Spacer(), // Adds space between buttons
                 Container(
                   margin: const EdgeInsets.all(10),
                   height: 50.0,
                   // ignore: deprecated_member_use
                   child: ElevatedButton(
                     style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.black),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
+                      backgroundColor: MaterialStateProperty.all(Colors.black),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0),
-                        ))),
+                        ),
+                      ),
+                    ),
                     onPressed: () {
                       Navigator.push(
                         context,

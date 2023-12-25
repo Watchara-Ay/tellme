@@ -15,7 +15,7 @@ class Monthpage extends StatefulWidget {
 class _Monthpage extends State<Monthpage> {
   DateTime selectedDate = DateTime.now();
 
-  Future<void> _selectDate(BuildContext context) async {
+  Future<void> selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,

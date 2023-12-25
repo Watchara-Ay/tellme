@@ -25,7 +25,7 @@ class Loginpage extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
             width: MediaQuery.of(context).size.width / 1.3,
             height: 300,
-            child: const login(),
+            child: const Login(),
           ),
           // TextField(
           //   obscureText: true,
@@ -40,14 +40,14 @@ class Loginpage extends StatelessWidget {
   }
 }
 
-class login extends StatefulWidget {
-  const login({Key? key}) : super(key: key);
+class Login extends StatefulWidget {
+  const Login({Key? key}) : super(key: key);
 
   @override
-  State<login> createState() => _loginState();
+  State<Login> createState() => LoginState();
 }
 
-class _loginState extends State<login> {
+class LoginState extends State<Login> {
   // ignore: use_key_in_widget_constructors
   final formKey = GlobalKey<FormState>();
 
@@ -94,9 +94,7 @@ class _loginState extends State<login> {
             TextFormField(
               validator:
                   RequiredValidator(errorText: "Please fill something!!!"),
-              onSaved: (username) {
-                print(username);
-              },
+              onSaved: (username) {},
               controller: username,
             ),
             const Text("Password", //
@@ -104,9 +102,7 @@ class _loginState extends State<login> {
             TextFormField(
               validator:
                   RequiredValidator(errorText: "Please fill something!!!"),
-              onSaved: (value) {
-                print(password);
-              },
+              onSaved: (value) {},
               controller: password,
               obscureText: true,
             ),
@@ -160,13 +156,15 @@ class _loginState extends State<login> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => const Homepage()),
+                                    builder: (context) => Homepage(
+                                        username: username.text,
+                                        selectedFood: 1),
+                                  ),
                                 );
+
                                 print("success");
                               } else {
                                 print('Login failed');
-                                print(username.text);
-                                print(password.text);
                               }
                             } catch (e) {
                               // Handle exceptions or errors during login

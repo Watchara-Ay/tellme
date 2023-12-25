@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:intl/intl.dart';
-import 'package:tellme/Components/recom.dart';
 import 'package:tellme/select_catalog.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -51,7 +50,7 @@ class _Register extends State<Register> {
   String selectedGoal = 'Fit';
   String preference = selectedCatalog ?? 'default_preference';
 
-  Future<void> _selectDate(BuildContext context) async {
+  Future<void> selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: date,
@@ -64,7 +63,7 @@ class _Register extends State<Register> {
     }
   }
 
-  Future sign_up() async {
+  Future Sign_up() async {
     String url = "http://127.0.0.1:8000/register.php";
     final respone = await http.post(Uri.parse(url), body: {
       'username': username.text,
@@ -116,13 +115,6 @@ class _Register extends State<Register> {
     List<String> goalspreg = ['Fit', 'Muscle gain'];
     List<String> selectedList =
         selectedGender == 'Female' && isPregnant == true ? goalspreg : goals;
-    List<String> eLs = [
-      'Sedentary',
-      'Light activity',
-      'Moderate activity',
-      'Very active',
-      'Extremely activity'
-    ];
 
     return Scaffold(
       body: Center(
@@ -158,94 +150,244 @@ class _Register extends State<Register> {
                       Form(
                         child: SingleChildScrollView(
                           child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                const Text("Username", //
-                                    style: TextStyle(fontSize: 20)),
-                                TextFormField(
-                                  validator: RequiredValidator(
-                                      errorText: "Please fill something!!!"),
-                                  onSaved: (username) {
-                                    print(username);
-                                  },
-                                  controller: username,
-                                  maxLength: 15,
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width / 1.4,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        const Color.fromRGBO(255, 172, 194, 1),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  child: TextFormField(
+                                    validator: RequiredValidator(
+                                        errorText: "Please fill something!!!"),
+                                    onSaved: (username) {},
+                                    controller: username,
+                                    maxLength: 15,
+                                    style: const TextStyle(color: Colors.black),
+                                    decoration: const InputDecoration(
+                                      contentPadding: EdgeInsets.symmetric(
+                                          vertical: 15.0, horizontal: 20.0),
+                                      border: InputBorder.none,
+                                      counterText: '',
+                                      labelText: 'Username',
+                                      labelStyle:
+                                          TextStyle(color: Colors.black),
+                                    ),
+                                  ),
                                 ),
-                                const Text("Password", //
-                                    style: TextStyle(fontSize: 20)),
-                                TextFormField(
-                                  validator: RequiredValidator(
-                                      errorText: "Please fill something!!!"),
-                                  onSaved: (value) {
-                                    print(password);
-                                  },
-                                  controller: password,
-                                  obscureText: true,
-                                  maxLength: 12,
+                                const SizedBox(
+                                  height: 10,
                                 ),
-                                const Text("Confirm password",
-                                    style: TextStyle(fontSize: 20)),
-                                TextFormField(
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return "Please fill something!!!";
-                                    } else if (value != password.text) {
-                                      return "Password not match";
-                                    } else {
-                                      return null;
-                                    }
-                                  },
-                                  onSaved: (username) {},
-                                  obscureText: true,
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width / 1.4,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        const Color.fromRGBO(255, 172, 194, 1),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  child: TextFormField(
+                                    validator: RequiredValidator(
+                                        errorText: "Please fill something!!!"),
+                                    onSaved: (value) {},
+                                    controller: password,
+                                    maxLength: 12,
+                                    obscureText: true,
+                                    style: const TextStyle(color: Colors.black),
+                                    decoration: const InputDecoration(
+                                      contentPadding: EdgeInsets.symmetric(
+                                          vertical: 15.0, horizontal: 20.0),
+                                      border: InputBorder.none,
+                                      counterText: '',
+                                      labelText: 'Password',
+                                      labelStyle:
+                                          TextStyle(color: Colors.black),
+                                    ),
+                                  ),
                                 ),
-                                TextField(
-                                  controller: dateofbirth,
-                                  decoration: const InputDecoration(
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width / 1.4,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        const Color.fromRGBO(255, 172, 194, 1),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  child: TextFormField(
+                                    validator: RequiredValidator(
+                                        errorText: "Please fill something!!!"),
+                                    onSaved: (value) {},
+                                    controller: confirm_password,
+                                    maxLength: 12,
+                                    obscureText: true,
+                                    style: const TextStyle(color: Colors.black),
+                                    decoration: const InputDecoration(
+                                      contentPadding: EdgeInsets.symmetric(
+                                          vertical: 15.0, horizontal: 20.0),
+                                      border: InputBorder.none,
+                                      counterText: '',
+                                      labelText: 'Confirm Password',
+                                      labelStyle:
+                                          TextStyle(color: Colors.black),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width / 1.4,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        const Color.fromRGBO(255, 172, 194, 1),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  child: TextField(
+                                    controller: dateofbirth,
+                                    decoration: const InputDecoration(
                                       labelText: "Date of birth",
                                       floatingLabelStyle:
-                                          TextStyle(fontSize: 10)),
-                                  readOnly:
-                                      true, //set it true, so that user will not able to edit text
-                                  onTap: () async {
-                                    DateTime? pickedDate = await showDatePicker(
+                                          TextStyle(fontSize: 10),
+                                    ),
+                                    readOnly: true,
+                                    onTap: () async {
+                                      DateTime? pickedDate =
+                                          await showDatePicker(
                                         context: context,
                                         initialDate: DateTime.now(),
                                         firstDate: DateTime(1900),
-                                        lastDate: DateTime.now());
-                                    if (pickedDate != null) {
-                                      print(pickedDate);
-                                      String formattedDate =
-                                          DateFormat('yyyy-MM-dd')
-                                              .format(pickedDate);
-                                      print(formattedDate);
-                                      setState(() {
-                                        selectedDate = formattedDate;
-                                        dateofbirth.text = formattedDate;
-                                      });
-                                    } else {
-                                      print("Date is not selected");
-                                    }
-                                  },
+                                        lastDate: DateTime.now(),
+                                      );
+                                      if (pickedDate != null) {
+                                        String formattedDate =
+                                            DateFormat('yyyy-MM-dd')
+                                                .format(pickedDate);
+
+                                        setState(() {
+                                          selectedDate = formattedDate;
+                                          dateofbirth.text = formattedDate;
+                                        });
+                                      } else {
+                                        print("Date is not selected");
+                                      }
+                                    },
+                                  ),
                                 ),
-                                const Text("Height", //
-                                    style: TextStyle(fontSize: 20)),
-                                TextFormField(
-                                  validator: RequiredValidator(
-                                      errorText: "Please fill something!!!"),
-                                  onSaved: (height) {
-                                    // profile.lastname = lastname!;
-                                  },
-                                  controller: height,
+                                const SizedBox(
+                                  height: 10,
                                 ),
-                                const Text("Weight", //
-                                    style: TextStyle(fontSize: 20)),
-                                TextFormField(
-                                  validator: RequiredValidator(
-                                      errorText: "Please fill something!!!"),
-                                  onSaved: (weight) {
-                                    // profile.lastname = lastname!;
-                                  },
-                                  controller: weight,
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                3,
+                                        decoration: BoxDecoration(
+                                          color: const Color.fromRGBO(
+                                              255, 172, 194, 1),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              flex: 2,
+                                              child: TextFormField(
+                                                validator: RequiredValidator(
+                                                    errorText:
+                                                        "Please fill something!!!"),
+                                                onSaved: (value) {},
+                                                controller: height,
+                                                keyboardType:
+                                                    TextInputType.number,
+                                                decoration: InputDecoration(
+                                                  labelText: "Height",
+                                                  suffixText: 'cm',
+                                                  suffixStyle: const TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                  contentPadding:
+                                                      const EdgeInsets
+                                                          .symmetric(
+                                                    vertical: 15.0,
+                                                    horizontal: 20.0,
+                                                  ),
+                                                  border: OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10.0),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 20,
+                                      ),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                3,
+                                        decoration: BoxDecoration(
+                                          color: const Color.fromRGBO(
+                                              255, 172, 194, 1),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              flex: 2,
+                                              child: TextFormField(
+                                                validator: RequiredValidator(
+                                                    errorText:
+                                                        "Please fill something!!!"),
+                                                onSaved: (weight) {},
+                                                controller: weight,
+                                                keyboardType:
+                                                    TextInputType.number,
+                                                decoration: InputDecoration(
+                                                  labelText: "Weight",
+                                                  suffixText: 'kg',
+                                                  suffixStyle: const TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                  contentPadding:
+                                                      const EdgeInsets
+                                                          .symmetric(
+                                                    vertical: 15.0,
+                                                    horizontal: 20.0,
+                                                  ),
+                                                  border: OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10.0),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -264,7 +406,6 @@ class _Register extends State<Register> {
                                           onChanged: (value) {
                                             setState(() {
                                               selectedGender = value.toString();
-                                              print(selectedGender);
                                             });
                                           },
                                         ),
@@ -275,7 +416,6 @@ class _Register extends State<Register> {
                                           onChanged: (value) {
                                             setState(() {
                                               selectedGender = value.toString();
-                                              print(selectedGender);
                                             });
                                           },
                                         ),
@@ -302,7 +442,6 @@ class _Register extends State<Register> {
                                             } else {
                                               isPregnant = false;
                                             }
-                                            print(isPregnant);
                                           },
                                         )
                                       ],
@@ -374,6 +513,10 @@ class _Register extends State<Register> {
                                               style: TextStyle(fontSize: 15)),
                                         ),
                                       ),
+                                      Expanded(
+                                          child: Column(
+                                        children: const [Text("")],
+                                      )),
                                       Container(
                                         margin: const EdgeInsets.all(10),
                                         height: 50.0,
@@ -390,7 +533,7 @@ class _Register extends State<Register> {
                                                     BorderRadius.circular(18.0),
                                               ))),
                                           onPressed: () {
-                                            sign_up();
+                                            Sign_up();
 
                                             Navigator.push(
                                               context,

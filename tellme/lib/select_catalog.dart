@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:tellme/homepage.dart';
-import 'package:tellme/register.dart';
 
 class RadioModel {
   bool isSelected;
@@ -74,7 +73,7 @@ class _SelectCatalogState extends State<SelectCatalog> {
               decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
-                  topLeft: const Radius.circular(40.0),
+                  topLeft: Radius.circular(40.0),
                   topRight: Radius.circular(40.0),
                 ),
               ),
@@ -100,8 +99,8 @@ class _SelectCatalogState extends State<SelectCatalog> {
                       children: <Widget>[
                         Image.asset(
                           radioItems[index].imagePath,
-                          width: 200,
-                          height: 200,
+                          width: 180,
+                          height: 180,
                         ),
                         Radio(
                           value: radioItems[index].buttonText,
@@ -113,14 +112,19 @@ class _SelectCatalogState extends State<SelectCatalog> {
                               radioItems[index].isSelected = true;
                               selectedPreference = radioItems[index].buttonText;
                             });
-                            print(selectedPreference);
+
                             selectPreference(
                                 widget.username, selectedPreference);
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => Homepage(),
-                                ));
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Homepage(
+                                  username: widget.username,
+                                  selectedFood: 1,
+                                ),
+                              ),
+                            );
+
                             print("success");
                           },
                         ),
@@ -140,9 +144,10 @@ class _SelectCatalogState extends State<SelectCatalog> {
                 children: [
                   Text(
                     'Welcome, ${widget.username}',
-                    style: TextStyle(color: Colors.lightGreen, fontSize: 24.0),
+                    style: const TextStyle(
+                        color: Colors.lightGreen, fontSize: 24.0),
                   ),
-                  BackButton(),
+                  const BackButton(),
                 ],
               )),
         ],

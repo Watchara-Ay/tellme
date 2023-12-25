@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tellme/nutrition.dart';
 
 class Calculateinfo extends StatelessWidget {
   const Calculateinfo({Key? key}) : super(key: key);
@@ -144,14 +143,11 @@ Extremely activity       BMR X 1.9''',
                       ),
                     ],
                   ),
-                  Column(
-                    children: const [
-                      SizedBox(
-                        height: 10, // <-- SEE HERE
-                      ),
-                      Infobutton(),
-                    ],
-                  )
+                  Expanded(
+                      child: Column(
+                    children: const [Text("")],
+                  )),
+                  const Infobutton(),
                 ])),
           )
         ],
@@ -192,30 +188,6 @@ class Infobutton extends StatelessWidget {
                       Navigator.pop(context);
                     },
                     child: const Text("Back", style: TextStyle(fontSize: 15)),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.all(10),
-                  height: 50.0,
-                  // ignore: deprecated_member_use
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.black),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                        ))),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Nutritioninfo()),
-                      );
-                    },
-                    child:
-                        const Text("Nutrition", style: TextStyle(fontSize: 15)),
                   ),
                 ),
               ],

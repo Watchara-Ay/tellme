@@ -2,8 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:tellme/Components/button.dart';
-import 'package:tellme/homepage.dart';
-import 'package:tellme/recommendedmenu.dart';
 
 class otheruserhistory extends StatelessWidget {
   const otheruserhistory({Key? key}) : super(key: key);
@@ -108,12 +106,12 @@ class otheruserhistory extends StatelessWidget {
                                             height: 50.0,
                                             child: ElevatedButton(
                                               onPressed: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          Homepage()),
-                                                );
+                                                // Navigator.push(
+                                                //   context,
+                                                //   MaterialPageRoute(
+                                                //       builder: (context) =>
+                                                //           Homepage()),
+                                                // );
                                               },
                                               child: const Text('Breakfast'),
                                               style: ElevatedButton.styleFrom(
@@ -130,12 +128,12 @@ class otheruserhistory extends StatelessWidget {
                                             height: 50.0,
                                             child: ElevatedButton(
                                               onPressed: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          Homepage()),
-                                                );
+                                                // Navigator.push(
+                                                //   context,
+                                                //   MaterialPageRoute(
+                                                //       builder: (context) =>
+                                                //           Homepage()),
+                                                // );
                                               },
                                               child: const Text('Lunch'),
                                               style: ElevatedButton.styleFrom(
@@ -152,12 +150,12 @@ class otheruserhistory extends StatelessWidget {
                                             height: 50.0,
                                             child: ElevatedButton(
                                               onPressed: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          Homepage()),
-                                                );
+                                                // Navigator.push(
+                                                //   context,
+                                                //   MaterialPageRoute(
+                                                //       builder: (context) =>
+                                                //           Homepage(username: Widget.username,)),
+                                                // );
                                               },
                                               child: const Text('Dinner'),
                                               style: ElevatedButton.styleFrom(
@@ -218,12 +216,12 @@ class otheruserhistory extends StatelessWidget {
                                 ),
                               ),
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const Recommendedmenu()),
-                                );
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //       builder: (context) =>
+                                //           const Recommendedmenu()),
+                                // );
                               },
                               child: const Text('Select'),
                             ),
@@ -273,12 +271,12 @@ class otheruserhistory extends StatelessWidget {
                                 ),
                               ),
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const Recommendedmenu()),
-                                );
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //       builder: (context) =>
+                                //           const Recommendedmenu()),
+                                // );
                               },
                               child: const Text('Select'),
                             ),

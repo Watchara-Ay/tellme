@@ -1,16 +1,26 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:tellme/homepage.dart';
 import 'Components/button.dart';
 import 'menudetail.dart';
 
 class Searchpage extends StatefulWidget {
+  final String username;
+  final MealType mealType;
+
+  const Searchpage({
+    Key? key,
+    required this.username,
+    required this.mealType,
+  }) : super(key: key);
+
   @override
   _Searchpage createState() => _Searchpage();
 }
 
 class _Searchpage extends State<Searchpage> {
-  TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
   List<Map<String, dynamic>> searchResults = [];
 
   Future<void> searchFoods(String query) async {
@@ -85,8 +95,15 @@ class _Searchpage extends State<Searchpage> {
               fontWeight: FontWeight.w700,
             ),
           ),
+          Text(
+            'Meal: ${widget.mealType.toString().split('.').last}',
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           Container(
-            padding: const EdgeInsets.all(30.0),
+            padding: const EdgeInsets.all(10.0),
           ),
           Expanded(
             child: Container(
@@ -122,7 +139,7 @@ class _Searchpage extends State<Searchpage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     const Text(
-                      "Sort by:",
+                      "Sort by: ",
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -130,28 +147,28 @@ class _Searchpage extends State<Searchpage> {
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Color.fromARGB(255, 255, 156, 156),
+                        primary: const Color.fromARGB(255, 255, 156, 156),
                       ),
                       onPressed: () => sortResults('Energy'),
                       child: const Text('Energy'),
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Color.fromARGB(255, 255, 156, 156),
+                        primary: const Color.fromARGB(255, 255, 156, 156),
                       ),
                       onPressed: () => sortResults('Fat'),
                       child: const Text('Fat'),
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Color.fromARGB(255, 255, 156, 156),
+                        primary: const Color.fromARGB(255, 255, 156, 156),
                       ),
                       onPressed: () => sortResults('Carbohydrate'),
                       child: const Text('Carbohydrate'),
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Color.fromARGB(255, 255, 156, 156),
+                        primary: const Color.fromARGB(255, 255, 156, 156),
                       ),
                       onPressed: () => sortResults('Protein'),
                       child: const Text('Protein'),
@@ -167,7 +184,7 @@ class _Searchpage extends State<Searchpage> {
                         margin: const EdgeInsets.all(10),
                         height: MediaQuery.of(context).size.height / 1.6,
                         width: MediaQuery.of(context).size.width / 1.05,
-                        child: searchResults != null && searchResults.isNotEmpty
+                        child: searchResults.isNotEmpty
                             ? ListView.builder(
                                 itemCount: searchResults.length,
                                 itemBuilder: (context, index) {
@@ -180,14 +197,17 @@ class _Searchpage extends State<Searchpage> {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) =>
-                                                Menudetail(foods: food),
+                                            builder: (context) => Menudetail(
+                                              foods: food,
+                                              username: widget.username,
+                                              mealType: widget.mealType,
+                                            ),
                                           ),
                                         );
                                       },
                                       style: ElevatedButton.styleFrom(
-                                        primary:
-                                            Color.fromARGB(255, 171, 255, 214),
+                                        primary: const Color.fromARGB(
+                                            255, 171, 255, 214),
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(18.0),
