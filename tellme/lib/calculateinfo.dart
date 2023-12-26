@@ -177,8 +177,8 @@ class Infobutton extends StatelessWidget {
                   // ignore: deprecated_member_use
                   child: ElevatedButton(
                     style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.black),
+                        backgroundColor: MaterialStateProperty.all(
+                            const Color.fromARGB(255, 181, 255, 235)),
                         shape:
                             MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(

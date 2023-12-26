@@ -99,7 +99,7 @@ class _MenudetailState extends State<Menudetail> {
                                 Text(
                                   widget.foods['foodname'],
                                   style: const TextStyle(
-                                      fontSize: 20.0,
+                                      fontSize: 14.0,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ],
@@ -114,7 +114,7 @@ class _MenudetailState extends State<Menudetail> {
                                 Text(
                                   "Dish Information",
                                   style: TextStyle(
-                                    fontSize: 24.0,
+                                    fontSize: 20.0,
                                   ),
                                 ),
                               ],
@@ -362,7 +362,8 @@ class _MenudetailState extends State<Menudetail> {
                                   style: ButtonStyle(
                                       backgroundColor:
                                           MaterialStateProperty.all(
-                                              Colors.black),
+                                              const Color.fromARGB(
+                                                  255, 181, 255, 235)),
                                       shape: MaterialStateProperty.all<
                                               RoundedRectangleBorder>(
                                           RoundedRectangleBorder(
@@ -388,7 +389,8 @@ class _MenudetailState extends State<Menudetail> {
                                   style: ButtonStyle(
                                       backgroundColor:
                                           MaterialStateProperty.all(
-                                              Colors.black),
+                                              const Color.fromARGB(
+                                                  255, 181, 255, 235)),
                                       shape: MaterialStateProperty.all<
                                               RoundedRectangleBorder>(
                                           RoundedRectangleBorder(

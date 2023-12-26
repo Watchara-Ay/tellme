@@ -85,467 +85,464 @@ class _ProfilepageState extends State<Profilepage> {
             padding: const EdgeInsets.all(10.0),
           ),
           Expanded(
-            child: SingleChildScrollView(
-              child: Container(
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(40.0),
-                        topRight: Radius.circular(40.0),
-                      )),
-                  child: Column(children: [
-                    const SizedBox(
-                      height: 50, // <-- SEE HERE
-                    ),
-                    Align(
-                      alignment: Alignment.center,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            width: MediaQuery.of(context).size.width / 20,
-                          ),
-                          TextButton(
-                            style: TextButton.styleFrom(
-                              textStyle: const TextStyle(
-                                fontSize: 20,
-                                color: Color.fromRGBO(255, 172, 194, 1),
-                              ),
+            child: Container(
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(40.0),
+                      topRight: Radius.circular(40.0),
+                    )),
+                child: Column(children: [
+                  const SizedBox(
+                    height: 50, // <-- SEE HERE
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          width: MediaQuery.of(context).size.width / 20,
+                        ),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            textStyle: const TextStyle(
+                              fontSize: 16,
+                              color: Color.fromRGBO(255, 172, 194, 1),
                             ),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      Historypage(username: widget.username),
-                                ),
-                              );
-                            },
-                            child: const Text('History'),
                           ),
-                          const Expanded(
-                              child: Row(
-                            children: [Text("")],
-                          )),
-                          TextButton(
-                            style: TextButton.styleFrom(
-                              textStyle: const TextStyle(
-                                fontSize: 20,
-                                color: Color.fromRGBO(255, 212, 212, 1),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    Historypage(username: widget.username),
                               ),
+                            );
+                          },
+                          child: const Text('History'),
+                        ),
+                        const Expanded(
+                            child: Row(
+                          children: [Text("")],
+                        )),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            textStyle: const TextStyle(
+                              fontSize: 16,
+                              color: Color.fromRGBO(255, 212, 212, 1),
                             ),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const userdish()),
-                              );
-                            },
-                            child: const Text('Users dish'),
                           ),
-                          const SizedBox(
-                            width: 20,
-                          )
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width / 1.1,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15.0),
-                        color: const Color.fromARGB(255, 255, 200, 207),
-                      ),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              const SizedBox(width: 10),
-                              const Text(
-                                'username: ',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                              const Expanded(
-                                  child: Row(
-                                children: [Text("")],
-                              )),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width / 1.5,
-                                child: Text(
-                                  '${userData['username']}',
-                                  style: const TextStyle(fontSize: 20),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              const SizedBox(width: 10),
-                              const Text(
-                                'Age: ',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                              const Expanded(
-                                  child: Row(
-                                children: [Text("")],
-                              )),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width / 1.5,
-                                child: Text(
-                                  '${userData['Age']} years old',
-                                  style: const TextStyle(fontSize: 20),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              const SizedBox(width: 10),
-                              const Text(
-                                'Height: ',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                              const Expanded(
-                                  child: Row(
-                                children: [Text("")],
-                              )),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width / 1.5,
-                                child: Text(
-                                  '${userData['height']} Cm',
-                                  style: const TextStyle(fontSize: 20),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              const SizedBox(width: 10),
-                              const Text(
-                                'Weight: ',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                              const Expanded(
-                                  child: Row(
-                                children: [Text("")],
-                              )),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width / 1.5,
-                                child: Text(
-                                  '${userData['weight']} Kg',
-                                  style: const TextStyle(fontSize: 20),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              const SizedBox(width: 10),
-                              const Text(
-                                'Goal: ',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                              const Expanded(
-                                  child: Row(
-                                children: [Text("")],
-                              )),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width / 1.5,
-                                child: Text(
-                                  '${userData['goal']}',
-                                  style: const TextStyle(fontSize: 20),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              const SizedBox(width: 10),
-                              const Text(
-                                'Gender: ',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                              const Expanded(
-                                  child: Row(
-                                children: [Text("")],
-                              )),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width / 1.5,
-                                child: Text(
-                                  '${userData['gender']}',
-                                  style: const TextStyle(fontSize: 20),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              const SizedBox(width: 10),
-                              const Text(
-                                'Exercise Level: ',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                              const Expanded(
-                                  child: Row(
-                                children: [Text("")],
-                              )),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width / 1.5,
-                                child: Text(
-                                  '${userData['exercise_level']}',
-                                  style: const TextStyle(fontSize: 20),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              if (userData["gender"] == "Female") ...[
-                                const SizedBox(width: 10),
-                                const Text(
-                                  'isPregnant: ',
-                                  style: TextStyle(fontSize: 20),
-                                ),
-                                const Expanded(
-                                    child: Row(
-                                  children: [Text("")],
-                                )),
-                                SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width / 1.5,
-                                  child: Text(
-                                    '${userData['isPregnent']}',
-                                    style: const TextStyle(fontSize: 20),
-                                  ),
-                                ),
-                              ]
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10, // <-- SEE HERE
-                    ),
-                    Column(
-                      children: [
-                        Align(
-                          alignment: Alignment.center,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              Container(
-                                width: MediaQuery.of(context).size.width / 20,
-                              ),
-                              TextButton(
-                                style: TextButton.styleFrom(
-                                  textStyle: const TextStyle(
-                                    fontSize: 20,
-                                    color: Color.fromRGBO(255, 0, 0, 1),
-                                  ),
-                                ),
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => const Modifypage(
-                                              title: '',
-                                            )),
-                                  );
-                                },
-                                child: const Text('Modify'),
-                              ),
-                            ],
-                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const userdish()),
+                            );
+                          },
+                          child: const Text('Users dish'),
                         ),
-                        SizedBox(
-                          child: Row(
-                            children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width / 20,
-                              ),
-                              const Text(
-                                'Main type',
-                                style: TextStyle(fontSize: 24),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          child: Row(
-                            children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width / 20,
-                              ),
-                              Text(
-                                '${userData['preference']}',
-                                style: const TextStyle(fontSize: 24),
-                              ),
-                              Expanded(
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: TextButton(
-                                    style: TextButton.styleFrom(
-                                      textStyle: const TextStyle(
-                                        fontSize: 20,
-                                        color: Color.fromRGBO(255, 0, 0, 1),
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => SelectCatalog(
-                                            username: widget.username,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    child: const Text('Select'),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 20,
-                              )
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          child: Row(
-                            children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width / 20,
-                              ),
-                              const Text(
-                                'Calories intake',
-                                style: TextStyle(fontSize: 24),
-                              ),
-                              const Spacer(), // This will occupy the available space
-                              TextButton(
-                                style: TextButton.styleFrom(
-                                  textStyle: const TextStyle(
-                                    fontSize: 20,
-                                    color: Color.fromRGBO(255, 0, 0, 1),
-                                  ),
-                                ),
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const Calculateinfo()),
-                                  );
-                                },
-                                child: const Text('Info'),
-                              ),
-                              const SizedBox(
-                                width: 20,
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width / 2,
-                                child: const Row(
-                                  children: [
-                                    SizedBox(
-                                      width: 25,
-                                    ),
-                                    Text(
-                                      'BMR:',
-                                      style: TextStyle(fontSize: 24),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  '${userData['bmrPoint']}    Cal/day',
-                                  textAlign: TextAlign.end,
-                                  style: const TextStyle(fontSize: 24),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 25,
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width / 2,
-                                child: const Row(
-                                  children: [
-                                    SizedBox(
-                                      width: 25,
-                                    ),
-                                    Text(
-                                      'TDEE:',
-                                      style: TextStyle(fontSize: 24),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  '${userData['tdeePoint']}    Cal/day',
-                                  textAlign: TextAlign.end,
-                                  style: const TextStyle(fontSize: 24),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 25,
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width / 2,
-                                child: const Row(
-                                  children: [
-                                    SizedBox(
-                                      width: 25,
-                                    ),
-                                    Text(
-                                      'Goal Point:',
-                                      style: TextStyle(fontSize: 24),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  '${userData['goalPoint']}    Cal/day',
-                                  textAlign: TextAlign.end,
-                                  style: const TextStyle(fontSize: 24),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 25,
-                              ),
-                            ],
-                          ),
+                        const SizedBox(
+                          width: 20,
                         )
                       ],
                     ),
-                    const Expanded(
-                        child: Column(
-                      children: [Text("")],
-                    )),
-                    const Profilebutton(),
-                  ])),
-            ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width / 1.1,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15.0),
+                      color: const Color.fromARGB(255, 255, 200, 207),
+                    ),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            const SizedBox(width: 10),
+                            const Text(
+                              'Username: ',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            const Expanded(
+                                child: Row(
+                              children: [Text("")],
+                            )),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 1.7,
+                              child: Text(
+                                '${userData['username']}',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const SizedBox(width: 10),
+                            const Text(
+                              'Age: ',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            const Expanded(
+                                child: Row(
+                              children: [Text("")],
+                            )),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 1.7,
+                              child: Text(
+                                '${userData['Age']} years old',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const SizedBox(width: 10),
+                            const Text(
+                              'Height: ',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            const Expanded(
+                                child: Row(
+                              children: [Text("")],
+                            )),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 1.7,
+                              child: Text(
+                                '${userData['height']} Cm',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const SizedBox(width: 10),
+                            const Text(
+                              'Weight: ',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            const Expanded(
+                                child: Row(
+                              children: [Text("")],
+                            )),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 1.7,
+                              child: Text(
+                                '${userData['weight']} Kg',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const SizedBox(width: 10),
+                            const Text(
+                              'Goal: ',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            const Expanded(
+                                child: Row(
+                              children: [Text("")],
+                            )),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 1.7,
+                              child: Text(
+                                '${userData['goal']}',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const SizedBox(width: 10),
+                            const Text(
+                              'Gender: ',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            const Expanded(
+                                child: Row(
+                              children: [Text("")],
+                            )),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 1.7,
+                              child: Text(
+                                '${userData['gender']}',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const SizedBox(width: 10),
+                            const Text(
+                              'Exercise Level: ',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            const Expanded(
+                                child: Row(
+                              children: [Text("")],
+                            )),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 1.7,
+                              child: Text(
+                                '${userData['exercise_level']}',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            if (userData["gender"] == "Female") ...[
+                              const SizedBox(width: 10),
+                              const Text(
+                                'isPregnant: ',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              const Expanded(
+                                  child: Row(
+                                children: [Text("")],
+                              )),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 1.7,
+                                child: Text(
+                                  '${userData['isPregnent']}',
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              ),
+                            ]
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10, // <-- SEE HERE
+                  ),
+                  Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.center,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                              width: MediaQuery.of(context).size.width / 20,
+                            ),
+                            TextButton(
+                              style: TextButton.styleFrom(
+                                textStyle: const TextStyle(
+                                  fontSize: 16,
+                                  color: Color.fromRGBO(255, 0, 0, 1),
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const Modifypage(
+                                            title: '',
+                                          )),
+                                );
+                              },
+                              child: const Text('Modify'),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        child: Row(
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width / 20,
+                            ),
+                            const Text(
+                              'Main type',
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        child: Row(
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width / 20,
+                            ),
+                            Text(
+                              '${userData['preference']}',
+                              style: const TextStyle(fontSize: 20),
+                            ),
+                            Expanded(
+                              child: Align(
+                                alignment: Alignment.centerRight,
+                                child: TextButton(
+                                  style: TextButton.styleFrom(
+                                    textStyle: const TextStyle(
+                                      fontSize: 20,
+                                      color: Color.fromRGBO(255, 0, 0, 1),
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => SelectCatalog(
+                                          username: widget.username,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: const Text('Select'),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        child: Row(
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width / 20,
+                            ),
+                            const Text(
+                              'Calories intake',
+                              style: TextStyle(fontSize: 20),
+                            ),
+                            const Spacer(), // This will occupy the available space
+                            TextButton(
+                              style: TextButton.styleFrom(
+                                textStyle: const TextStyle(
+                                  fontSize: 20,
+                                  color: Color.fromRGBO(255, 0, 0, 1),
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const Calculateinfo()),
+                                );
+                              },
+                              child: const Text('Info'),
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 2,
+                              child: const Row(
+                                children: [
+                                  SizedBox(
+                                    width: 25,
+                                  ),
+                                  Text(
+                                    'BMR:',
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                '${userData['bmrPoint']}    Cal/day',
+                                textAlign: TextAlign.end,
+                                style: const TextStyle(fontSize: 20),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 25,
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 2,
+                              child: const Row(
+                                children: [
+                                  SizedBox(
+                                    width: 25,
+                                  ),
+                                  Text(
+                                    'TDEE:',
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                '${userData['tdeePoint']}    Cal/day',
+                                textAlign: TextAlign.end,
+                                style: const TextStyle(fontSize: 20),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 25,
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 2,
+                              child: const Row(
+                                children: [
+                                  SizedBox(
+                                    width: 25,
+                                  ),
+                                  Text(
+                                    'Goal Point:',
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                '${userData['goalPoint']}    Cal/day',
+                                textAlign: TextAlign.end,
+                                style: const TextStyle(fontSize: 20),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 25,
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  const Expanded(
+                      child: Column(
+                    children: [Text("")],
+                  )),
+                  const Profilebutton(),
+                ])),
           )
         ],
       ),
@@ -574,7 +571,8 @@ class Profilebutton extends StatelessWidget {
                   // ignore: deprecated_member_use
                   child: ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.black),
+                      backgroundColor: MaterialStateProperty.all(
+                          const Color.fromARGB(255, 181, 255, 235)),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0),
@@ -594,7 +592,8 @@ class Profilebutton extends StatelessWidget {
                   // ignore: deprecated_member_use
                   child: ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.black),
+                      backgroundColor: MaterialStateProperty.all(
+                          const Color.fromARGB(255, 181, 255, 235)),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0),

@@ -214,8 +214,8 @@ class _Searchpage extends State<Searchpage> {
                                           );
                                         },
                                         style: ElevatedButton.styleFrom(
-                                          primary: const Color.fromARGB(
-                                              255, 171, 255, 214),
+                                          backgroundColor: Color.fromARGB(
+                                              255, 178, 178, 178),
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(18.0),

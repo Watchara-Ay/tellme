@@ -528,7 +528,11 @@ class _Modifypage extends State<Modifypage> {
                                             style: ButtonStyle(
                                                 backgroundColor:
                                                     MaterialStateProperty.all(
-                                                        Colors.black),
+                                                        const Color.fromARGB(
+                                                            255,
+                                                            181,
+                                                            255,
+                                                            235)),
                                                 shape: MaterialStateProperty.all<
                                                         RoundedRectangleBorder>(
                                                     RoundedRectangleBorder(
@@ -543,6 +547,10 @@ class _Modifypage extends State<Modifypage> {
                                                 style: TextStyle(fontSize: 15)),
                                           ),
                                         ),
+                                        const Expanded(
+                                            child: Row(
+                                          children: [Text("")],
+                                        )),
                                         Container(
                                           margin: const EdgeInsets.all(10),
                                           height: 50.0,
@@ -551,7 +559,11 @@ class _Modifypage extends State<Modifypage> {
                                             style: ButtonStyle(
                                                 backgroundColor:
                                                     MaterialStateProperty.all(
-                                                        Colors.black),
+                                                        const Color.fromARGB(
+                                                            255,
+                                                            181,
+                                                            255,
+                                                            235)),
                                                 shape: MaterialStateProperty.all<
                                                         RoundedRectangleBorder>(
                                                     RoundedRectangleBorder(

@@ -145,7 +145,6 @@ class HistoryPageState extends State<Historypage> {
                 padding: const EdgeInsets.all(10.0),
               ),
               Expanded(
-                  child: SingleChildScrollView(
                 child: Container(
                     decoration: const BoxDecoration(
                         color: Colors.white,
@@ -238,7 +237,7 @@ class HistoryPageState extends State<Historypage> {
                                                                         context)
                                                                     .size
                                                                     .width /
-                                                                2.3,
+                                                                2.4,
                                                             child: Text(
                                                               'Energy: ${mealInfo[index]['Energy']}',
                                                               style: const TextStyle(
@@ -252,7 +251,7 @@ class HistoryPageState extends State<Historypage> {
                                                                         context)
                                                                     .size
                                                                     .width /
-                                                                2.2,
+                                                                2.4,
                                                             child: Text(
                                                               'Carbohydrate: ${mealInfo[index]['Carbohydrate']}',
                                                               style: const TextStyle(
@@ -270,7 +269,7 @@ class HistoryPageState extends State<Historypage> {
                                                                         context)
                                                                     .size
                                                                     .width /
-                                                                2.3,
+                                                                2.4,
                                                             child: Text(
                                                               'Protein: ${mealInfo[index]['Protein']}',
                                                               style: const TextStyle(
@@ -284,7 +283,7 @@ class HistoryPageState extends State<Historypage> {
                                                                         context)
                                                                     .size
                                                                     .width /
-                                                                2.3,
+                                                                2.4,
                                                             child: Text(
                                                               'Fat: ${mealInfo[index]['Fat']}',
                                                               style: const TextStyle(
@@ -430,9 +429,17 @@ class HistoryPageState extends State<Historypage> {
                                                                     null &&
                                                                 consumedNutrients[
                                                                         nutrient]! >
-                                                                    60
-                                                            ? Colors.green
-                                                            : Colors.red,
+                                                                    100 // Adjust the threshold here
+                                                            ? Colors
+                                                                .red // Set the color to red for values above 100
+                                                            : consumedNutrients[
+                                                                            nutrient] !=
+                                                                        null &&
+                                                                    consumedNutrients[
+                                                                            nutrient]! >
+                                                                        60
+                                                                ? Colors.green
+                                                                : Colors.red,
                                                       ),
                                                     ),
                                                   ],
@@ -453,112 +460,219 @@ class HistoryPageState extends State<Historypage> {
                                     const Text(
                                       'Miss: ',
                                       style: TextStyle(
-                                        fontSize: 24,
+                                        fontSize: 20,
                                         color: Colors.red,
                                       ),
                                     ),
                                     nutrientData == null
                                         ? const CircularProgressIndicator()
-                                        : Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: <Widget>[
-                                              if ((int.tryParse(nutrientData![
-                                                              'total_Energy'] ??
-                                                          '0') ??
-                                                      0) <
-                                                  1290)
-                                                const Row(
-                                                  children: [
-                                                    Text(
-                                                      'Energy',
-                                                      style: TextStyle(
-                                                          fontSize: 20,
-                                                          color: Colors.red),
+                                        : Column(
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: <Widget>[
+                                                  // First half of nutrient indicators
+                                                  if ((int.tryParse(nutrientData![
+                                                                  'total_Energy'] ??
+                                                              '0') ??
+                                                          0) <
+                                                      1250)
+                                                    const Row(
+                                                      children: [
+                                                        Text(
+                                                          'Energy (Low)',
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              color:
+                                                                  Colors.red),
+                                                        ),
+                                                        SizedBox(width: 10),
+                                                      ],
                                                     ),
-                                                    SizedBox(width: 10),
-                                                  ],
-                                                ),
-                                              if ((int.tryParse(nutrientData![
-                                                              'total_Calcium'] ??
-                                                          '0') ??
-                                                      0) <
-                                                  800)
-                                                const Row(
-                                                  children: [
-                                                    Text(
-                                                      'Calcium',
-                                                      style: TextStyle(
-                                                          fontSize: 20,
-                                                          color: Colors.red),
+                                                  if ((int.tryParse(nutrientData![
+                                                                  'total_Calcium'] ??
+                                                              '0') ??
+                                                          0) <
+                                                      1500)
+                                                    const Row(
+                                                      children: [
+                                                        Text(
+                                                          'Calcium (Low)',
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              color:
+                                                                  Colors.red),
+                                                        ),
+                                                        SizedBox(width: 10),
+                                                      ],
+                                                    )
+                                                  else if ((int.tryParse(
+                                                              nutrientData![
+                                                                      'total_Calcium'] ??
+                                                                  '0') ??
+                                                          0) >
+                                                      2500)
+                                                    const Row(
+                                                      children: [
+                                                        Text(
+                                                          'Calcium (High)',
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              color:
+                                                                  Colors.red),
+                                                        ),
+                                                        SizedBox(width: 10),
+                                                      ],
                                                     ),
-                                                    SizedBox(width: 10),
-                                                  ],
-                                                ),
-                                              if ((int.tryParse(nutrientData![
-                                                              'total_Sodium'] ??
-                                                          '0') ??
-                                                      0) <
-                                                  500)
-                                                const Row(
-                                                  children: [
-                                                    Text(
-                                                      'Sodium',
-                                                      style: TextStyle(
-                                                          fontSize: 20,
-                                                          color: Colors.red),
+                                                  if ((int.tryParse(nutrientData![
+                                                                  'total_Sodium'] ??
+                                                              '0') ??
+                                                          0) <
+                                                      1440)
+                                                    const Row(
+                                                      children: [
+                                                        Text(
+                                                          'Sodium (Low)',
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              color:
+                                                                  Colors.red),
+                                                        ),
+                                                        SizedBox(width: 10),
+                                                      ],
+                                                    )
+                                                  else if ((int.tryParse(
+                                                              nutrientData![
+                                                                      'total_Sodium'] ??
+                                                                  '0') ??
+                                                          0) >
+                                                      2400)
+                                                    const Row(
+                                                      children: [
+                                                        Text(
+                                                          'Sodium (High)',
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              color:
+                                                                  Colors.red),
+                                                        ),
+                                                        SizedBox(width: 10),
+                                                      ],
                                                     ),
-                                                    SizedBox(width: 10),
-                                                  ],
-                                                ),
-                                              if ((int.tryParse(nutrientData![
-                                                              'total_Magnesium'] ??
-                                                          '0') ??
-                                                      0) <
-                                                  270)
-                                                const Row(
-                                                  children: [
-                                                    Text(
-                                                      'Magnesium',
-                                                      style: TextStyle(
-                                                          fontSize: 20,
-                                                          color: Colors.red),
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  if ((int.tryParse(nutrientData![
+                                                                  'total_Magnesium'] ??
+                                                              '0') ??
+                                                          0) <
+                                                      310)
+                                                    const Row(
+                                                      children: [
+                                                        Text(
+                                                          'Magnesium (Low)',
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              color:
+                                                                  Colors.red),
+                                                        ),
+                                                        SizedBox(width: 10),
+                                                      ],
+                                                    )
+                                                  else if ((int.tryParse(
+                                                              nutrientData![
+                                                                      'total_Magnesium'] ??
+                                                                  '0') ??
+                                                          0) >
+                                                      450)
+                                                    const Row(
+                                                      children: [
+                                                        Text(
+                                                          'Magnesium (High)',
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              color:
+                                                                  Colors.red),
+                                                        ),
+                                                        SizedBox(width: 10),
+                                                      ],
                                                     ),
-                                                    SizedBox(width: 10),
-                                                  ],
-                                                ),
-                                              if ((int.tryParse(nutrientData![
-                                                              'total_Potassium'] ??
-                                                          '0') ??
-                                                      0) <
-                                                  2400)
-                                                const Row(
-                                                  children: [
-                                                    Text(
-                                                      'Potassium',
-                                                      style: TextStyle(
-                                                          fontSize: 20,
-                                                          color: Colors.red),
+                                                  if ((int.tryParse(nutrientData![
+                                                                  'total_Potassium'] ??
+                                                              '0') ??
+                                                          0) <
+                                                      2100)
+                                                    const Row(
+                                                      children: [
+                                                        Text(
+                                                          'Potassium (Low)',
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              color:
+                                                                  Colors.red),
+                                                        ),
+                                                        SizedBox(width: 10),
+                                                      ],
+                                                    )
+                                                  else if ((int.tryParse(
+                                                              nutrientData![
+                                                                      'total_Potassium'] ??
+                                                                  '0') ??
+                                                          0) >
+                                                      4500)
+                                                    const Row(
+                                                      children: [
+                                                        Text(
+                                                          'Potassium (High)',
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              color:
+                                                                  Colors.red),
+                                                        ),
+                                                        SizedBox(width: 10),
+                                                      ],
                                                     ),
-                                                    SizedBox(width: 10),
-                                                  ],
-                                                ),
-                                              if ((int.tryParse(nutrientData![
-                                                              'total_Iron'] ??
-                                                          '0') ??
-                                                      0) <
-                                                  7)
-                                                const Row(
-                                                  children: [
-                                                    Text(
-                                                      'Iron',
-                                                      style: TextStyle(
-                                                          fontSize: 20,
-                                                          color: Colors.red),
+                                                  if ((int.tryParse(nutrientData![
+                                                                  'total_Iron'] ??
+                                                              '0') ??
+                                                          0) <
+                                                      7)
+                                                    const Row(
+                                                      children: [
+                                                        Text(
+                                                          'Iron (Low)',
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              color:
+                                                                  Colors.red),
+                                                        ),
+                                                        SizedBox(width: 10),
+                                                      ],
+                                                    )
+                                                  else if ((int.tryParse(
+                                                              nutrientData![
+                                                                      'total_Iron'] ??
+                                                                  '0') ??
+                                                          0) >
+                                                      41)
+                                                    const Row(
+                                                      children: [
+                                                        Text(
+                                                          'Iron (High)',
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              color:
+                                                                  Colors.red),
+                                                        ),
+                                                        SizedBox(width: 10),
+                                                      ],
                                                     ),
-                                                    SizedBox(width: 10),
-                                                  ],
-                                                ),
+                                                ],
+                                              )
                                             ],
                                           ),
                                   ],
@@ -585,7 +699,11 @@ class HistoryPageState extends State<Historypage> {
                                               style: ButtonStyle(
                                                 backgroundColor:
                                                     MaterialStateProperty.all(
-                                                        Colors.black),
+                                                        const Color.fromARGB(
+                                                            255,
+                                                            181,
+                                                            255,
+                                                            235)),
                                                 shape:
                                                     MaterialStateProperty.all<
                                                         RoundedRectangleBorder>(
@@ -615,7 +733,7 @@ class HistoryPageState extends State<Historypage> {
                         ),
                       ],
                     )),
-              ))
+              )
             ])),
       ),
     );
