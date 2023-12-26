@@ -14,10 +14,10 @@ Back-End:
 Database 
 MySQL
 
-## Version of microsoft word
+## Version of Microsoft word
 Version 2310 (16924.20180)
 
-## Information of students
+## Teams member
 Mr.Watchara Ukhuntod ID:63130500226
 898/154 Miracle Village, Soi PrachaUthit 90, Ban Khlong Suan, Phra Samut Chedi 
 Postal Code: 10290 City: Samut Prakan
