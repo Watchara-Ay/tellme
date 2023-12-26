@@ -9,6 +9,7 @@ Front-end:
 
 Back-End:
 - Open apache and MySQL
+- cd tellmeapi
 - php -S 127.0.0.1:8000
 
 Database 
