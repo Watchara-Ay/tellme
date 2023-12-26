@@ -126,7 +126,7 @@ class _Register extends State<Register> {
               height: MediaQuery.of(context).size.height / 12,
               width: MediaQuery.of(context).size.width,
               child: const Text(
-                'Modify page',
+                'Register page',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 36,
@@ -136,427 +136,451 @@ class _Register extends State<Register> {
               ),
             ),
             Expanded(
-              child: Container(
-                  padding: const EdgeInsets.all(20.0),
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(40.0),
-                        topRight: Radius.circular(40.0),
-                      )),
-                  child: Form(
-                    key: formKey,
-                    child: Column(children: [
-                      Form(
-                        child: SingleChildScrollView(
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width / 1.4,
-                                  decoration: BoxDecoration(
-                                    color:
-                                        const Color.fromRGBO(255, 172, 194, 1),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  child: TextFormField(
-                                    validator: RequiredValidator(
-                                        errorText: "Please fill something!!!"),
-                                    onSaved: (username) {},
-                                    controller: username,
-                                    maxLength: 15,
-                                    style: const TextStyle(color: Colors.black),
-                                    decoration: const InputDecoration(
-                                      contentPadding: EdgeInsets.symmetric(
-                                          vertical: 15.0, horizontal: 20.0),
-                                      border: InputBorder.none,
-                                      counterText: '',
-                                      labelText: 'Username',
-                                      labelStyle:
-                                          TextStyle(color: Colors.black),
+              child: SingleChildScrollView(
+                child: Container(
+                    padding: const EdgeInsets.all(20.0),
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(40.0),
+                          topRight: Radius.circular(40.0),
+                        )),
+                    child: Form(
+                      key: formKey,
+                      child: Column(children: [
+                        Form(
+                          child: SingleChildScrollView(
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width / 1.4,
+                                    decoration: BoxDecoration(
+                                      color: const Color.fromRGBO(
+                                          255, 172, 194, 1),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    child: TextFormField(
+                                      validator: RequiredValidator(
+                                              errorText:
+                                                  "Please fill something!!!")
+                                          .call,
+                                      onSaved: (username) {},
+                                      controller: username,
+                                      maxLength: 15,
+                                      style:
+                                          const TextStyle(color: Colors.black),
+                                      decoration: const InputDecoration(
+                                        contentPadding: EdgeInsets.symmetric(
+                                            vertical: 15.0, horizontal: 20.0),
+                                        border: InputBorder.none,
+                                        counterText: '',
+                                        labelText: 'Username',
+                                        labelStyle:
+                                            TextStyle(color: Colors.black),
+                                      ),
                                     ),
                                   ),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width / 1.4,
-                                  decoration: BoxDecoration(
-                                    color:
-                                        const Color.fromRGBO(255, 172, 194, 1),
-                                    borderRadius: BorderRadius.circular(10.0),
+                                  const SizedBox(
+                                    height: 10,
                                   ),
-                                  child: TextFormField(
-                                    validator: RequiredValidator(
-                                        errorText: "Please fill something!!!"),
-                                    onSaved: (value) {},
-                                    controller: password,
-                                    maxLength: 12,
-                                    obscureText: true,
-                                    style: const TextStyle(color: Colors.black),
-                                    decoration: const InputDecoration(
-                                      contentPadding: EdgeInsets.symmetric(
-                                          vertical: 15.0, horizontal: 20.0),
-                                      border: InputBorder.none,
-                                      counterText: '',
-                                      labelText: 'Password',
-                                      labelStyle:
-                                          TextStyle(color: Colors.black),
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width / 1.4,
+                                    decoration: BoxDecoration(
+                                      color: const Color.fromRGBO(
+                                          255, 172, 194, 1),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    child: TextFormField(
+                                      validator: RequiredValidator(
+                                              errorText:
+                                                  "Please fill something!!!")
+                                          .call,
+                                      onSaved: (value) {},
+                                      controller: password,
+                                      maxLength: 12,
+                                      obscureText: true,
+                                      style:
+                                          const TextStyle(color: Colors.black),
+                                      decoration: const InputDecoration(
+                                        contentPadding: EdgeInsets.symmetric(
+                                            vertical: 15.0, horizontal: 20.0),
+                                        border: InputBorder.none,
+                                        counterText: '',
+                                        labelText: 'Password',
+                                        labelStyle:
+                                            TextStyle(color: Colors.black),
+                                      ),
                                     ),
                                   ),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width / 1.4,
-                                  decoration: BoxDecoration(
-                                    color:
-                                        const Color.fromRGBO(255, 172, 194, 1),
-                                    borderRadius: BorderRadius.circular(10.0),
+                                  const SizedBox(
+                                    height: 10,
                                   ),
-                                  child: TextFormField(
-                                    validator: RequiredValidator(
-                                        errorText: "Please fill something!!!"),
-                                    onSaved: (value) {},
-                                    controller: confirm_password,
-                                    maxLength: 12,
-                                    obscureText: true,
-                                    style: const TextStyle(color: Colors.black),
-                                    decoration: const InputDecoration(
-                                      contentPadding: EdgeInsets.symmetric(
-                                          vertical: 15.0, horizontal: 20.0),
-                                      border: InputBorder.none,
-                                      counterText: '',
-                                      labelText: 'Confirm Password',
-                                      labelStyle:
-                                          TextStyle(color: Colors.black),
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width / 1.4,
+                                    decoration: BoxDecoration(
+                                      color: const Color.fromRGBO(
+                                          255, 172, 194, 1),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    child: TextFormField(
+                                      validator: RequiredValidator(
+                                              errorText:
+                                                  "Please fill something!!!")
+                                          .call,
+                                      onSaved: (value) {},
+                                      controller: confirm_password,
+                                      maxLength: 12,
+                                      obscureText: true,
+                                      style:
+                                          const TextStyle(color: Colors.black),
+                                      decoration: const InputDecoration(
+                                        contentPadding: EdgeInsets.symmetric(
+                                            vertical: 15.0, horizontal: 20.0),
+                                        border: InputBorder.none,
+                                        counterText: '',
+                                        labelText: 'Confirm Password',
+                                        labelStyle:
+                                            TextStyle(color: Colors.black),
+                                      ),
                                     ),
                                   ),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width / 1.4,
-                                  decoration: BoxDecoration(
-                                    color:
-                                        const Color.fromRGBO(255, 172, 194, 1),
-                                    borderRadius: BorderRadius.circular(10.0),
+                                  const SizedBox(
+                                    height: 10,
                                   ),
-                                  child: TextField(
-                                    controller: dateofbirth,
-                                    decoration: const InputDecoration(
-                                      labelText: "Date of birth",
-                                      floatingLabelStyle:
-                                          TextStyle(fontSize: 10),
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width / 1.4,
+                                    decoration: BoxDecoration(
+                                      color: const Color.fromRGBO(
+                                          255, 172, 194, 1),
+                                      borderRadius: BorderRadius.circular(10.0),
                                     ),
-                                    readOnly: true,
-                                    onTap: () async {
-                                      DateTime? pickedDate =
-                                          await showDatePicker(
-                                        context: context,
-                                        initialDate: DateTime.now(),
-                                        firstDate: DateTime(1900),
-                                        lastDate: DateTime.now(),
-                                      );
-                                      if (pickedDate != null) {
-                                        String formattedDate =
-                                            DateFormat('yyyy-MM-dd')
-                                                .format(pickedDate);
+                                    child: TextField(
+                                      controller: dateofbirth,
+                                      decoration: const InputDecoration(
+                                        labelText: "Date of birth",
+                                        floatingLabelStyle:
+                                            TextStyle(fontSize: 10),
+                                      ),
+                                      readOnly: true,
+                                      onTap: () async {
+                                        DateTime? pickedDate =
+                                            await showDatePicker(
+                                          context: context,
+                                          initialDate: DateTime.now(),
+                                          firstDate: DateTime(1900),
+                                          lastDate: DateTime.now(),
+                                        );
+                                        if (pickedDate != null) {
+                                          String formattedDate =
+                                              DateFormat('yyyy-MM-dd')
+                                                  .format(pickedDate);
 
-                                        setState(() {
-                                          selectedDate = formattedDate;
-                                          dateofbirth.text = formattedDate;
-                                        });
-                                      } else {
-                                        print("Date is not selected");
-                                      }
-                                    },
+                                          setState(() {
+                                            selectedDate = formattedDate;
+                                            dateofbirth.text = formattedDate;
+                                          });
+                                        } else {
+                                          print("Date is not selected");
+                                        }
+                                      },
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                SizedBox(
-                                  width: MediaQuery.of(context).size.width,
-                                  child: Row(
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              3,
+                                          decoration: BoxDecoration(
+                                            color: const Color.fromRGBO(
+                                                255, 172, 194, 1),
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Expanded(
+                                                flex: 2,
+                                                child: TextFormField(
+                                                  validator: RequiredValidator(
+                                                          errorText:
+                                                              "Please fill something!!!")
+                                                      .call,
+                                                  onSaved: (value) {},
+                                                  controller: height,
+                                                  keyboardType:
+                                                      TextInputType.number,
+                                                  decoration: InputDecoration(
+                                                    labelText: "Height",
+                                                    suffixText: 'cm',
+                                                    suffixStyle:
+                                                        const TextStyle(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                    contentPadding:
+                                                        const EdgeInsets
+                                                            .symmetric(
+                                                      vertical: 15.0,
+                                                      horizontal: 20.0,
+                                                    ),
+                                                    border: OutlineInputBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10.0),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 20,
+                                        ),
+                                        Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              3,
+                                          decoration: BoxDecoration(
+                                            color: const Color.fromRGBO(
+                                                255, 172, 194, 1),
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Expanded(
+                                                flex: 2,
+                                                child: TextFormField(
+                                                  validator: RequiredValidator(
+                                                          errorText:
+                                                              "Please fill something!!!")
+                                                      .call,
+                                                  onSaved: (weight) {},
+                                                  controller: weight,
+                                                  keyboardType:
+                                                      TextInputType.number,
+                                                  decoration: InputDecoration(
+                                                    labelText: "Weight",
+                                                    suffixText: 'kg',
+                                                    suffixStyle:
+                                                        const TextStyle(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                    contentPadding:
+                                                        const EdgeInsets
+                                                            .symmetric(
+                                                      vertical: 15.0,
+                                                      horizontal: 20.0,
+                                                    ),
+                                                    border: OutlineInputBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10.0),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                3,
-                                        decoration: BoxDecoration(
-                                          color: const Color.fromRGBO(
-                                              255, 172, 194, 1),
-                                          borderRadius:
-                                              BorderRadius.circular(10.0),
-                                        ),
-                                        child: Row(
-                                          children: [
-                                            Expanded(
-                                              flex: 2,
-                                              child: TextFormField(
-                                                validator: RequiredValidator(
-                                                    errorText:
-                                                        "Please fill something!!!"),
-                                                onSaved: (value) {},
-                                                controller: height,
-                                                keyboardType:
-                                                    TextInputType.number,
-                                                decoration: InputDecoration(
-                                                  labelText: "Height",
-                                                  suffixText: 'cm',
-                                                  suffixStyle: const TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                  contentPadding:
-                                                      const EdgeInsets
-                                                          .symmetric(
-                                                    vertical: 15.0,
-                                                    horizontal: 20.0,
-                                                  ),
-                                                  border: OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10.0),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
+                                        CrossAxisAlignment.stretch,
+                                    children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: <Widget>[
+                                          const Text('Selected gender',
+                                              style: TextStyle(fontSize: 20)),
+                                          Radio(
+                                            value: 'Male',
+                                            groupValue: selectedGender,
+                                            onChanged: (value) {
+                                              setState(() {
+                                                selectedGender =
+                                                    value.toString();
+                                              });
+                                            },
+                                          ),
+                                          const Text('Male'),
+                                          Radio(
+                                            value: 'Female',
+                                            groupValue: selectedGender,
+                                            onChanged: (value) {
+                                              setState(() {
+                                                selectedGender =
+                                                    value.toString();
+                                              });
+                                            },
+                                          ),
+                                          const Text('Female'),
+                                        ],
                                       ),
-                                      const SizedBox(
-                                        width: 20,
+                                      Row(
+                                        children: [
+                                          const Text(
+                                            'Are you pregnant?',
+                                            style: TextStyle(fontSize: 20.0),
+                                          ),
+                                          Checkbox(
+                                            checkColor: Colors.white,
+                                            fillColor: MaterialStateProperty
+                                                .resolveWith(getColor),
+                                            value: isPregnant,
+                                            onChanged: (bool? value) {
+                                              if (selectedGender == 'Female') {
+                                                setState(() {
+                                                  isPregnant = true;
+                                                });
+                                              } else {
+                                                isPregnant = false;
+                                              }
+                                            },
+                                          )
+                                        ],
                                       ),
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                3,
-                                        decoration: BoxDecoration(
-                                          color: const Color.fromRGBO(
-                                              255, 172, 194, 1),
-                                          borderRadius:
-                                              BorderRadius.circular(10.0),
-                                        ),
-                                        child: Row(
-                                          children: [
-                                            Expanded(
-                                              flex: 2,
-                                              child: TextFormField(
-                                                validator: RequiredValidator(
-                                                    errorText:
-                                                        "Please fill something!!!"),
-                                                onSaved: (weight) {},
-                                                controller: weight,
-                                                keyboardType:
-                                                    TextInputType.number,
-                                                decoration: InputDecoration(
-                                                  labelText: "Weight",
-                                                  suffixText: 'kg',
-                                                  suffixStyle: const TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                  contentPadding:
-                                                      const EdgeInsets
-                                                          .symmetric(
-                                                    vertical: 15.0,
-                                                    horizontal: 20.0,
-                                                  ),
-                                                  border: OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10.0),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
+                                      const SizedBox(height: 20.0),
+                                      DropdownButtonFormField(
+                                        value: selectedGoal,
+                                        items: selectedList.map((String goal) {
+                                          return DropdownMenuItem<String>(
+                                            value: goal,
+                                            child: Text(goal),
+                                          );
+                                        }).toList(),
+                                        onChanged: (value) {
+                                          setState(() {
+                                            selectedGoal = value.toString();
+                                          });
+                                        },
+                                        decoration: const InputDecoration(
+                                          labelText: 'Select Goal',
+                                          border: OutlineInputBorder(),
                                         ),
                                       ),
                                     ],
                                   ),
-                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: <Widget>[
-                                    Row(
+                                  const SizedBox(height: 20.0),
+                                  DropdownButtonFormField(
+                                    value: eL,
+                                    items: listEL.map((String level) {
+                                      return DropdownMenuItem<String>(
+                                        value: level,
+                                        child: Text(level),
+                                      );
+                                    }).toList(),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        eL = value.toString();
+                                      });
+                                    },
+                                    decoration: const InputDecoration(
+                                      labelText:
+                                          'Select Exercise Level', // Change the label to Exercise Level
+                                      border: OutlineInputBorder(),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: <Widget>[
-                                        const Text('Selected gender',
-                                            style: TextStyle(fontSize: 20)),
-                                        Radio(
-                                          value: 'Male',
-                                          groupValue: selectedGender,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              selectedGender = value.toString();
-                                            });
-                                          },
+                                        Container(
+                                          margin: const EdgeInsets.all(10),
+                                          height: 50.0,
+                                          // ignore: deprecated_member_use
+                                          child: ElevatedButton(
+                                            style: ButtonStyle(
+                                                backgroundColor:
+                                                    MaterialStateProperty.all(
+                                                        Colors.black),
+                                                shape: MaterialStateProperty.all<
+                                                        RoundedRectangleBorder>(
+                                                    RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          18.0),
+                                                ))),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: const Text("Cancel",
+                                                style: TextStyle(fontSize: 15)),
+                                          ),
                                         ),
-                                        const Text('Male'),
-                                        Radio(
-                                          value: 'Female',
-                                          groupValue: selectedGender,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              selectedGender = value.toString();
-                                            });
-                                          },
-                                        ),
-                                        const Text('Female'),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        const Text(
-                                          'Are you pregnant?',
-                                          style: TextStyle(fontSize: 20.0),
-                                        ),
-                                        Checkbox(
-                                          checkColor: Colors.white,
-                                          fillColor:
-                                              MaterialStateProperty.resolveWith(
-                                                  getColor),
-                                          value: isPregnant,
-                                          onChanged: (bool? value) {
-                                            if (selectedGender == 'Female') {
-                                              setState(() {
-                                                isPregnant = true;
-                                              });
-                                            } else {
-                                              isPregnant = false;
-                                            }
-                                          },
-                                        )
-                                      ],
-                                    ),
-                                    const SizedBox(height: 20.0),
-                                    DropdownButtonFormField(
-                                      value: selectedGoal,
-                                      items: selectedList.map((String goal) {
-                                        return DropdownMenuItem<String>(
-                                          value: goal,
-                                          child: Text(goal),
-                                        );
-                                      }).toList(),
-                                      onChanged: (value) {
-                                        setState(() {
-                                          selectedGoal = value.toString();
-                                        });
-                                      },
-                                      decoration: const InputDecoration(
-                                        labelText: 'Select Goal',
-                                        border: OutlineInputBorder(),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 20.0),
-                                DropdownButtonFormField(
-                                  value: eL,
-                                  items: listEL.map((String level) {
-                                    return DropdownMenuItem<String>(
-                                      value: level,
-                                      child: Text(level),
-                                    );
-                                  }).toList(),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      eL = value.toString();
-                                    });
-                                  },
-                                  decoration: const InputDecoration(
-                                    labelText:
-                                        'Select Exercise Level', // Change the label to Exercise Level
-                                    border: OutlineInputBorder(),
-                                  ),
-                                ),
-                                SizedBox(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: <Widget>[
-                                      Container(
-                                        margin: const EdgeInsets.all(10),
-                                        height: 50.0,
-                                        // ignore: deprecated_member_use
-                                        child: ElevatedButton(
-                                          style: ButtonStyle(
-                                              backgroundColor:
-                                                  MaterialStateProperty.all(
-                                                      Colors.black),
-                                              shape: MaterialStateProperty.all<
-                                                      RoundedRectangleBorder>(
-                                                  RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(18.0),
-                                              ))),
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: const Text("Cancel",
-                                              style: TextStyle(fontSize: 15)),
-                                        ),
-                                      ),
-                                      Expanded(
-                                          child: Column(
-                                        children: const [Text("")],
-                                      )),
-                                      Container(
-                                        margin: const EdgeInsets.all(10),
-                                        height: 50.0,
-                                        // ignore: deprecated_member_use
-                                        child: ElevatedButton(
-                                          style: ButtonStyle(
-                                              backgroundColor:
-                                                  MaterialStateProperty.all(
-                                                      Colors.black),
-                                              shape: MaterialStateProperty.all<
-                                                      RoundedRectangleBorder>(
-                                                  RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(18.0),
-                                              ))),
-                                          onPressed: () {
-                                            Sign_up();
+                                        Expanded(
+                                            child: Column(
+                                          children: const [Text("")],
+                                        )),
+                                        Container(
+                                          margin: const EdgeInsets.all(10),
+                                          height: 50.0,
+                                          // ignore: deprecated_member_use
+                                          child: ElevatedButton(
+                                            style: ButtonStyle(
+                                                backgroundColor:
+                                                    MaterialStateProperty.all(
+                                                        Colors.black),
+                                                shape: MaterialStateProperty.all<
+                                                        RoundedRectangleBorder>(
+                                                    RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          18.0),
+                                                ))),
+                                            onPressed: () {
+                                              Sign_up();
 
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    SelectCatalog(
-                                                        username:
-                                                            username.text),
-                                              ),
-                                            );
-                                          },
-                                          child: const Text("Next",
-                                              style: TextStyle(fontSize: 15)),
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      SelectCatalog(
+                                                          username:
+                                                              username.text),
+                                                ),
+                                              );
+                                            },
+                                            child: const Text("Next",
+                                                style: TextStyle(fontSize: 15)),
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ]),
+                                ]),
+                          ),
                         ),
-                      ),
-                    ]),
-                  )),
+                      ]),
+                    )),
+              ),
             )
           ],
         ),

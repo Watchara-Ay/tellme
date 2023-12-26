@@ -12,31 +12,28 @@ class Loginpage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
-            child: SizedBox(
-      height: MediaQuery.of(context).size.height,
-      width: double.infinity,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Image.asset('assets/images/logo-no-background.png', scale: 0.6),
-          Container(
-            padding: const EdgeInsets.all(10.0),
-            width: MediaQuery.of(context).size.width / 1.3,
-            height: 300,
-            child: const Login(),
+      body: SingleChildScrollView(
+        child: Center(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            width: double.infinity,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Image.asset('assets/images/logo-no-background.png', scale: 0.8),
+                Container(
+                  padding: const EdgeInsets.all(10.0),
+                  width: MediaQuery.of(context).size.width / 1.3,
+                  height: 300,
+                  child: const Login(),
+                ),
+              ],
+            ),
           ),
-          // TextField(
-          //   obscureText: true,
-          //   decoration: InputDecoration(
-          //     border: OutlineInputBorder(),
-          //     labelText: 'Password',
-          //   ),
-          // )
-        ],
+        ),
       ),
-    )));
+    );
   }
 }
 
@@ -78,38 +75,75 @@ class LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+        body: SingleChildScrollView(
+      child: Container(
         decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 255, 255, 255),
-            borderRadius: BorderRadius.circular(40)),
+          color: const Color.fromARGB(255, 255, 255, 255),
+          borderRadius: BorderRadius.circular(40),
+        ),
         width: MediaQuery.of(context).size.width / 1.4,
-        height: 300,
+        height: 260,
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            const Text("Username", //
-                style: TextStyle(fontSize: 20)),
-            TextFormField(
-              validator:
-                  RequiredValidator(errorText: "Please fill something!!!"),
-              onSaved: (username) {},
-              controller: username,
+            Container(
+              width: MediaQuery.of(context).size.width / 1.4,
+              decoration: BoxDecoration(
+                color: const Color.fromRGBO(255, 172, 194, 1),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: TextFormField(
+                validator:
+                    RequiredValidator(errorText: "Please fill something!!!")
+                        .call,
+                onSaved: (username) {},
+                controller: username,
+                maxLength: 15,
+                style: const TextStyle(color: Colors.black),
+                decoration: const InputDecoration(
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
+                  border: InputBorder.none,
+                  counterText: '',
+                  labelText: 'Username',
+                  labelStyle: TextStyle(color: Colors.black),
+                ),
+              ),
             ),
-            const Text("Password", //
-                style: TextStyle(fontSize: 20)),
-            TextFormField(
-              validator:
-                  RequiredValidator(errorText: "Please fill something!!!"),
-              onSaved: (value) {},
-              controller: password,
-              obscureText: true,
+            const SizedBox(
+              height: 10,
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width / 1.4,
+              decoration: BoxDecoration(
+                color: const Color.fromRGBO(255, 172, 194, 1),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: TextFormField(
+                validator:
+                    RequiredValidator(errorText: "Please fill something!!!")
+                        .call,
+                onSaved: (value) {},
+                controller: password,
+                maxLength: 12,
+                obscureText: true,
+                style: const TextStyle(color: Colors.black),
+                decoration: const InputDecoration(
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
+                  border: InputBorder.none,
+                  counterText: '',
+                  labelText: 'Password',
+                  labelStyle: TextStyle(color: Colors.black),
+                ),
+              ),
             ),
             ButtonTheme(
               height: 70,
               child: Container(
-                padding: EdgeInsets.zero, // ADD THIS LINE
+                padding: EdgeInsets.zero,
                 child: SizedBox(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -183,6 +217,6 @@ class LoginState extends State<Login> {
           ],
         ),
       ),
-    );
+    ));
   }
 }

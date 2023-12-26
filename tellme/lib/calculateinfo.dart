@@ -143,9 +143,9 @@ Extremely activity       BMR X 1.9''',
                       ),
                     ],
                   ),
-                  Expanded(
+                  const Expanded(
                       child: Column(
-                    children: const [Text("")],
+                    children: [Text("")],
                   )),
                   const Infobutton(),
                 ])),

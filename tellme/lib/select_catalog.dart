@@ -99,8 +99,8 @@ class _SelectCatalogState extends State<SelectCatalog> {
                       children: <Widget>[
                         Image.asset(
                           radioItems[index].imagePath,
-                          width: 180,
-                          height: 180,
+                          width: 140,
+                          height: 140,
                         ),
                         Radio(
                           value: radioItems[index].buttonText,

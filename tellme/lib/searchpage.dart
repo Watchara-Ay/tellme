@@ -106,154 +106,163 @@ class _Searchpage extends State<Searchpage> {
             padding: const EdgeInsets.all(10.0),
           ),
           Expanded(
-            child: Container(
-              decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(40.0),
-                    topRight: Radius.circular(40.0),
-                  )),
-              child: Column(children: [
-                Container(
-                  margin: const EdgeInsets.all(20),
-                  width: MediaQuery.of(context).size.width,
-                  child: Column(children: [
-                    TextField(
-                      controller: _searchController,
-                      decoration: InputDecoration(
-                        hintText: 'Search food...',
-                        suffixIcon: IconButton(
-                          icon: const Icon(Icons.search),
-                          onPressed: () {
-                            final query = _searchController.text;
-                            if (query.isNotEmpty) {
-                              searchFoods(query);
-                            }
-                          },
+            child: SingleChildScrollView(
+              child: Container(
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(40.0),
+                      topRight: Radius.circular(40.0),
+                    )),
+                child: Column(children: [
+                  Container(
+                    margin: const EdgeInsets.all(20),
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(children: [
+                      TextField(
+                        controller: _searchController,
+                        decoration: InputDecoration(
+                          hintText: 'Search food...',
+                          suffixIcon: IconButton(
+                            icon: const Icon(Icons.search),
+                            onPressed: () {
+                              final query = _searchController.text;
+                              if (query.isNotEmpty) {
+                                searchFoods(query);
+                              }
+                            },
+                          ),
+                        ),
+                      ),
+                    ]),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      const Text(
+                        "Sort by: ",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(100, 30),
+                          backgroundColor:
+                              const Color.fromARGB(255, 255, 156, 156),
+                        ),
+                        onPressed: () => sortResults('Energy'),
+                        child: const Text('Energy'),
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(70, 30),
+                          backgroundColor:
+                              const Color.fromARGB(255, 255, 156, 156),
+                        ),
+                        onPressed: () => sortResults('Fat'),
+                        child: const Text('Fat'),
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(80, 30),
+                          backgroundColor:
+                              const Color.fromARGB(255, 255, 156, 156),
+                        ),
+                        onPressed: () => sortResults('Carbohydrate'),
+                        child: const Text('Carb'),
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              const Color.fromARGB(255, 255, 156, 156),
+                        ),
+                        onPressed: () => sortResults('Protein'),
+                        child: const Text('Protein'),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    child: ButtonTheme(
+                      height: 70,
+                      child: Container(
+                        padding: EdgeInsets.zero,
+                        child: Container(
+                          margin: const EdgeInsets.all(10),
+                          height: MediaQuery.of(context).size.height / 1.6,
+                          width: MediaQuery.of(context).size.width / 1.05,
+                          child: searchResults.isNotEmpty
+                              ? ListView.builder(
+                                  itemCount: searchResults.length,
+                                  itemBuilder: (context, index) {
+                                    final food = searchResults[index];
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 8.0),
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => Menudetail(
+                                                foods: food,
+                                                username: widget.username,
+                                                mealType: widget.mealType,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          primary: const Color.fromARGB(
+                                              255, 171, 255, 214),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(18.0),
+                                          ),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(children: [
+                                                Text(
+                                                  food['foodname'],
+                                                  style: const TextStyle(
+                                                    fontSize: 12,
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ]),
+                                              const SizedBox(height: 8),
+                                              Text(
+                                                'Energy: ${food['Energy']}, Fat: ${food['Fat']}, Carbohydrate: ${food['Carbohydrate']}, Protein: ${food['Protein']}',
+                                                style: const TextStyle(
+                                                    fontSize: 12,
+                                                    color: Colors.black),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                )
+                              : const Center(
+                                  child: Text('No results'),
+                                ),
                         ),
                       ),
                     ),
-                  ]),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const Text(
-                      "Sort by: ",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: const Color.fromARGB(255, 255, 156, 156),
-                      ),
-                      onPressed: () => sortResults('Energy'),
-                      child: const Text('Energy'),
-                    ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: const Color.fromARGB(255, 255, 156, 156),
-                      ),
-                      onPressed: () => sortResults('Fat'),
-                      child: const Text('Fat'),
-                    ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: const Color.fromARGB(255, 255, 156, 156),
-                      ),
-                      onPressed: () => sortResults('Carbohydrate'),
-                      child: const Text('Carbohydrate'),
-                    ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: const Color.fromARGB(255, 255, 156, 156),
-                      ),
-                      onPressed: () => sortResults('Protein'),
-                      child: const Text('Protein'),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  child: ButtonTheme(
-                    height: 70,
-                    child: Container(
-                      padding: EdgeInsets.zero,
-                      child: Container(
-                        margin: const EdgeInsets.all(10),
-                        height: MediaQuery.of(context).size.height / 1.6,
-                        width: MediaQuery.of(context).size.width / 1.05,
-                        child: searchResults.isNotEmpty
-                            ? ListView.builder(
-                                itemCount: searchResults.length,
-                                itemBuilder: (context, index) {
-                                  final food = searchResults[index];
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 8.0),
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => Menudetail(
-                                              foods: food,
-                                              username: widget.username,
-                                              mealType: widget.mealType,
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        primary: const Color.fromARGB(
-                                            255, 171, 255, 214),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(18.0),
-                                        ),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Row(children: [
-                                              Text(
-                                                food['foodname'],
-                                                style: const TextStyle(
-                                                  fontSize: 12,
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ]),
-                                            const SizedBox(height: 8),
-                                            Text(
-                                              'Energy: ${food['Energy']}, Fat: ${food['Fat']}, Carbohydrate: ${food['Carbohydrate']}, Protein: ${food['Protein']}',
-                                              style: const TextStyle(
-                                                  fontSize: 12,
-                                                  color: Colors.black),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              )
-                            : const Center(
-                                child: Text('No results'),
-                              ),
-                      ),
-                    ),
                   ),
-                ),
-                const backbutton(),
-              ]),
+                  const backbutton(),
+                ]),
+              ),
             ),
           ),
         ],

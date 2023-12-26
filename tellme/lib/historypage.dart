@@ -145,486 +145,477 @@ class HistoryPageState extends State<Historypage> {
                 padding: const EdgeInsets.all(10.0),
               ),
               Expanded(
-                  child: Container(
-                      decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(40.0),
-                            topRight: Radius.circular(40.0),
-                          )),
-                      child: Column(
-                        children: [
-                          const SizedBox(
-                            height: 10, // <-- SEE HERE
-                          ),
-                          TextButton(
-                            style: TextButton.styleFrom(
-                              textStyle: const TextStyle(
-                                fontSize: 20,
-                                color: Color.fromRGBO(255, 0, 0, 1),
-                              ),
+                  child: SingleChildScrollView(
+                child: Container(
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(40.0),
+                          topRight: Radius.circular(40.0),
+                        )),
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 10, // <-- SEE HERE
+                        ),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            textStyle: const TextStyle(
+                              fontSize: 20,
+                              color: Color.fromRGBO(255, 0, 0, 1),
                             ),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const Monthpage(
-                                          title: '',
-                                        )),
-                              );
-                            },
-                            child: Text(getCurrentDate()),
                           ),
-                          const SizedBox(
-                            height: 10, // <-- SEE HERE
-                          ),
-                          Expanded(
-                            child: mealInfo.isEmpty
-                                ? const Center(
-                                    child: Text(
-                                        'No meal information found for today'),
-                                  )
-                                : ListView.builder(
-                                    itemCount: mealInfo.length,
-                                    itemBuilder: (context, index) {
-                                      return ListTile(
-                                        subtitle: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Container(
-                                              child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      mealInfo[index]['meal'],
-                                                      style: const TextStyle(
-                                                        fontSize: 24,
-                                                        color: Color.fromRGBO(
-                                                            0, 0, 0, 1),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Monthpage(
+                                        title: '',
+                                      )),
+                            );
+                          },
+                          child: Text(getCurrentDate()),
+                        ),
+                        const SizedBox(
+                          height: 10, // <-- SEE HERE
+                        ),
+                        Expanded(
+                          child: mealInfo.isEmpty
+                              ? const Center(
+                                  child: Text(
+                                      'No meal information found for today'),
+                                )
+                              : ListView.builder(
+                                  itemCount: mealInfo.length,
+                                  itemBuilder: (context, index) {
+                                    return ListTile(
+                                      subtitle: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  mealInfo[index]['meal'],
+                                                  style: const TextStyle(
+                                                    fontSize: 24,
+                                                    color: Color.fromRGBO(
+                                                        0, 0, 0, 1),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  padding:
+                                                      const EdgeInsets.all(10),
+                                                  decoration: BoxDecoration(
+                                                    color: const Color.fromRGBO(
+                                                        255, 212, 212, 1),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            15.0),
+                                                  ),
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .width,
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        mealInfo[index]
+                                                            ['foodname'],
+                                                        style: const TextStyle(
+                                                            fontSize: 24,
+                                                            color:
+                                                                Colors.black),
                                                       ),
-                                                    ),
-                                                    Container(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              10),
-                                                      decoration: BoxDecoration(
-                                                        color: const Color
-                                                            .fromRGBO(
-                                                            255, 212, 212, 1),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(15.0),
-                                                      ),
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                              .size
-                                                              .width,
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
+                                                      Row(
                                                         children: [
-                                                          Text(
-                                                            mealInfo[index]
-                                                                ['foodname'],
-                                                            style:
-                                                                const TextStyle(
-                                                                    fontSize:
-                                                                        24,
-                                                                    color: Colors
-                                                                        .black),
+                                                          SizedBox(
+                                                            width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width /
+                                                                2.3,
+                                                            child: Text(
+                                                              'Energy: ${mealInfo[index]['Energy']}',
+                                                              style: const TextStyle(
+                                                                  fontSize: 20,
+                                                                  color: Colors
+                                                                      .black),
+                                                            ),
                                                           ),
-                                                          Row(
-                                                            children: [
-                                                              SizedBox(
-                                                                width: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .width /
-                                                                    2.3,
-                                                                child: Text(
-                                                                  'Energy: ${mealInfo[index]['Energy']}',
-                                                                  style: const TextStyle(
-                                                                      fontSize:
-                                                                          20,
-                                                                      color: Colors
-                                                                          .black),
-                                                                ),
-                                                              ),
-                                                              SizedBox(
-                                                                width: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .width /
-                                                                    2.2,
-                                                                child: Text(
-                                                                  'Carbohydrate: ${mealInfo[index]['Carbohydrate']}',
-                                                                  style: const TextStyle(
-                                                                      fontSize:
-                                                                          20,
-                                                                      color: Colors
-                                                                          .black),
-                                                                ),
-                                                              )
-                                                            ],
-                                                          ),
-                                                          Row(
-                                                            children: [
-                                                              SizedBox(
-                                                                width: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .width /
-                                                                    2.3,
-                                                                child: Text(
-                                                                  'Protein: ${mealInfo[index]['Protein']}',
-                                                                  style: const TextStyle(
-                                                                      fontSize:
-                                                                          20,
-                                                                      color: Colors
-                                                                          .black),
-                                                                ),
-                                                              ),
-                                                              SizedBox(
-                                                                width: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .width /
-                                                                    2.3,
-                                                                child: Text(
-                                                                  'Fat: ${mealInfo[index]['Fat']}',
-                                                                  style: const TextStyle(
-                                                                      fontSize:
-                                                                          20,
-                                                                      color: Colors
-                                                                          .black),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          const SizedBox(
-                                                            height: 10,
+                                                          SizedBox(
+                                                            width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width /
+                                                                2.2,
+                                                            child: Text(
+                                                              'Carbohydrate: ${mealInfo[index]['Carbohydrate']}',
+                                                              style: const TextStyle(
+                                                                  fontSize: 20,
+                                                                  color: Colors
+                                                                      .black),
+                                                            ),
                                                           )
                                                         ],
                                                       ),
-                                                    ),
-                                                  ]),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                  ),
+                                                      Row(
+                                                        children: [
+                                                          SizedBox(
+                                                            width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width /
+                                                                2.3,
+                                                            child: Text(
+                                                              'Protein: ${mealInfo[index]['Protein']}',
+                                                              style: const TextStyle(
+                                                                  fontSize: 20,
+                                                                  color: Colors
+                                                                      .black),
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width /
+                                                                2.3,
+                                                            child: Text(
+                                                              'Fat: ${mealInfo[index]['Fat']}',
+                                                              style: const TextStyle(
+                                                                  fontSize: 20,
+                                                                  color: Colors
+                                                                      .black),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 10,
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              ]),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
+                        ),
+                        Container(
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
                           ),
-                          Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                            ),
-                            width: MediaQuery.of(context).size.width,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
+                          width: MediaQuery.of(context).size.width,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  const SizedBox(
+                                    width: 25,
+                                  ),
+                                  const Text(
+                                    "Consume: ",
+                                    style: TextStyle(
+                                      fontSize: 24,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  Text(
+                                    "$consumedCalories Calories",
+                                    style: const TextStyle(
+                                      fontSize: 24,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const SizedBox(
-                                      width: 25,
-                                    ),
-                                    const Text(
-                                      "Consume: ",
-                                      style: TextStyle(
-                                        fontSize: 24,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    Text(
-                                      "$consumedCalories Calories",
-                                      style: const TextStyle(
-                                        fontSize: 24,
-                                        color: Colors.black,
-                                      ),
+                                    Row(
+                                      children: [
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              2,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              for (var nutrient
+                                                  in consumedNutrients
+                                                      .keys
+                                                      .take(consumedNutrients
+                                                              .length ~/
+                                                          2))
+                                                Row(
+                                                  children: [
+                                                    const SizedBox(
+                                                      width: 25,
+                                                    ),
+                                                    Text(
+                                                      '$nutrient:',
+                                                      style: const TextStyle(
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                    const SizedBox(width: 10),
+                                                    Text(
+                                                      '${consumedNutrients[nutrient]?.toStringAsFixed(2) ?? 'N/A'}%',
+                                                      style: TextStyle(
+                                                        fontSize: 18,
+                                                        color: consumedNutrients[
+                                                                        nutrient] !=
+                                                                    null &&
+                                                                consumedNutrients[
+                                                                        nutrient]! >
+                                                                    60
+                                                            ? Colors.green
+                                                            : Colors.red,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              2,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              for (var nutrient
+                                                  in consumedNutrients
+                                                      .keys
+                                                      .skip(consumedNutrients
+                                                              .length ~/
+                                                          2))
+                                                Row(
+                                                  children: [
+                                                    const SizedBox(
+                                                      width: 25,
+                                                    ),
+                                                    Text(
+                                                      '$nutrient:',
+                                                      style: const TextStyle(
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                    const SizedBox(width: 10),
+                                                    Text(
+                                                      '${consumedNutrients[nutrient]?.toStringAsFixed(2) ?? 'N/A'}%',
+                                                      style: TextStyle(
+                                                        fontSize: 18,
+                                                        color: consumedNutrients[
+                                                                        nutrient] !=
+                                                                    null &&
+                                                                consumedNutrients[
+                                                                        nutrient]! >
+                                                                    60
+                                                            ? Colors.green
+                                                            : Colors.red,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
-                                SizedBox(
-                                  width: MediaQuery.of(context).size.width,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                2,
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                for (var nutrient
-                                                    in consumedNutrients.keys
-                                                        .take(consumedNutrients
-                                                                .length ~/
-                                                            2))
-                                                  Row(
-                                                    children: [
-                                                      const SizedBox(
-                                                        width: 25,
-                                                      ),
-                                                      Text(
-                                                        '$nutrient:',
-                                                        style: const TextStyle(
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                      const SizedBox(width: 10),
-                                                      Text(
-                                                        '${consumedNutrients[nutrient]?.toStringAsFixed(2) ?? 'N/A'}%',
-                                                        style: TextStyle(
-                                                          fontSize: 18,
-                                                          color: consumedNutrients[
-                                                                          nutrient] !=
-                                                                      null &&
-                                                                  consumedNutrients[
-                                                                          nutrient]! >
-                                                                      60
-                                                              ? Colors.green
-                                                              : Colors.red,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                              ],
-                                            ),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.only(left: 25),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'Miss: ',
+                                      style: TextStyle(
+                                        fontSize: 24,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                    nutrientData == null
+                                        ? const CircularProgressIndicator()
+                                        : Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: <Widget>[
+                                              if ((int.tryParse(nutrientData![
+                                                              'total_Energy'] ??
+                                                          '0') ??
+                                                      0) <
+                                                  1290)
+                                                const Row(
+                                                  children: [
+                                                    Text(
+                                                      'Energy',
+                                                      style: TextStyle(
+                                                          fontSize: 20,
+                                                          color: Colors.red),
+                                                    ),
+                                                    SizedBox(width: 10),
+                                                  ],
+                                                ),
+                                              if ((int.tryParse(nutrientData![
+                                                              'total_Calcium'] ??
+                                                          '0') ??
+                                                      0) <
+                                                  800)
+                                                const Row(
+                                                  children: [
+                                                    Text(
+                                                      'Calcium',
+                                                      style: TextStyle(
+                                                          fontSize: 20,
+                                                          color: Colors.red),
+                                                    ),
+                                                    SizedBox(width: 10),
+                                                  ],
+                                                ),
+                                              if ((int.tryParse(nutrientData![
+                                                              'total_Sodium'] ??
+                                                          '0') ??
+                                                      0) <
+                                                  500)
+                                                const Row(
+                                                  children: [
+                                                    Text(
+                                                      'Sodium',
+                                                      style: TextStyle(
+                                                          fontSize: 20,
+                                                          color: Colors.red),
+                                                    ),
+                                                    SizedBox(width: 10),
+                                                  ],
+                                                ),
+                                              if ((int.tryParse(nutrientData![
+                                                              'total_Magnesium'] ??
+                                                          '0') ??
+                                                      0) <
+                                                  270)
+                                                const Row(
+                                                  children: [
+                                                    Text(
+                                                      'Magnesium',
+                                                      style: TextStyle(
+                                                          fontSize: 20,
+                                                          color: Colors.red),
+                                                    ),
+                                                    SizedBox(width: 10),
+                                                  ],
+                                                ),
+                                              if ((int.tryParse(nutrientData![
+                                                              'total_Potassium'] ??
+                                                          '0') ??
+                                                      0) <
+                                                  2400)
+                                                const Row(
+                                                  children: [
+                                                    Text(
+                                                      'Potassium',
+                                                      style: TextStyle(
+                                                          fontSize: 20,
+                                                          color: Colors.red),
+                                                    ),
+                                                    SizedBox(width: 10),
+                                                  ],
+                                                ),
+                                              if ((int.tryParse(nutrientData![
+                                                              'total_Iron'] ??
+                                                          '0') ??
+                                                      0) <
+                                                  7)
+                                                const Row(
+                                                  children: [
+                                                    Text(
+                                                      'Iron',
+                                                      style: TextStyle(
+                                                          fontSize: 20,
+                                                          color: Colors.red),
+                                                    ),
+                                                    SizedBox(width: 10),
+                                                  ],
+                                                ),
+                                            ],
                                           ),
-                                          SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                2,
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                for (var nutrient
-                                                    in consumedNutrients.keys
-                                                        .skip(consumedNutrients
-                                                                .length ~/
-                                                            2))
-                                                  Row(
-                                                    children: [
-                                                      const SizedBox(
-                                                        width: 25,
-                                                      ),
-                                                      Text(
-                                                        '$nutrient:',
-                                                        style: const TextStyle(
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                      const SizedBox(width: 10),
-                                                      Text(
-                                                        '${consumedNutrients[nutrient]?.toStringAsFixed(2) ?? 'N/A'}%',
-                                                        style: TextStyle(
-                                                          fontSize: 18,
-                                                          color: consumedNutrients[
-                                                                          nutrient] !=
-                                                                      null &&
-                                                                  consumedNutrients[
-                                                                          nutrient]! >
-                                                                      60
-                                                              ? Colors.green
-                                                              : Colors.red,
-                                                        ),
-                                                      ),
-                                                    ],
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                child: ButtonTheme(
+                                  height: 70,
+                                  child: Container(
+                                    padding: EdgeInsets.zero, // ADD THIS LINE
+                                    child: SizedBox(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: <Widget>[
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Container(
+                                            margin: const EdgeInsets.all(10),
+                                            height: 50.0,
+                                            // ignore: deprecated_member_use
+                                            child: ElevatedButton(
+                                              style: ButtonStyle(
+                                                backgroundColor:
+                                                    MaterialStateProperty.all(
+                                                        Colors.black),
+                                                shape:
+                                                    MaterialStateProperty.all<
+                                                        RoundedRectangleBorder>(
+                                                  RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            18.0),
                                                   ),
-                                              ],
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: const Text("Back",
+                                                  style:
+                                                      TextStyle(fontSize: 15)),
                                             ),
                                           ),
                                         ],
                                       ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.only(left: 25),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Text(
-                                        'Miss: ',
-                                        style: TextStyle(
-                                          fontSize: 24,
-                                          color: Colors.red,
-                                        ),
-                                      ),
-                                      nutrientData == null
-                                          ? const CircularProgressIndicator()
-                                          : Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: <Widget>[
-                                                if ((int.tryParse(nutrientData![
-                                                                'total_Energy'] ??
-                                                            '0') ??
-                                                        0) <
-                                                    1290)
-                                                  Row(
-                                                    children: const [
-                                                      Text(
-                                                        'Energy',
-                                                        style: TextStyle(
-                                                            fontSize: 20,
-                                                            color: Colors.red),
-                                                      ),
-                                                      SizedBox(width: 10),
-                                                    ],
-                                                  ),
-                                                if ((int.tryParse(nutrientData![
-                                                                'total_Calcium'] ??
-                                                            '0') ??
-                                                        0) <
-                                                    800)
-                                                  Row(
-                                                    children: const [
-                                                      Text(
-                                                        'Calcium',
-                                                        style: TextStyle(
-                                                            fontSize: 20,
-                                                            color: Colors.red),
-                                                      ),
-                                                      SizedBox(width: 10),
-                                                    ],
-                                                  ),
-                                                if ((int.tryParse(nutrientData![
-                                                                'total_Sodium'] ??
-                                                            '0') ??
-                                                        0) <
-                                                    500)
-                                                  Row(
-                                                    children: const [
-                                                      Text(
-                                                        'Sodium',
-                                                        style: TextStyle(
-                                                            fontSize: 20,
-                                                            color: Colors.red),
-                                                      ),
-                                                      SizedBox(width: 10),
-                                                    ],
-                                                  ),
-                                                if ((int.tryParse(nutrientData![
-                                                                'total_Magnesium'] ??
-                                                            '0') ??
-                                                        0) <
-                                                    270)
-                                                  Row(
-                                                    children: const [
-                                                      Text(
-                                                        'Magnesium',
-                                                        style: TextStyle(
-                                                            fontSize: 20,
-                                                            color: Colors.red),
-                                                      ),
-                                                      SizedBox(width: 10),
-                                                    ],
-                                                  ),
-                                                if ((int.tryParse(nutrientData![
-                                                                'total_Potassium'] ??
-                                                            '0') ??
-                                                        0) <
-                                                    2400)
-                                                  Row(
-                                                    children: const [
-                                                      Text(
-                                                        'Potassium',
-                                                        style: TextStyle(
-                                                            fontSize: 20,
-                                                            color: Colors.red),
-                                                      ),
-                                                      SizedBox(width: 10),
-                                                    ],
-                                                  ),
-                                                if ((int.tryParse(nutrientData![
-                                                                'total_Iron'] ??
-                                                            '0') ??
-                                                        0) <
-                                                    7)
-                                                  Row(
-                                                    children: const [
-                                                      Text(
-                                                        'Iron',
-                                                        style: TextStyle(
-                                                            fontSize: 20,
-                                                            color: Colors.red),
-                                                      ),
-                                                      SizedBox(width: 10),
-                                                    ],
-                                                  ),
-                                              ],
-                                            ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  child: ButtonTheme(
-                                    height: 70,
-                                    child: Container(
-                                      padding: EdgeInsets.zero, // ADD THIS LINE
-                                      child: SizedBox(
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: <Widget>[
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            Container(
-                                              margin: const EdgeInsets.all(10),
-                                              height: 50.0,
-                                              // ignore: deprecated_member_use
-                                              child: ElevatedButton(
-                                                style: ButtonStyle(
-                                                  backgroundColor:
-                                                      MaterialStateProperty.all(
-                                                          Colors.black),
-                                                  shape:
-                                                      MaterialStateProperty.all<
-                                                          RoundedRectangleBorder>(
-                                                    RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              18.0),
-                                                    ),
-                                                  ),
-                                                ),
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                child: const Text("Back",
-                                                    style: TextStyle(
-                                                        fontSize: 15)),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
                                     ),
                                   ),
-                                )
-                              ],
-                            ),
+                                ),
+                              )
+                            ],
                           ),
-                        ],
-                      )))
+                        ),
+                      ],
+                    )),
+              ))
             ])),
       ),
     );

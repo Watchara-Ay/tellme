@@ -80,8 +80,8 @@ class userdish extends StatelessWidget {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15.0),
                         border: Border.all(color: Colors.green, width: 2.0)),
-                    child: Column(
-                      children: const [
+                    child: const Column(
+                      children: [
                         userdishinfo(),
                       ],
                     ),
@@ -128,8 +128,8 @@ class userdish extends StatelessWidget {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15.0),
                         border: Border.all(color: Colors.green, width: 2.0)),
-                    child: Column(
-                      children: const [
+                    child: const Column(
+                      children: [
                         userdishinfo(),
                       ],
                     ),
@@ -152,8 +152,8 @@ class userdishinfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: const [
+    return const Column(
+      children: [
         Text("Name       Ckickenwings\nCalories    199  cals",
             style: TextStyle(fontSize: 15)),
         SizedBox(

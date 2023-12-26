@@ -113,9 +113,9 @@ class otheruserhistory extends StatelessWidget {
                                                 //           Homepage()),
                                                 // );
                                               },
-                                              child: const Text('Breakfast'),
                                               style: ElevatedButton.styleFrom(
                                                   shape: const StadiumBorder()),
+                                              child: const Text('Breakfast'),
                                             ),
                                           ),
                                           const SizedBox(
@@ -135,9 +135,9 @@ class otheruserhistory extends StatelessWidget {
                                                 //           Homepage()),
                                                 // );
                                               },
-                                              child: const Text('Lunch'),
                                               style: ElevatedButton.styleFrom(
                                                   shape: const StadiumBorder()),
+                                              child: const Text('Lunch'),
                                             ),
                                           ),
                                           const SizedBox(
@@ -157,9 +157,9 @@ class otheruserhistory extends StatelessWidget {
                                                 //           Homepage(username: Widget.username,)),
                                                 // );
                                               },
-                                              child: const Text('Dinner'),
                                               style: ElevatedButton.styleFrom(
                                                   shape: const StadiumBorder()),
+                                              child: const Text('Dinner'),
                                             ),
                                           ),
                                         ],
@@ -325,7 +325,7 @@ class otheruserdishinfo extends StatelessWidget {
         const SizedBox(
           width: 15,
         ),
-        Column(children: const [
+        const Column(children: [
           Text("Nigiri sushi", style: TextStyle(fontSize: 15)),
           SizedBox(
             height: 90,

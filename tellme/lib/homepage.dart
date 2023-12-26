@@ -194,8 +194,7 @@ class _HomepageState extends State<Homepage> {
                   ),
                 ),
               ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width / 2,
+              Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -385,116 +384,109 @@ class _HomepageState extends State<Homepage> {
                                 subtitle: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Container(
-                                      child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              mealInfo[index]['meal'],
-                                              style: const TextStyle(
-                                                fontSize: 24,
-                                                color:
-                                                    Color.fromRGBO(0, 0, 0, 1),
-                                              ),
+                                    Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            mealInfo[index]['meal'],
+                                            style: const TextStyle(
+                                              fontSize: 24,
+                                              color: Color.fromRGBO(0, 0, 0, 1),
                                             ),
-                                            Container(
-                                              padding: const EdgeInsets.all(10),
-                                              decoration: BoxDecoration(
-                                                color: const Color.fromRGBO(
-                                                    255, 212, 212, 1),
-                                                borderRadius:
-                                                    BorderRadius.circular(15.0),
-                                              ),
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .width,
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    mealInfo[index]['foodname'],
-                                                    style: const TextStyle(
-                                                        fontSize: 24,
-                                                        color: Colors.black),
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      SizedBox(
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width /
-                                                            2.3,
-                                                        child: Text(
-                                                          'Energy: ${mealInfo[index]['Energy']}',
-                                                          style:
-                                                              const TextStyle(
-                                                                  fontSize: 20,
-                                                                  color: Colors
-                                                                      .black),
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width /
-                                                            2.2,
-                                                        child: Text(
-                                                          'Carbohydrate: ${mealInfo[index]['Carbohydrate']}',
-                                                          style:
-                                                              const TextStyle(
-                                                                  fontSize: 20,
-                                                                  color: Colors
-                                                                      .black),
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      SizedBox(
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width /
-                                                            2.3,
-                                                        child: Text(
-                                                          'Protein: ${mealInfo[index]['Protein']}',
-                                                          style:
-                                                              const TextStyle(
-                                                                  fontSize: 20,
-                                                                  color: Colors
-                                                                      .black),
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width /
-                                                            2.3,
-                                                        child: Text(
-                                                          'Fat: ${mealInfo[index]['Fat']}',
-                                                          style:
-                                                              const TextStyle(
-                                                                  fontSize: 20,
-                                                                  color: Colors
-                                                                      .black),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  )
-                                                ],
-                                              ),
+                                          ),
+                                          Container(
+                                            padding: const EdgeInsets.all(10),
+                                            decoration: BoxDecoration(
+                                              color: const Color.fromRGBO(
+                                                  255, 212, 212, 1),
+                                              borderRadius:
+                                                  BorderRadius.circular(15.0),
                                             ),
-                                          ]),
-                                    ),
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  mealInfo[index]['foodname'],
+                                                  style: const TextStyle(
+                                                      fontSize: 24,
+                                                      color: Colors.black),
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    SizedBox(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              2.3,
+                                                      child: Text(
+                                                        'Energy: ${mealInfo[index]['Energy']}',
+                                                        style: const TextStyle(
+                                                            fontSize: 20,
+                                                            color:
+                                                                Colors.black),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              2.2,
+                                                      child: Text(
+                                                        'Carbohydrate: ${mealInfo[index]['Carbohydrate']}',
+                                                        style: const TextStyle(
+                                                            fontSize: 20,
+                                                            color:
+                                                                Colors.black),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    SizedBox(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              2.3,
+                                                      child: Text(
+                                                        'Protein: ${mealInfo[index]['Protein']}',
+                                                        style: const TextStyle(
+                                                            fontSize: 20,
+                                                            color:
+                                                                Colors.black),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              2.3,
+                                                      child: Text(
+                                                        'Fat: ${mealInfo[index]['Fat']}',
+                                                        style: const TextStyle(
+                                                            fontSize: 20,
+                                                            color:
+                                                                Colors.black),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ]),
                                   ],
                                 ),
                               );
@@ -640,8 +632,8 @@ class _HomepageState extends State<Homepage> {
                                                 '0') ??
                                         0) <
                                     1290)
-                                  Row(
-                                    children: const [
+                                  const Row(
+                                    children: [
                                       Text(
                                         'Energy',
                                         style: TextStyle(
@@ -655,8 +647,8 @@ class _HomepageState extends State<Homepage> {
                                                 '0') ??
                                         0) <
                                     800)
-                                  Row(
-                                    children: const [
+                                  const Row(
+                                    children: [
                                       Text(
                                         'Calcium',
                                         style: TextStyle(
@@ -670,8 +662,8 @@ class _HomepageState extends State<Homepage> {
                                                 '0') ??
                                         0) <
                                     500)
-                                  Row(
-                                    children: const [
+                                  const Row(
+                                    children: [
                                       Text(
                                         'Sodium',
                                         style: TextStyle(
@@ -685,8 +677,8 @@ class _HomepageState extends State<Homepage> {
                                                 '0') ??
                                         0) <
                                     270)
-                                  Row(
-                                    children: const [
+                                  const Row(
+                                    children: [
                                       Text(
                                         'Magnesium',
                                         style: TextStyle(
@@ -700,8 +692,8 @@ class _HomepageState extends State<Homepage> {
                                                 '0') ??
                                         0) <
                                     2400)
-                                  Row(
-                                    children: const [
+                                  const Row(
+                                    children: [
                                       Text(
                                         'Potassium',
                                         style: TextStyle(
@@ -714,8 +706,8 @@ class _HomepageState extends State<Homepage> {
                                             '0') ??
                                         0) <
                                     7)
-                                  Row(
-                                    children: const [
+                                  const Row(
+                                    children: [
                                       Text(
                                         'Iron',
                                         style: TextStyle(
